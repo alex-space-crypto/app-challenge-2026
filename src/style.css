@@ -2249,6 +2249,11 @@ body {
 .login-provider-btn:active { transform: translateY(0); }
 .login-provider-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .login-provider-apple { background: #000; color: #fff; border-color: #000; }
+.login-provider-phone {
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
 .login-provider-icon {
   width: 20px; height: 20px;
   display: flex; align-items: center; justify-content: center;

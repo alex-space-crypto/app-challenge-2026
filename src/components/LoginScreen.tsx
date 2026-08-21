@@ -147,6 +147,14 @@ export default function LoginScreen() {
             <span className="login-provider-icon"></span>
             <span>Continue with Apple</span>
           </button>
+          <button
+            className="login-provider-btn login-provider-phone"
+            onClick={() => { setMode('phone'); clearError(); setOtpSent(false); }}
+            disabled={loading}
+          >
+            <span className="login-provider-icon">📞</span>
+            <span>Continue with phone number</span>
+          </button>
         </div>
 
         <div className="login-divider">
@@ -210,26 +218,14 @@ export default function LoginScreen() {
 
         <div className="login-mode-switch">
           {mode === 'signin' && (
-            <>
-              <button className="login-link" onClick={() => { setMode('signup'); clearError(); }} disabled={loading}>
-                Create an account
-              </button>
-              <span className="login-mode-sep">·</span>
-              <button className="login-link" onClick={() => { setMode('phone'); clearError(); setOtpSent(false); }} disabled={loading}>
-                Sign in with phone
-              </button>
-            </>
+            <button className="login-link" onClick={() => { setMode('signup'); clearError(); }} disabled={loading}>
+              Create an account
+            </button>
           )}
           {mode === 'signup' && (
-            <>
-              <button className="login-link" onClick={() => { setMode('signin'); clearError(); }} disabled={loading}>
-                Already have an account?
-              </button>
-              <span className="login-mode-sep">·</span>
-              <button className="login-link" onClick={() => { setMode('phone'); clearError(); setOtpSent(false); }} disabled={loading}>
-                Sign in with phone
-              </button>
-            </>
+            <button className="login-link" onClick={() => { setMode('signin'); clearError(); }} disabled={loading}>
+              Already have an account?
+            </button>
           )}
           {mode === 'phone' && (
             <>

@@ -31,6 +31,7 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
   const [name, setName] = React.useState(profile.name);
   const [showNameField, setShowNameField] = React.useState(!profile.name);
   const [showResources, setShowResources] = React.useState(false);
+  const [selectedPost, setSelectedPost] = React.useState<CommunityPost | null>(null);
 
   const sorted = [...posts].sort((a, b) => b.createdAt - a.createdAt);
   const totalCheers = posts.reduce((s, p) => s + p.cheers, 0);
@@ -144,7 +145,14 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
 
       <div className="post-list">
         {sorted.map(p => (
-          <div key={p.id} className="post-card">
+          <div
+            key={p.id}
+            className="post-card post-card-clickable"
+            onClick={() => setSelectedPost(p)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPost(p); } }}
+          >
             <div className="post-head">
               <span className="avatar">{p.author.charAt(0).toUpperCase()}</span>
               <div className="post-meta">
@@ -156,11 +164,35 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
             <p className="post-message">{p.message}</p>
             <button
               className={`cheer-btn ${p.cheered ? 'cheered' : ''}`}
-              onClick={() => onCheer(p.id)}
+              onClick={e => { e.stopPropagation(); onCheer(p.id); }}
             >👏 {p.cheers} {p.cheers === 1 ? 'cheer' : 'cheers'}</button>
           </div>
         ))}
       </div>
+
+      {selectedPost && (
+        <div className="post-detail-overlay" onClick={() => setSelectedPost(null)}>
+          <div className="post-detail-modal" onClick={e => e.stopPropagation()}>
+            <button className="post-detail-close" onClick={() => setSelectedPost(null)} aria-label="Close">✕</button>
+            <div className="post-detail-head">
+              <span className="avatar avatar-lg">{selectedPost.author.charAt(0).toUpperCase()}</span>
+              <div className="post-detail-author-area">
+                <strong>{selectedPost.author}</strong>
+                <span className="post-time">{timeAgo(selectedPost.createdAt)}</span>
+              </div>
+              <span className="post-category">{selectedPost.category}</span>
+            </div>
+            <p className="post-detail-message">{selectedPost.message}</p>
+            <div className="post-detail-stats">
+              <span className="post-detail-stat">👏 {selectedPost.cheers} {selectedPost.cheers === 1 ? 'cheer' : 'cheers'}</span>
+            </div>
+            <button
+              className={`cheer-btn post-detail-cheer ${selectedPost.cheered ? 'cheered' : ''}`}
+              onClick={() => onCheer(selectedPost.id)}
+            >{selectedPost.cheered ? '✓ Cheered' : '👏 Cheer this post'}</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

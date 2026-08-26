@@ -1334,6 +1334,46 @@ body {
 .cheer-btn:hover { border-color: var(--border-strong); }
 .cheer-btn.cheered { color: var(--warning); border-color: var(--warning); background: rgba(240,169,59,0.1); }
 
+.post-card-clickable { cursor: pointer; transition: border-color 0.15s, transform 0.1s; }
+.post-card-clickable:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.18); }
+.post-card-clickable:active { transform: translateY(0); }
+.post-card-clickable .cheer-btn { cursor: pointer; }
+
+.post-detail-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(4,12,32,0.85); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem; animation: fadein 0.3s ease;
+}
+.post-detail-modal {
+  background: linear-gradient(180deg, #0a1f48 0%, #081838 100%);
+  border: 1px solid var(--border-strong); border-radius: 18px;
+  padding: 1.75rem 1.5rem 1.25rem; max-width: 480px; width: 100%;
+  position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  animation: welcomeIn 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.post-detail-close {
+  position: absolute; top: 0.75rem; right: 1rem;
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.1rem; font-weight: 600; cursor: pointer;
+  transition: color 0.15s; line-height: 1;
+}
+.post-detail-close:hover { color: var(--text); }
+.post-detail-head { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+.post-detail-author-area { display: flex; flex-direction: column; flex: 1; }
+.post-detail-author-area strong { color: #fff; font-size: 0.95rem; }
+.avatar-lg { width: 48px; height: 48px; font-size: 1.2rem; }
+.post-detail-message {
+  font-size: 0.95rem; color: var(--text); line-height: 1.55;
+  margin-bottom: 1rem; white-space: pre-wrap; word-break: break-word;
+}
+.post-detail-stats {
+  display: flex; gap: 0.5rem; margin-bottom: 0.85rem;
+  padding-top: 0.75rem; border-top: 1px solid var(--border);
+}
+.post-detail-stat { font-size: 0.82rem; color: var(--text-dim); font-weight: 600; }
+.post-detail-cheer { width: 100%; justify-content: center; font-size: 0.9rem; padding: 0.6rem 1rem; }
+
 /* Map cards & leaflet map */
 .map-cards { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .map-card {

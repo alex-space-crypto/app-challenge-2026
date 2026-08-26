@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient';
 type Mode = 'signin' | 'signup' | 'phone';
 type Provider = 'google' | 'apple';
 
-export default function LoginScreen() {
+export default function LoginScreen({ embedded = false }: { embedded?: boolean } = {}) {
   const [mode, setMode] = React.useState<Mode>('signin');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -123,12 +123,20 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="login-screen">
+    <div className={embedded ? 'login-screen login-screen-embedded' : 'login-screen'}>
       <div className="login-card">
-        <div className="login-header">
-          <h1 className="login-title">Thrive JoCo 13</h1>
-          <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
-        </div>
+        {embedded && (
+          <div className="login-header">
+            <h1 className="login-title">Welcome back</h1>
+            <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
+          </div>
+        )}
+        {!embedded && (
+          <div className="login-header">
+            <h1 className="login-title">Thrive JoCo 13</h1>
+            <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
+          </div>
+        )}
 
         <div className="login-providers">
           <button

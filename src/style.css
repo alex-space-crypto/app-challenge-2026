@@ -2380,8 +2380,9 @@ body {
 .header-auth-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 .header-user-name {
   font-size: 0.8rem;
@@ -2410,10 +2411,74 @@ body {
   background: rgba(224,86,86,0.08);
 }
 
+.login-btn-header {
+  background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.35rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s, box-shadow 0.15s, opacity 0.15s;
+  box-shadow: 0 3px 12px rgba(59,130,246,0.3);
+}
+.login-btn-header:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(59,130,246,0.4); }
+.login-btn-header:active { transform: translateY(0); }
+
+/* Login overlay (shown when Log in button is clicked) */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  animation: loginOverlayFade 0.2s ease;
+}
+@keyframes loginOverlayFade { from { opacity: 0; } to { opacity: 1; } }
+.login-overlay-inner {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  animation: loginOverlayPop 0.25s ease;
+}
+@keyframes loginOverlayPop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.login-overlay-close {
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+.login-overlay-close:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+.login-screen-embedded { padding: 0; min-height: auto; background: none; }
+
 @media (max-width: 600px) {
   .header-auth-row { gap: 0.35rem; }
   .header-user-name { max-width: 80px; font-size: 0.75rem; }
   .signout-btn { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
+  .login-btn-header { font-size: 0.76rem; padding: 0.3rem 0.9rem; }
   .login-card { padding: 1.5rem 1.25rem 1.25rem; }
   .login-title { font-size: 1.5rem; }
+  .login-overlay-close { top: -10px; right: -4px; }
 }

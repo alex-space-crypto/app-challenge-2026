@@ -28,7 +28,6 @@ const LEVEL_ICONS = ['🌱', '🌿', '⛏️', '🔨', '⚡', '🌟', '🏆', '�
 
 export default function App() {
   const [authUser, setAuthUser] = React.useState<AuthUser | null>(null);
-  const [authLoading, setAuthLoading] = React.useState(true);
   const [habits, setHabits] = React.useState<Habit[]>(() => loadHabits());
   const [badges, setBadges] = React.useState<Badge[]>(() => loadBadges());
   const [topics, setTopics] = React.useState<Topic[]>(() => loadTopics());
@@ -46,6 +45,9 @@ export default function App() {
   const [showXpInfo, setShowXpInfo] = React.useState(false);
   const [showIconPopover, setShowIconPopover] = React.useState(false);
   const [statModal, setStatModal] = React.useState<'goals' | 'logs' | 'hits' | null>(null);
+  const [showLogin, setShowLogin] = React.useState(false);
+
+  React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -67,14 +69,12 @@ export default function App() {
         });
         if (prof?.name) setProfile({ name: prof.name });
       }
-      setAuthLoading(false);
     })();
 
     supabase.auth.onAuthStateChange((event, session) => {
       (async () => {
         if (event === 'SIGNED_OUT' || !session) {
           setAuthUser(null);
-          setAuthLoading(false);
           return;
         }
         const { data: prof } = await supabase
@@ -89,7 +89,6 @@ export default function App() {
           phone: prof?.phone ?? session.user.phone ?? null,
         });
         if (prof?.name) setProfile({ name: prof.name });
-        setAuthLoading(false);
       })();
     });
 
@@ -232,34 +231,25 @@ export default function App() {
     setShowWelcome(true);
   };
 
-  if (authLoading) {
-    return (
-      <div className="app">
-        <div className="auth-loading">
-          <div className="auth-loading-spinner" />
-          <p>Loading…</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!authUser) {
-    return <LoginScreen />;
-  }
-
   return (
     <div className="app">
       <header className="header">
         <div className="header-inner">
           <div className="header-title-row">
             <h1><a className="header-title-link" href="https://knott.house.gov/" target="_blank" rel="noopener noreferrer" title="Visit JoCo District 13">Thrive JoCo 13</a></h1>
-            <div className="header-auth-row">
-              <span className="header-user-name">{authUser.name || authUser.email || 'Neighbor'}</span>
-              <button className="signout-btn" onClick={handleSignOut}>Sign out</button>
-            </div>
             <button className="replay-intro-btn" onClick={replayWelcome} title="Replay the welcome tour">
               ↻ Replay intro
             </button>
+          </div>
+          <div className="header-auth-row">
+            {authUser ? (
+              <>
+                <span className="header-user-name">{authUser.name || authUser.email || 'Neighbor'}</span>
+                <button className="signout-btn" onClick={handleSignOut}>Sign out</button>
+              </>
+            ) : (
+              <button className="login-btn-header" onClick={() => setShowLogin(true)}>Log in</button>
+            )}
           </div>
           <p className="tagline">Rise together — build habits, reach goals, explore Johnston County and grow as a community.</p>
         </div>
@@ -580,6 +570,14 @@ export default function App() {
               }}
             />
           ))}
+        </div>
+      )}
+      {showLogin && (
+        <div className="login-overlay" onClick={() => setShowLogin(false)}>
+          <div className="login-overlay-inner" onClick={e => e.stopPropagation()}>
+            <button className="login-overlay-close" onClick={() => setShowLogin(false)}>✕</button>
+            <LoginScreen embedded />
+          </div>
         </div>
       )}
     </div>

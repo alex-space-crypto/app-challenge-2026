@@ -2001,6 +2001,134 @@ body {
   .county-challenge-field-amount { max-width: none; }
 }
 
+/* ===== County Help Board ===== */
+.help-board-card {
+  background: linear-gradient(135deg, #1a2440 0%, #14203a 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.help-board-header { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; }
+.help-board-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1.2; }
+.help-board-title-area { flex: 1; min-width: 0; }
+.help-board-eyebrow {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #e05656;
+}
+.help-board-title-area h3 { font-size: 1.05rem; color: #fff; margin-top: 0.15rem; }
+.help-board-subtitle { font-size: 0.82rem; color: var(--text-dim); line-height: 1.45; margin-top: 0.3rem; }
+
+.help-board-stats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.help-stat {
+  font-size: 0.74rem; font-weight: 600; padding: 0.25rem 0.7rem;
+  border-radius: 100px; border: 1px solid var(--border);
+}
+.help-stat-request { color: #f0a93b; background: rgba(240,169,59,0.1); border-color: rgba(240,169,59,0.3); }
+.help-stat-offer { color: var(--success); background: rgba(59,165,89,0.1); border-color: rgba(59,165,89,0.3); }
+.help-stat-fulfilled { color: var(--accent-light); background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); }
+
+.help-board-cta { margin-top: 0.25rem; margin-bottom: 1rem; }
+
+.help-board-form {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.help-board-form-type { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+.help-type-toggle {
+  flex: 1; padding: 0.6rem; border-radius: var(--radius-sm);
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text-dim); font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.help-type-toggle.active {
+  background: linear-gradient(135deg, var(--accent), #2563eb);
+  color: #fff; border-color: var(--accent);
+}
+.help-board-form .field-label { margin-top: 0.6rem; }
+.help-board-form .text-input { margin-bottom: 0; }
+.help-board-form .text-area { margin-bottom: 0; }
+.help-board-form .county-challenge-form-row .text-input { margin-bottom: 0; }
+.help-board-form .county-challenge-form-actions { margin-top: 0.85rem; }
+
+.help-board-filters {
+  display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+.help-filter-group { display: flex; gap: 0.35rem; }
+.help-filter-chip {
+  padding: 0.25rem 0.7rem; border-radius: 100px;
+  background: var(--bg-input); border: 1px solid var(--border);
+  color: var(--text-dim); font-size: 0.76rem; font-weight: 600;
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.help-filter-chip.active {
+  background: var(--accent-soft); border-color: var(--accent); color: var(--accent-light);
+}
+.help-filter-category { font-size: 0.76rem; padding: 0.3rem 0.6rem; max-width: 160px; }
+
+.help-board-empty {
+  font-size: 0.82rem; color: var(--text-dim); text-align: center;
+  padding: 1.5rem 1rem; line-height: 1.5;
+}
+
+.help-board-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.help-request-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.85rem 1rem;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+.help-request-item.fulfilled { opacity: 0.6; border-style: dashed; }
+.help-request-header {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem;
+}
+.help-request-type-badge {
+  font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.55rem;
+  border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.help-request-type-badge.request {
+  background: rgba(240,169,59,0.15); color: #f0a93b; border: 1px solid rgba(240,169,59,0.3);
+}
+.help-request-type-badge.offer {
+  background: rgba(59,165,89,0.15); color: var(--success); border: 1px solid rgba(59,165,89,0.3);
+}
+.help-request-category {
+  font-size: 0.7rem; font-weight: 600; color: var(--text-dim);
+  background: var(--bg-input); padding: 0.1rem 0.5rem; border-radius: 100px;
+}
+.help-request-urgency { font-size: 0.7rem; font-weight: 700; }
+.help-request-fulfilled-badge {
+  font-size: 0.68rem; font-weight: 700; color: var(--success);
+  background: rgba(59,165,89,0.1); padding: 0.15rem 0.5rem; border-radius: 100px;
+}
+.help-request-title { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+.help-request-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.45; margin-bottom: 0.5rem; }
+.help-request-meta {
+  display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap;
+  font-size: 0.74rem; color: var(--text-muted);
+}
+.help-request-author { display: flex; align-items: center; gap: 0.3rem; font-weight: 600; color: var(--text-dim); }
+.help-request-loc { color: var(--text-dim); }
+.help-request-time { color: var(--text-muted); font-size: 0.72rem; }
+.help-request-toggle-btn {
+  margin-top: 0.55rem; background: none; border: 1px solid var(--border);
+  color: var(--text-dim); font-size: 0.72rem; font-weight: 600;
+  padding: 0.25rem 0.8rem; border-radius: var(--radius-sm);
+  cursor: pointer; font-family: inherit; transition: all 0.15s;
+}
+.help-request-toggle-btn:hover { border-color: var(--accent); color: var(--accent-light); }
+
+@media (max-width: 640px) {
+  .help-board-card { padding: 1.25rem 1rem 1rem; }
+  .help-filter-category { max-width: none; width: 100%; }
+  .help-filter-group { flex: 1; }
+}
+
 /* ===== Welcome Overlay ===== */
 .welcome-overlay {
   position: fixed; inset: 0; z-index: 2000;

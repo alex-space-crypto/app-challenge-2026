@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { CommunityPost, Profile } from '../types';
 import { COMMUNITY_RESOURCES, JOCO_TOWNS } from '../joco';
 import CountyChallenge from './CountyChallenge';
+import HelpBoard from './HelpBoard';
 
 const CATEGORIES = ['Sustainability','Reading','Chores & Allowance','Fitness Basics','Hydration','Community Service','General'];
 
@@ -56,6 +57,8 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
       </div>
 
       <CountyChallenge profileName={profile.name} />
+
+      <HelpBoard profileName={profile.name} />
 
       <div className="joco-resources-section">
         <button className="joco-resources-toggle" onClick={() => setShowResources(s => !s)}>

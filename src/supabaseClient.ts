@@ -26,3 +26,16 @@ export interface ChallengeContribution {
   note: string;
   created_at: string;
 }
+
+export interface HelpRequest {
+  id: string;
+  type: 'request' | 'offer';
+  category: string;
+  title: string;
+  description: string;
+  contact_name: string;
+  location: string;
+  status: 'open' | 'fulfilled';
+  urgency: 'low' | 'medium' | 'high';
+  created_at: string;
+}

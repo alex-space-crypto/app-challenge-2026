@@ -52,51 +52,65 @@ export default function App() {
   React.useEffect(() => {
     let cancelled = false;
     (async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (cancelled) return;
-      if (session) {
-        const { data: prof } = await supabase
-          .from('profiles')
-          .select('name, email, phone')
-          .eq('id', session.user.id)
-          .maybeSingle();
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
         if (cancelled) return;
-        setAuthUser({
-          id: session.user.id,
-          email: session.user.email ?? prof?.email ?? null,
-          name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
-          phone: prof?.phone ?? session.user.phone ?? null,
-        });
-        if (prof?.name) setProfile({ name: prof.name });
+        if (session) {
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('name, email, phone')
+            .eq('id', session.user.id)
+            .maybeSingle();
+          if (cancelled) return;
+          setAuthUser({
+            id: session.user.id,
+            email: session.user.email ?? prof?.email ?? null,
+            name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
+            phone: prof?.phone ?? session.user.phone ?? null,
+          });
+          if (prof?.name) setProfile({ name: prof.name });
+        }
+      } catch (err) {
+        console.warn('Supabase session check failed — running in offline mode.', err);
       }
     })();
 
-    supabase.auth.onAuthStateChange((event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       (async () => {
         if (event === 'SIGNED_OUT' || !session) {
           setAuthUser(null);
           return;
         }
-        const { data: prof } = await supabase
-          .from('profiles')
-          .select('name, email, phone')
-          .eq('id', session.user.id)
-          .maybeSingle();
-        setAuthUser({
-          id: session.user.id,
-          email: session.user.email ?? prof?.email ?? null,
-          name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
-          phone: prof?.phone ?? session.user.phone ?? null,
-        });
-        if (prof?.name) setProfile({ name: prof.name });
+        try {
+          const { data: prof } = await supabase
+            .from('profiles')
+            .select('name, email, phone')
+            .eq('id', session.user.id)
+            .maybeSingle();
+          setAuthUser({
+            id: session.user.id,
+            email: session.user.email ?? prof?.email ?? null,
+            name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
+            phone: prof?.phone ?? session.user.phone ?? null,
+          });
+          if (prof?.name) setProfile({ name: prof.name });
+        } catch (err) {
+          console.warn('Supabase profile fetch failed.', err);
+          setAuthUser({
+            id: session.user.id,
+            email: session.user.email ?? null,
+            name: session.user.email?.split('@')[0] ?? null,
+            phone: session.user.phone ?? null,
+          });
+        }
       })();
     });
 
-    return () => { cancelled = true; };
+    return () => { cancelled = true; authListener?.subscription?.unsubscribe(); };
   }, []);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    try { await supabase.auth.signOut(); } catch { /* offline — ignore */ }
     setAuthUser(null);
     setProfile({ name: '' });
   };
@@ -104,7 +118,7 @@ export default function App() {
   const handleUpdateName = async (name: string) => {
     setProfile({ name });
     if (authUser) {
-      await supabase.from('profiles').upsert({ id: authUser.id, name });
+      try { await supabase.from('profiles').upsert({ id: authUser.id, name }); } catch { /* offline — local only */ }
     }
   };
 

@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
+import { getAuth, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBOxK36ANAPMY_msvtt9ETAkmL3ACeNbww",
   authDomain: "app-challenge-e76e6.firebaseapp.com",
@@ -12,6 +12,9 @@ const firebaseConfig = {
   measurementId: "G-95D7B9XJP7"
 };
 export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
+export const appleProvider = new OAuthProvider('apple.com');
 
 isSupported().then(supported => {
   if (supported) getAnalytics(app);

@@ -5,7 +5,8 @@ import {
   loadHabits, saveHabits, loadBadges, saveBadges,
   loadTopics, saveTopics, loadPosts, savePosts, loadProfile, saveProfile,
 } from './storage';
-import { supabase } from './supabaseClient';
+import { auth } from './firebase';
+import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 import TrackerTab from './components/TrackerTab';
 import MapTab from './components/MapTab';
 import HabitMap from './components/HabitMap';
@@ -50,76 +51,29 @@ export default function App() {
   React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
   React.useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (cancelled) return;
-        if (session) {
-          const { data: prof } = await supabase
-            .from('profiles')
-            .select('name, email, phone')
-            .eq('id', session.user.id)
-            .maybeSingle();
-          if (cancelled) return;
-          setAuthUser({
-            id: session.user.id,
-            email: session.user.email ?? prof?.email ?? null,
-            name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
-            phone: prof?.phone ?? session.user.phone ?? null,
-          });
-          if (prof?.name) setProfile({ name: prof.name });
-        }
-      } catch (err) {
-        console.warn('Supabase session check failed — running in offline mode.', err);
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        setAuthUser(null);
+        return;
       }
-    })();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      (async () => {
-        if (event === 'SIGNED_OUT' || !session) {
-          setAuthUser(null);
-          return;
-        }
-        try {
-          const { data: prof } = await supabase
-            .from('profiles')
-            .select('name, email, phone')
-            .eq('id', session.user.id)
-            .maybeSingle();
-          setAuthUser({
-            id: session.user.id,
-            email: session.user.email ?? prof?.email ?? null,
-            name: prof?.name ?? session.user.email?.split('@')[0] ?? null,
-            phone: prof?.phone ?? session.user.phone ?? null,
-          });
-          if (prof?.name) setProfile({ name: prof.name });
-        } catch (err) {
-          console.warn('Supabase profile fetch failed.', err);
-          setAuthUser({
-            id: session.user.id,
-            email: session.user.email ?? null,
-            name: session.user.email?.split('@')[0] ?? null,
-            phone: session.user.phone ?? null,
-          });
-        }
-      })();
+      setAuthUser({
+        id: user.uid,
+        email: user.email ?? null,
+        name: user.displayName ?? user.email?.split('@')[0] ?? null,
+        phone: user.phoneNumber ?? null,
+      });
     });
-
-    return () => { cancelled = true; authListener?.subscription?.unsubscribe(); };
+    return () => unsub();
   }, []);
 
   const handleSignOut = async () => {
-    try { await supabase.auth.signOut(); } catch { /* offline — ignore */ }
+    try { await firebaseSignOut(auth); } catch { /* ignore */ }
     setAuthUser(null);
     setProfile({ name: '' });
   };
 
   const handleUpdateName = async (name: string) => {
     setProfile({ name });
-    if (authUser) {
-      try { await supabase.from('profiles').upsert({ id: authUser.id, name }); } catch { /* offline — local only */ }
-    }
   };
 
   React.useEffect(() => { saveHabits(habits); }, [habits]);

@@ -45,6 +45,8 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
 
   return (
     <div className="tab-panel">
+      <CommunityImpact habits={habits} />
+
       <div className="community-banner">
         <button
           className="community-banner-main community-banner-clickable"
@@ -157,8 +159,6 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
           )}
         </div>
       )}
-
-      <CommunityImpact habits={habits} />
 
       <CountyChallenge profileName={profile.name} />
 

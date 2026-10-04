@@ -27,7 +27,6 @@ function isWeekend(dateStr: string): boolean {
 }
 
 export default function InsightsPanel({ habits, level }: Props) {
-  const [showInsights, setShowInsights] = React.useState(false);
 
   const allLogs = habits.flatMap(h => verifiedLogs(h));
   const totalLogs = allLogs.length;
@@ -82,19 +81,10 @@ export default function InsightsPanel({ habits, level }: Props) {
     'rgba(59,165,89,0.95)',
   ];
 
-  if (!showInsights) {
-    return (
-      <button className="toggle-add insights-toggle" onClick={() => setShowInsights(true)}>
-        📊 View my progress insights
-      </button>
-    );
-  }
-
   return (
     <div className="insights-panel">
       <div className="insights-header">
         <h3>📊 Your Progress Insights</h3>
-        <button className="link-action" onClick={() => setShowInsights(false)}>Close</button>
       </div>
 
       <div className="insights-stats-row">

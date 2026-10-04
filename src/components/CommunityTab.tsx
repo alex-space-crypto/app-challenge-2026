@@ -11,6 +11,7 @@ interface Props {
   profile: Profile;
   onAddPost: (message: string, category: string) => void;
   onCheer: (id: string) => void;
+  onDeletePost: (id: string) => void;
   onProfileName: (name: string) => void;
 }
 
@@ -25,7 +26,7 @@ function timeAgo(ts: number): string {
   return `${d}d ago`;
 }
 
-export default function CommunityTab({ posts, profile, onAddPost, onCheer, onProfileName }: Props) {
+export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDeletePost, onProfileName }: Props) {
   const [message, setMessage] = React.useState('');
   const [category, setCategory] = React.useState('General');
   const [name, setName] = React.useState(profile.name);
@@ -64,6 +65,56 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
 
       {showBannerPreview && (
         <div className="banner-preview">
+          {showNameField ? (
+            <div className="add-block name-block banner-preview-block">
+              <h3>Set your display name</h3>
+              <p className="tab-intro">How neighbors will see your posts. Stored only on your device.</p>
+              <div className="name-row">
+                <input
+                  className="text-input"
+                  placeholder="Your name or nickname"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter' && name.trim()) { onProfileName(name.trim()); setShowNameField(false); } }}
+                />
+                <button
+                  className="btn-primary"
+                  disabled={!name.trim()}
+                  onClick={() => { onProfileName(name.trim()); setShowNameField(false); }}
+                >Save</button>
+              </div>
+            </div>
+          ) : (
+            <div className="add-block banner-preview-block">
+              <div className="post-head">
+                <span className="avatar">{profile.name.charAt(0).toUpperCase() || 'Y'}</span>
+                <span>Posting as <strong>{profile.name}</strong></span>
+                <button className="link-action" onClick={() => setShowNameField(true)}>Change</button>
+              </div>
+              <textarea
+                className="text-area"
+                placeholder="Share a win, tip, or encourage a neighbor... (e.g. 'Walked the Buffalo Creek Greenway today — beautiful morning!')"
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                rows={3}
+                maxLength={300}
+              />
+              <div className="post-footer">
+                <span className="char-count">{message.length}/300</span>
+                <div className="post-actions">
+                  <select className="select-input" value={category} onChange={e => setCategory(e.target.value)}>
+                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                  <button
+                    className="btn-primary"
+                    disabled={!message.trim()}
+                    onClick={() => { onAddPost(message.trim(), category); setMessage(''); }}
+                  >Post to District 13</button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {sorted.length === 0 ? (
             <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
           ) : (
@@ -128,56 +179,6 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
         </div>
       )}
 
-      {showNameField ? (
-        <div className="add-block name-block">
-          <h3>Set your display name</h3>
-          <p className="tab-intro">How neighbors will see your posts. Stored only on your device.</p>
-          <div className="name-row">
-            <input
-              className="text-input"
-              placeholder="Your name or nickname"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter' && name.trim()) { onProfileName(name.trim()); setShowNameField(false); } }}
-            />
-            <button
-              className="btn-primary"
-              disabled={!name.trim()}
-              onClick={() => { onProfileName(name.trim()); setShowNameField(false); }}
-            >Save</button>
-          </div>
-        </div>
-      ) : (
-        <div className="add-block">
-          <div className="post-head">
-            <span className="avatar">{profile.name.charAt(0).toUpperCase() || 'Y'}</span>
-            <span>Posting as <strong>{profile.name}</strong></span>
-            <button className="link-action" onClick={() => setShowNameField(true)}>Change</button>
-          </div>
-          <textarea
-            className="text-area"
-            placeholder="Share a win, tip, or encourage a neighbor... (e.g. 'Walked the Buffalo Creek Greenway today — beautiful morning!')"
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-            rows={3}
-            maxLength={300}
-          />
-          <div className="post-footer">
-            <span className="char-count">{message.length}/300</span>
-            <div className="post-actions">
-              <select className="select-input" value={category} onChange={e => setCategory(e.target.value)}>
-                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-              <button
-                className="btn-primary"
-                disabled={!message.trim()}
-                onClick={() => { onAddPost(message.trim(), category); setMessage(''); }}
-              >Post to District 13</button>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="post-list">
         {sorted.map(p => (
           <div
@@ -195,6 +196,12 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
                 <span className="post-time">{timeAgo(p.createdAt)}</span>
               </div>
               <span className="post-category">{p.category}</span>
+              <button
+                className="post-delete-btn"
+                onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
+                aria-label="Delete post"
+                title="Delete post"
+              >🗑</button>
             </div>
             <p className="post-message">{p.message}</p>
             <button

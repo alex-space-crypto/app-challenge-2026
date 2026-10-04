@@ -184,6 +184,10 @@ export default function App() {
     }));
   };
 
+  const deletePost = (id: string) => {
+    setPosts(prev => prev.filter(p => p.id !== id));
+  };
+
   const focusLoc = (lat: number, lng: number) => {
     setFocusLocation({ lat, lng });
     setTab('map');
@@ -319,6 +323,7 @@ export default function App() {
             profile={profile}
             onAddPost={addPost}
             onCheer={cheerPost}
+            onDeletePost={deletePost}
             onProfileName={handleUpdateName}
           />
         )}

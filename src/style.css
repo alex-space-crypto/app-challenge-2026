@@ -1293,6 +1293,15 @@ body {
 .banner-preview-cheers {
   font-size: 0.76rem; color: var(--text-muted); font-weight: 600;
 }
+.banner-preview-block { margin: 0; }
+
+.post-delete-btn {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 0.85rem; cursor: pointer; padding: 0.2rem 0.3rem;
+  border-radius: 6px; transition: color 0.15s, background 0.15s;
+  flex-shrink: 0; line-height: 1;
+}
+.post-delete-btn:hover { color: var(--error); background: rgba(239,68,68,0.1); }
 .community-stats { display: flex; gap: 0.75rem; flex-shrink: 0; }
 .comm-stat { display: flex; flex-direction: column; align-items: center; }
 .comm-stat-num { font-size: 1.3rem; font-weight: 800; color: var(--accent-light); }

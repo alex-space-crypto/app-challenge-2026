@@ -32,6 +32,7 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
   const [showNameField, setShowNameField] = React.useState(!profile.name);
   const [showResources, setShowResources] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState<CommunityPost | null>(null);
+  const [showBannerPreview, setShowBannerPreview] = React.useState(false);
 
   const sorted = [...posts].sort((a, b) => b.createdAt - a.createdAt);
   const totalCheers = posts.reduce((s, p) => s + p.cheers, 0);
@@ -41,10 +42,14 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
   return (
     <div className="tab-panel">
       <div className="community-banner">
-        <div className="community-banner-main">
-          <h2>🤝 Thriving Together — District 13</h2>
+        <button
+          className="community-banner-main community-banner-clickable"
+          onClick={() => setShowBannerPreview(s => !s)}
+          aria-expanded={showBannerPreview}
+        >
+          <h2>🤝 Thriving Together — District 13 <span className="banner-chevron">{showBannerPreview ? '▾' : '▸'}</span></h2>
           <p>Share wins, tips, and encouragement with neighbors across Johnston County. Every post builds our community stronger.</p>
-        </div>
+        </button>
         <div className="community-stats">
           <div className="comm-stat">
             <span className="comm-stat-num">{posts.length}</span>
@@ -56,6 +61,36 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onPro
           </div>
         </div>
       </div>
+
+      {showBannerPreview && (
+        <div className="banner-preview">
+          {sorted.length === 0 ? (
+            <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
+          ) : (
+            sorted.slice(0, 2).map(p => (
+              <div
+                key={p.id}
+                className="banner-preview-card"
+                onClick={() => setSelectedPost(p)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPost(p); } }}
+              >
+                <div className="post-head">
+                  <span className="avatar">{p.author.charAt(0).toUpperCase()}</span>
+                  <div className="post-meta">
+                    <strong>{p.author}</strong>
+                    <span className="post-time">{timeAgo(p.createdAt)}</span>
+                  </div>
+                  <span className="post-category">{p.category}</span>
+                </div>
+                <p className="post-message">{p.message}</p>
+                <span className="banner-preview-cheers">👏 {p.cheers} {p.cheers === 1 ? 'cheer' : 'cheers'}</span>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
       <CountyChallenge profileName={profile.name} />
 

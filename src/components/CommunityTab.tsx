@@ -158,9 +158,9 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
         </div>
       )}
 
-      <CountyChallenge profileName={profile.name} />
-
       <CommunityImpact habits={habits} />
+
+      <CountyChallenge profileName={profile.name} />
 
       <HelpBoard profileName={profile.name} />
 

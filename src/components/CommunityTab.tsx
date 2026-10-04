@@ -134,6 +134,12 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDel
                     <span className="post-time">{timeAgo(p.createdAt)}</span>
                   </div>
                   <span className="post-category">{p.category}</span>
+                  <button
+                    className="post-delete-btn"
+                    onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
+                    aria-label="Delete post"
+                    title="Delete post"
+                  >🗑</button>
                 </div>
                 <p className="post-message">{p.message}</p>
                 <span className="banner-preview-cheers">👏 {p.cheers} {p.cheers === 1 ? 'cheer' : 'cheers'}</span>
@@ -178,39 +184,6 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDel
           ))}
         </div>
       )}
-
-      <div className="post-list">
-        {sorted.map(p => (
-          <div
-            key={p.id}
-            className="post-card post-card-clickable"
-            onClick={() => setSelectedPost(p)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPost(p); } }}
-          >
-            <div className="post-head">
-              <span className="avatar">{p.author.charAt(0).toUpperCase()}</span>
-              <div className="post-meta">
-                <strong>{p.author}</strong>
-                <span className="post-time">{timeAgo(p.createdAt)}</span>
-              </div>
-              <span className="post-category">{p.category}</span>
-              <button
-                className="post-delete-btn"
-                onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
-                aria-label="Delete post"
-                title="Delete post"
-              >🗑</button>
-            </div>
-            <p className="post-message">{p.message}</p>
-            <button
-              className={`cheer-btn ${p.cheered ? 'cheered' : ''}`}
-              onClick={e => { e.stopPropagation(); onCheer(p.id); }}
-            >👏 {p.cheers} {p.cheers === 1 ? 'cheer' : 'cheers'}</button>
-          </div>
-        ))}
-      </div>
 
       {selectedPost && (
         <div className="post-detail-overlay" onClick={() => setSelectedPost(null)}>

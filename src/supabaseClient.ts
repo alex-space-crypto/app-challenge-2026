@@ -38,4 +38,6 @@ export interface HelpRequest {
   status: 'open' | 'fulfilled';
   urgency: 'low' | 'medium' | 'high';
   created_at: string;
+  volunteers_target?: number | null;
+  volunteers_count?: number;
 }

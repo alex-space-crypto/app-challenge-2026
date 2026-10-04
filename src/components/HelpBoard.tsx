@@ -49,6 +49,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   const [description, setDescription] = React.useState('');
   const [location, setLocation] = React.useState('');
   const [urgency, setUrgency] = React.useState<'low' | 'medium' | 'high'>('medium');
+  const [volunteersTarget, setVolunteersTarget] = React.useState('');
   const [submitting, setSubmitting] = React.useState(false);
 
   const fetchRequests = React.useCallback(async () => {
@@ -93,6 +94,27 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
     }
   };
 
+  const volunteerForRequest = async (req: HelpRequest) => {
+    const current = req.volunteers_count || 0;
+    const target = req.volunteers_target || 0;
+    if (current >= target) return;
+    const newCount = current + 1;
+    setRequests(prev =>
+      prev.map(r => (r.id === req.id ? { ...r, volunteers_count: newCount } : r)),
+    );
+    try {
+      const { error: updErr } = await supabase
+        .from('help_requests')
+        .update({ volunteers_count: newCount })
+        .eq('id', req.id);
+      if (updErr) throw updErr;
+    } catch {
+      setRequests(prev =>
+        prev.map(r => (r.id === req.id ? { ...r, volunteers_count: current } : r)),
+      );
+    }
+  };
+
   const handleSubmit = async () => {
     if (!title.trim()) return;
     setSubmitting(true);
@@ -109,6 +131,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
           location: location.trim(),
           urgency,
           status: 'open',
+          ...(type === 'offer' && volunteersTarget.trim() ? { volunteers_target: parseInt(volunteersTarget) || null } : {}),
         })
         .select()
         .single();
@@ -119,6 +142,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
       setDescription('');
       setLocation('');
       setUrgency('medium');
+      setVolunteersTarget('');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not post your request. Please try again.');
     } finally {
@@ -240,6 +264,21 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
             maxLength={400}
           />
 
+          {type === 'offer' && (
+            <div className="county-challenge-field" style={{ maxWidth: '200px' }}>
+              <label className="field-label">Volunteers needed (optional)</label>
+              <input
+                className="text-input"
+                type="number"
+                min="1"
+                max="999"
+                placeholder="e.g. 50"
+                value={volunteersTarget}
+                onChange={e => setVolunteersTarget(e.target.value)}
+              />
+            </div>
+          )}
+
           {error && <p className="county-challenge-error">{error}</p>}
 
           <div className="county-challenge-form-actions">
@@ -314,6 +353,36 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                 {r.location && <span className="help-request-loc">📍 {r.location}</span>}
                 <span className="help-request-time"> · {timeAgo(r.created_at)}</span>
               </div>
+
+              {r.volunteers_target && r.volunteers_target > 0 && r.status === 'open' && (
+                <div className="volunteer-progress-section">
+                  <div className="volunteer-progress-bar">
+                    <div
+                      className="volunteer-progress-fill"
+                      style={{ width: `${Math.min(100, ((r.volunteers_count || 0) / r.volunteers_target) * 100)}%` }}
+                    />
+                  </div>
+                  <div className="volunteer-progress-stats">
+                    <span className="volunteer-progress-count">
+                      {r.volunteers_count || 0} / {r.volunteers_target} volunteers
+                    </span>
+                    <span className="volunteer-progress-pct">
+                      {Math.round(((r.volunteers_count || 0) / r.volunteers_target) * 100)}%
+                    </span>
+                  </div>
+                  {(r.volunteers_count || 0) < r.volunteers_target ? (
+                    <button
+                      className="btn-primary volunteer-signup-btn"
+                      onClick={() => volunteerForRequest(r)}
+                    >
+                      ✋ I'll volunteer
+                    </button>
+                  ) : (
+                    <span className="volunteer-complete-badge">🎉 Volunteer goal reached!</span>
+                  )}
+                </div>
+              )}
+
               <button
                 className="help-request-toggle-btn"
                 onClick={() => toggleStatus(r)}

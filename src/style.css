@@ -2200,6 +2200,46 @@ body {
 }
 .help-request-toggle-btn:hover { border-color: var(--accent); color: var(--accent-light); }
 
+.volunteer-progress-section {
+  margin-top: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.volunteer-progress-bar {
+  height: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.volunteer-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #2563eb);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+.volunteer-progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+}
+.volunteer-progress-count { color: var(--text-dim); font-weight: 600; }
+.volunteer-progress-pct { color: var(--accent-light); font-weight: 700; }
+.volunteer-signup-btn {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.84rem;
+}
+.volunteer-complete-badge {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--success);
+  padding: 0.4rem;
+}
+
 @media (max-width: 640px) {
   .help-board-card { padding: 1.25rem 1rem 1rem; }
   .help-filter-category { max-width: none; width: 100%; }

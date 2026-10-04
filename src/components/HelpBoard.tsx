@@ -131,7 +131,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
           location: location.trim(),
           urgency,
           status: 'open',
-          ...(type === 'offer' && volunteersTarget.trim() ? { volunteers_target: parseInt(volunteersTarget) || null } : {}),
+          ...(volunteersTarget.trim() ? { volunteers_target: parseInt(volunteersTarget) || null } : {}),
         })
         .select()
         .single();
@@ -264,20 +264,18 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
             maxLength={400}
           />
 
-          {type === 'offer' && (
-            <div className="county-challenge-field" style={{ maxWidth: '200px' }}>
-              <label className="field-label">Volunteers needed (optional)</label>
-              <input
-                className="text-input"
-                type="number"
-                min="1"
-                max="999"
-                placeholder="e.g. 50"
-                value={volunteersTarget}
-                onChange={e => setVolunteersTarget(e.target.value)}
-              />
-            </div>
-          )}
+          <div className="county-challenge-field" style={{ maxWidth: '200px' }}>
+            <label className="field-label">Volunteers needed (optional)</label>
+            <input
+              className="text-input"
+              type="number"
+              min="1"
+              max="999"
+              placeholder="e.g. 50"
+              value={volunteersTarget}
+              onChange={e => setVolunteersTarget(e.target.value)}
+            />
+          </div>
 
           {error && <p className="county-challenge-error">{error}</p>}
 

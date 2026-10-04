@@ -19,11 +19,38 @@ export default function LoginScreen({ embedded = false }: { embedded?: boolean }
 
   const clearError = () => setError(null);
 
+  const firebaseErrorMsg = (err: unknown): string => {
+    if (err && typeof err === 'object' && 'code' in err) {
+      const code = (err as { code: string }).code;
+      const map: Record<string, string> = {
+        'auth/email-already-in-use': 'An account already exists with this email. Try signing in instead.',
+        'auth/invalid-email': 'That email address looks invalid. Please check it and try again.',
+        'auth/weak-password': 'Password must be at least 6 characters long.',
+        'auth/operation-not-allowed': 'Email/password sign-up is not enabled for this app yet. The app owner needs to turn it on in the Firebase console (Authentication → Sign-in method → Email/Password).',
+        'auth/too-many-requests': 'Too many attempts. Please wait a minute and try again.',
+        'auth/user-not-found': 'No account found with this email. Try creating a new account.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/invalid-credential': 'Email or password is incorrect. Please try again.',
+        'auth/network-request-failed': 'Network error — check your internet connection and try again.',
+        'auth/popup-blocked': 'The sign-in popup was blocked by your browser. Please allow popups for this site.',
+        'auth/popup-closed-by-user': 'The sign-in popup was closed before completing. Please try again.',
+        'auth/operation-not-supported-in-this-environment': 'This sign-in method is not available in this environment.',
+        'auth/unauthorized-domain': 'This domain is not authorized in the Firebase console. The app owner needs to add it under Authentication → Settings → Authorized domains.',
+      };
+      return map[code] ?? `Sign-in failed (${code}).`;
+    }
+    return err instanceof Error ? err.message : 'Authentication failed.';
+  };
+
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     clearError();
     if (!email.trim() || !password.trim()) {
       setError('Please enter your email and password.');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
       return;
     }
     setLoading(true);
@@ -34,8 +61,7 @@ export default function LoginScreen({ embedded = false }: { embedded?: boolean }
         await signInWithEmailAndPassword(auth, email.trim(), password);
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Authentication failed.';
-      setError(msg);
+      setError(firebaseErrorMsg(err));
     } finally {
       setLoading(false);
     }

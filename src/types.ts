@@ -52,6 +52,7 @@ export interface CommunityPost {
   createdAt: number;
   cheers: number;
   cheered?: boolean;
+  reported?: boolean;
 }
 
 export interface Profile {

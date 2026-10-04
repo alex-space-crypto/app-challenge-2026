@@ -1,17 +1,20 @@
 import * as React from 'react';
-import type { CommunityPost, Profile } from '../types';
+import type { CommunityPost, Profile, Habit } from '../types';
 import { COMMUNITY_RESOURCES, JOCO_TOWNS } from '../joco';
 import CountyChallenge from './CountyChallenge';
 import HelpBoard from './HelpBoard';
+import CommunityImpact from './CommunityImpact';
 
 const CATEGORIES = ['Sustainability','Reading','Chores & Allowance','Fitness Basics','Hydration','Community Service','General'];
 
 interface Props {
   posts: CommunityPost[];
   profile: Profile;
+  habits: Habit[];
   onAddPost: (message: string, category: string) => void;
   onCheer: (id: string) => void;
   onDeletePost: (id: string) => void;
+  onReportPost: (id: string) => void;
   onProfileName: (name: string) => void;
 }
 
@@ -26,7 +29,7 @@ function timeAgo(ts: number): string {
   return `${d}d ago`;
 }
 
-export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDeletePost, onProfileName }: Props) {
+export default function CommunityTab({ posts, profile, habits, onAddPost, onCheer, onDeletePost, onReportPost, onProfileName }: Props) {
   const [message, setMessage] = React.useState('');
   const [category, setCategory] = React.useState('General');
   const [name, setName] = React.useState(profile.name);
@@ -135,6 +138,12 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDel
                   </div>
                   <span className="post-category">{p.category}</span>
                   <button
+                    className="post-report-btn"
+                    onClick={e => { e.stopPropagation(); onReportPost(p.id); }}
+                    aria-label="Report post"
+                    title="Report this post"
+                  >🚩</button>
+                  <button
                     className="post-delete-btn"
                     onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
                     aria-label="Delete post"
@@ -150,6 +159,8 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDel
       )}
 
       <CountyChallenge profileName={profile.name} />
+
+      <CommunityImpact habits={habits} />
 
       <HelpBoard profileName={profile.name} />
 
@@ -205,6 +216,10 @@ export default function CommunityTab({ posts, profile, onAddPost, onCheer, onDel
               className={`cheer-btn post-detail-cheer ${selectedPost.cheered ? 'cheered' : ''}`}
               onClick={() => onCheer(selectedPost.id)}
             >{selectedPost.cheered ? '✓ Cheered' : '👏 Cheer this post'}</button>
+            <button
+              className="post-detail-report-btn"
+              onClick={() => { onReportPost(selectedPost.id); setSelectedPost(null); }}
+            >🚩 Report this post</button>
           </div>
         </div>
       )}

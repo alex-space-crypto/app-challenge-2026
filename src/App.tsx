@@ -17,6 +17,7 @@ import InsightsPanel from './components/InsightsPanel';
 import WelcomeOverlay from './components/WelcomeOverlay';
 import { JoCoMissionBanner } from './components/JoCoMissionBanner';
 import LoginScreen from './components/LoginScreen';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 type Tab = 'tracker' | 'topics' | 'badges' | 'community' | 'map';
 
@@ -47,6 +48,7 @@ export default function App() {
   const [showIconPopover, setShowIconPopover] = React.useState(false);
   const [statModal, setStatModal] = React.useState<'goals' | 'logs' | 'hits' | null>(null);
   const [showLogin, setShowLogin] = React.useState(false);
+  const [showPrivacy, setShowPrivacy] = React.useState(false);
 
   React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
@@ -109,9 +111,17 @@ export default function App() {
     const timeStr = logTime || new Date().toTimeString().slice(0, 5);
     const fullISO = new Date(`${dateStr}T${timeStr}:00`).toISOString();
     let leveledUp = false;
+    const suspiciousLogs: string[] = [];
     setHabits(prev => prev.map(h => {
       if (h.id !== id) return h;
       if (h.logs.some(l => l.date === dateStr && l.verified)) return h;
+      const recentSame = h.logs.filter(l =>
+        l.verifiedBy.toLowerCase() === verifiedBy.trim().toLowerCase() &&
+        Math.abs(new Date(l.verifiedAt).getTime() - new Date(fullISO).getTime()) < 120000
+      );
+      if (recentSame.length > 0) {
+        suspiciousLogs.push(h.name);
+      }
       const newLog: HabitLog = {
         date: dateStr,
         verified: true,
@@ -132,6 +142,9 @@ export default function App() {
       }
       return { ...h, logs: newLogs };
     }));
+    if (suspiciousLogs.length > 0) {
+      showToast(`⚠️ Suspicious pattern detected: "${verifiedBy}" verified multiple logs within 2 minutes for ${suspiciousLogs.join(', ')}.`);
+    }
     if (leveledUp) {
       setTimeout(() => {
         showToast(`Level up! You're now level ${level + 1} — ${LEVEL_TITLES[Math.min(level, LEVEL_TITLES.length - 1)]}`);
@@ -186,6 +199,11 @@ export default function App() {
 
   const deletePost = (id: string) => {
     setPosts(prev => prev.filter(p => p.id !== id));
+  };
+
+  const reportPost = (id: string) => {
+    setPosts(prev => prev.map(p => p.id === id ? { ...p, reported: true } : p));
+    showToast('Post reported. A moderator will review it. Thank you for keeping our community safe.');
   };
 
   const focusLoc = (lat: number, lng: number) => {
@@ -321,9 +339,11 @@ export default function App() {
           <CommunityTab
             posts={posts}
             profile={profile}
+            habits={habits}
             onAddPost={addPost}
             onCheer={cheerPost}
             onDeletePost={deletePost}
+            onReportPost={reportPost}
             onProfileName={handleUpdateName}
           />
         )}
@@ -336,6 +356,12 @@ export default function App() {
           </>
         )}
       </main>
+
+      <footer className="app-footer">
+        <button className="footer-link" onClick={() => setShowPrivacy(true)}>
+          Privacy Policy
+        </button>
+      </footer>
 
       {statModal && (
         <div className="level-info-overlay" onClick={() => setStatModal(null)}>
@@ -520,6 +546,10 @@ export default function App() {
           onClose={dismissWelcome}
           onPickPathway={() => { dismissWelcome(); setTab('tracker'); }}
         />
+      )}
+
+      {showPrivacy && (
+        <PrivacyPolicy onClose={() => setShowPrivacy(false)} />
       )}
 
       {toast && (

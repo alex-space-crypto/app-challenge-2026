@@ -127,13 +127,16 @@ export default function TrackerTab({ habits, topics, selectedTopic, onSelectTopi
     setShowSuggestions(true);
   };
 
+  const isSelfVerification = profileName.trim().length > 0 &&
+    verifiedBy.trim().toLowerCase() === profileName.trim().toLowerCase();
+
   const handleVerifyClick = (habitId: string, habitLocName: string) => {
     if (verifyHabitId === habitId) {
       setVerifyHabitId(null);
       resetVerifyForm();
     } else {
       setVerifyHabitId(habitId);
-      setVerifiedBy(profileName ? profileName : '');
+      setVerifiedBy('');
       setVerifiedWhere(habitLocName || '');
       setVerifyNote('');
       setVerifyDate(todayDate());
@@ -406,6 +409,11 @@ export default function TrackerTab({ habits, topics, selectedTopic, onSelectTopi
                     value={verifiedBy}
                     onChange={e => setVerifiedBy(e.target.value)}
                   />
+                  {isSelfVerification && (
+                    <p className="verify-warning">
+                      ⚠️ You can't verify yourself. Ask a parent, teacher, or friend to confirm your activity.
+                    </p>
+                  )}
                   <label className="verify-label">Where</label>
                   <input
                     className="text-input"
@@ -426,7 +434,7 @@ export default function TrackerTab({ habits, topics, selectedTopic, onSelectTopi
                   </div>
                   <button
                     className="btn-primary verify-submit-btn"
-                    disabled={!verifiedBy.trim() || !verifyDate || !verifyTime}
+                    disabled={!verifiedBy.trim() || !verifyDate || !verifyTime || isSelfVerification}
                     onClick={handleVerifySubmit}
                   >
                     ✓ Verify & Log

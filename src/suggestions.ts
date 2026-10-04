@@ -41,7 +41,8 @@ const SUGGESTIONS: Record<string, HabitSuggestion[]> = {
     { name: 'Walk 10,000 steps a day', description: 'Track your steps and hit 10K daily.', goalCount: 30 },
     { name: 'Bike the Buffalo Creek Greenway', description: 'Ride the greenway trail from Wendell Falls outward.', goalCount: 8, location: { name: 'Buffalo Creek Greenway', lat: 35.7801, lng: -78.3689, address: 'Wendell Falls Pkwy, Wendell, NC' } },
     { name: 'Hike Howell Woods trails in Four Oaks', description: 'Explore over 25 miles of trails through managed forest and wetlands.', goalCount: 6, location: { name: 'Howell Woods Environmental Learning Center', lat: 35.2414, lng: -78.2239, address: '660 Lectures Loop, Four Oaks, NC' } },
-    { name: 'Play disc golf at a Johnston County park', description: 'Throw a round of disc golf at local courses in Clayton or Smithfield.', goalCount: 8, location: { name: 'Smithfield Community Park', lat: 35.5086, lng: -78.3457, address: '600 E Market St, Smithfield, NC' } },
+    { name: 'Walk Sam\'s Branch Greenway in Clayton', description: 'Enjoy this paved trail through woods and along the creek in Clayton.', goalCount: 8, location: { name: "Sam's Branch Greenway", lat: 35.6532, lng: -78.4781, address: 'Pollen Street, Clayton, NC' } },
+    { name: 'Play disc golf at East Clayton Community Park', description: 'Throw a round at the disc golf course in East Clayton.', goalCount: 8, location: { name: 'East Clayton Community Park', lat: 35.6700, lng: -78.4000, address: '1358 Amelia Church Rd, Clayton, NC' } },
     { name: 'Walk the Mountains to Sea Trail segment', description: 'Hike a portion of the MST that passes through Johnston County.', goalCount: 5, location: { name: 'Mountains to Sea Trail - Johnston County', lat: 35.6476, lng: -78.4564, address: 'Clayton, NC' } },
   ],
   t5: [

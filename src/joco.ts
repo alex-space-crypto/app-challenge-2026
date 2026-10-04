@@ -71,6 +71,9 @@ export const LOCAL_PLACES: LocalPlace[] = [
   { name: 'Johnston County Animal Shelter', type: 'Service', blurb: 'Walk dogs, socialize cats, or help with adoptions near Smithfield.', url: 'https://www.johnstonnc.gov/content.cfm?id=102' },
   { name: 'Johnston County Convenience Center', type: 'Recycling', blurb: 'Drop off recyclables on Landfill Rd, Smithfield.', url: 'https://www.johnstonnc.gov/solidwaste/content.cfm?pageid=8' },
   { name: 'Smithfield Farmers Market', type: 'Market', blurb: 'Fresh local produce and goods in downtown Smithfield.', url: 'https://www.johnstoncountync.org/farm-markets-and-stands' },
+  { name: "Sam's Branch Greenway", type: 'Trail', blurb: 'Paved trail through woods and along the creek in Clayton.', url: 'https://www.townofclaytonnc.org/parksrec/' },
+  { name: 'East Clayton Community Park', type: 'Park', blurb: 'Disc golf, playground, and sports fields in Clayton.', url: 'https://www.townofclaytonnc.org/parksrec/' },
+  { name: 'Clayton Farm & Community Market', type: 'Market', blurb: 'Local produce, crafts, and food trucks in downtown Clayton.', url: 'https://www.localharvest.org/clayton-farm-and-community-market-M34957' },
 ];
 
 export interface CommunityResource {

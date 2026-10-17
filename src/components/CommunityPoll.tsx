@@ -94,7 +94,15 @@ export function CommunityPoll() {
           <span className="joco-update-icon">🗳️</span>
           <span className="joco-poll-title">Community Poll</span>
         </div>
-        <p className="joco-poll-question">{POLL_QUESTION}</p>
+        <a
+          className="joco-poll-question"
+          href="/Johnston-20261103-SAMPLE-E-0001_B.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Open the sample ballot PDF"
+        >
+          {POLL_QUESTION}
+        </a>
 
         <div className="joco-poll-buttons">
           <button

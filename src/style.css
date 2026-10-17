@@ -1620,9 +1620,17 @@ body {
 .joco-poll-question {
   font-size: 0.82rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--accent-light);
   line-height: 1.4;
   margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  transition: color 0.15s, text-decoration 0.15s;
+}
+.joco-poll-question:hover {
+  color: var(--accent);
+  text-decoration: underline;
 }
 .joco-poll-buttons {
   display: flex;

@@ -4,11 +4,13 @@ import { calcStreak, totalGoalHits, totalVerifiedLogs, verifiedLogCount, verifie
 import {
   loadHabits, saveHabits, loadBadges, saveBadges,
   loadTopics, saveTopics, loadPosts, savePosts, loadProfile, saveProfile,
-  loadCollection, saveCollection,
+  loadCollection, saveCollection, loadBeasts, saveBeasts,
 } from './storage';
 import type { CollectibleAnimal, CollectedAnimal } from './collectibles';
 import { rollAnimal, isAlreadyCollected } from './collectibles';
 import { RewardPopup, CollectionViewer } from './components/RewardPopup';
+import type { BeastTier, CollectedBeast } from './beasts';
+import { BeastEggPopup, BeastCollectionViewer } from './components/BeastEggPopup';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 import TrackerTab from './components/TrackerTab';
@@ -57,6 +59,9 @@ export default function App() {
   const [collection, setCollection] = React.useState<CollectedAnimal[]>(() => loadCollection());
   const [rewardPopup, setRewardPopup] = React.useState<{ animal: CollectibleAnimal; isNew: boolean; habitName: string } | null>(null);
   const [showCollection, setShowCollection] = React.useState(false);
+  const [beasts, setBeasts] = React.useState<CollectedBeast[]>(() => loadBeasts());
+  const [beastEggPopup, setBeastEggPopup] = React.useState<{ source: string } | null>(null);
+  const [showBeastCollection, setShowBeastCollection] = React.useState(false);
 
   React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
@@ -93,6 +98,7 @@ export default function App() {
   React.useEffect(() => { savePosts(posts); }, [posts]);
   React.useEffect(() => { saveProfile(profile); }, [profile]);
   React.useEffect(() => { saveCollection(collection); }, [collection]);
+  React.useEffect(() => { saveBeasts(beasts); }, [beasts]);
 
   const totalLogs = totalVerifiedLogs(habits);
   const level = Math.floor(totalLogs / 5) + 1;
@@ -153,6 +159,7 @@ export default function App() {
         showToast(`Goal complete! You did "${h.name}" ${h.goalCount} times!`);
         setConfetti(true);
         setTimeout(() => setConfetti(false), 2500);
+        setTimeout(() => setBeastEggPopup({ source: `Goal: ${h.name}` }), 800);
       }
       return { ...h, logs: newLogs };
     }));
@@ -191,6 +198,7 @@ export default function App() {
     showToast(`Badge "${name}" created and earned!`);
     setConfetti(true);
     setTimeout(() => setConfetti(false), 2500);
+    setTimeout(() => setBeastEggPopup({ source: `Badge: ${name}` }), 800);
   };
 
   const deleteBadge = (id: string) => setBadges(prev => prev.filter(b => b.id !== id));
@@ -259,6 +267,10 @@ export default function App() {
             <button className="collection-btn-header" onClick={() => setShowCollection(true)} title="View your animal collection">
               🦊 Collection
               <span className="collection-btn-count">{collection.length}</span>
+            </button>
+            <button className="beast-btn-header" onClick={() => setShowBeastCollection(true)} title="View your beast collection">
+              🐲 Beasts
+              <span className="beast-btn-count">{beasts.length}</span>
             </button>
             {authUser ? (
               <>
@@ -360,6 +372,7 @@ export default function App() {
               showToast(`Reward earned for "${badgeName}" — ${rewardTitle}!`);
               setConfetti(true);
               setTimeout(() => setConfetti(false), 2500);
+              setTimeout(() => setBeastEggPopup({ source: `Badge: ${badgeName}` }), 800);
             }}
           />
         )}
@@ -625,6 +638,26 @@ export default function App() {
         <CollectionViewer
           collected={collection}
           onClose={() => setShowCollection(false)}
+        />
+      )}
+
+      {beastEggPopup && (
+        <BeastEggPopup
+          source={beastEggPopup.source}
+          collectedBeasts={beasts}
+          onConfirm={(beastId, tier, isNew) => {
+            if (isNew) {
+              setBeasts(prev => [...prev, { beastId, tier, collectedAt: Date.now(), source: beastEggPopup!.source }]);
+            }
+            setBeastEggPopup(null);
+          }}
+        />
+      )}
+
+      {showBeastCollection && (
+        <BeastCollectionViewer
+          collected={beasts}
+          onClose={() => setShowBeastCollection(false)}
         />
       )}
     </div>

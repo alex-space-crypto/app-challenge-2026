@@ -61,3 +61,46 @@ export function playRewardSound(rarity: Rarity) {
 export function playClickSound() {
   playTone(800, 0.05, 0, 'square', 0.06);
 }
+
+export function playEggTapSound() {
+  const ctx = getCtx();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(400, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.2);
+}
+
+export function playBeastRevealSound(tierIndex: number) {
+  const baseFreq = 400 + tierIndex * 80;
+  playTone(baseFreq, 0.1, 0, 'sine', 0.12);
+  playTone(baseFreq * 1.5, 0.1, 0.06, 'sine', 0.12);
+  playTone(baseFreq * 2, 0.3, 0.12, 'sine', 0.14);
+  if (tierIndex >= 5) {
+    playTone(baseFreq * 3, 0.5, 0.18, 'sine', 0.1);
+    playTone(baseFreq * 4, 0.5, 0.18, 'sine', 0.06);
+  }
+}
+
+export function playEggCrackSound() {
+  const ctx = getCtx();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(200, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.15, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.25);
+}

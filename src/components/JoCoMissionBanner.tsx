@@ -1,3 +1,5 @@
+import { CommunityPoll } from './CommunityPoll';
+
 export function JoCoMissionBanner() {
   return (
     <div className="joco-mission-banner">
@@ -42,6 +44,7 @@ export function JoCoMissionBanner() {
               <span className="joco-update-text-inline">Congratulating the Johnston County Little League softball team in Archer Lodge!</span>
             </div>
           </li>
+          <CommunityPoll />
         </ul>
       </div>
     </div>

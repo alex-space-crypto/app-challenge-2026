@@ -1502,6 +1502,69 @@ body {
   margin: 0 auto 1.25rem;
   max-width: 780px;
 }
+
+/* ===== Weekly Updates Banner ===== */
+.joco-weekly-updates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.joco-weekly-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.joco-media-link {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  text-decoration: none;
+  text-align: center;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  margin: 0 auto;
+  align-self: center;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.1s;
+}
+.joco-media-link:hover {
+  border-color: var(--accent);
+  background: rgba(59,130,246,0.18);
+  transform: scale(1.03);
+}
+.joco-media-link:active { transform: scale(0.98); }
+.joco-updates-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.joco-update-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+}
+.joco-update-bullet {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.joco-update-text {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.45;
+  margin: 0;
+}
 .joco-mission-link {
   font-size: 0.78rem;
   font-weight: 700;

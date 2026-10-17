@@ -244,8 +244,9 @@ function CreaturePreview({
   const handleAction = (action: CreaturePreviewAction) => {
     setResponse(action.response);
     setReaction(action.reaction);
-    setEmojiClass(action.reaction);
-    setTimeout(() => setEmojiClass(''), 1500);
+    const slug = action.label.toLowerCase().replace(/[^a-z]/g, '');
+    setEmojiClass(`act-${slug}`);
+    setTimeout(() => setEmojiClass(''), 1700);
   };
 
   return (

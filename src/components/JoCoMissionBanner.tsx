@@ -11,15 +11,6 @@ export function JoCoMissionBanner() {
         >
           Weekly Updates from JoCo District 13
         </a>
-        <a
-          className="joco-media-link"
-          href="https://knott.house.gov/media"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Read the latest from Congressman Brad Knott"
-        >
-          Media | Congressman Brad Knott
-        </a>
         <ul className="joco-updates-list">
           <li className="joco-update-item">
             <span className="joco-update-bullet">Updates from Washington</span>

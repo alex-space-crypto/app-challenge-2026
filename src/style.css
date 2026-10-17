@@ -1611,11 +1611,13 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  flex-wrap: wrap;
 }
 .joco-poll-title {
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent-light);
+  white-space: nowrap;
 }
 .joco-poll-question {
   font-size: 0.82rem;
@@ -1625,7 +1627,7 @@ body {
   margin: 0;
   text-decoration: none;
   cursor: pointer;
-  display: block;
+  display: inline;
   transition: color 0.15s, text-decoration 0.15s;
 }
 .joco-poll-question:hover {

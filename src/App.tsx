@@ -4,7 +4,11 @@ import { calcStreak, totalGoalHits, totalVerifiedLogs, verifiedLogCount, verifie
 import {
   loadHabits, saveHabits, loadBadges, saveBadges,
   loadTopics, saveTopics, loadPosts, savePosts, loadProfile, saveProfile,
+  loadCollection, saveCollection,
 } from './storage';
+import type { CollectibleAnimal, CollectedAnimal } from './collectibles';
+import { rollAnimal, isAlreadyCollected } from './collectibles';
+import { RewardPopup, CollectionViewer } from './components/RewardPopup';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
 import TrackerTab from './components/TrackerTab';
@@ -50,6 +54,9 @@ export default function App() {
   const [statModal, setStatModal] = React.useState<'goals' | 'logs' | 'hits' | null>(null);
   const [showLogin, setShowLogin] = React.useState(false);
   const [showPrivacy, setShowPrivacy] = React.useState(false);
+  const [collection, setCollection] = React.useState<CollectedAnimal[]>(() => loadCollection());
+  const [rewardPopup, setRewardPopup] = React.useState<{ animal: CollectibleAnimal; isNew: boolean; habitName: string } | null>(null);
+  const [showCollection, setShowCollection] = React.useState(false);
 
   React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
@@ -85,6 +92,7 @@ export default function App() {
   React.useEffect(() => { saveTopics(topics); }, [topics]);
   React.useEffect(() => { savePosts(posts); }, [posts]);
   React.useEffect(() => { saveProfile(profile); }, [profile]);
+  React.useEffect(() => { saveCollection(collection); }, [collection]);
 
   const totalLogs = totalVerifiedLogs(habits);
   const level = Math.floor(totalLogs / 5) + 1;
@@ -113,10 +121,14 @@ export default function App() {
     const timeStr = logTime || new Date().toTimeString().slice(0, 5);
     const fullISO = new Date(`${dateStr}T${timeStr}:00`).toISOString();
     let leveledUp = false;
+    let loggedHabitName = '';
+    let actuallyLogged = false;
     const suspiciousLogs: string[] = [];
     setHabits(prev => prev.map(h => {
       if (h.id !== id) return h;
       if (h.logs.some(l => l.date === dateStr && l.verified)) return h;
+      loggedHabitName = h.name;
+      actuallyLogged = true;
       const recentSame = h.logs.filter(l =>
         l.verifiedBy.toLowerCase() === verifiedBy.trim().toLowerCase() &&
         Math.abs(new Date(l.verifiedAt).getTime() - new Date(fullISO).getTime()) < 120000
@@ -153,6 +165,16 @@ export default function App() {
         setConfetti(true);
         setTimeout(() => setConfetti(false), 2500);
       }, 200);
+    }
+    if (actuallyLogged) {
+      const animal = rollAnimal();
+      const isNew = !isAlreadyCollected(collection, animal.id);
+      if (isNew) {
+        setCollection(prev => [...prev, { animalId: animal.id, collectedAt: Date.now(), fromHabit: loggedHabitName }]);
+      }
+      setTimeout(() => {
+        setRewardPopup({ animal, isNew, habitName: loggedHabitName });
+      }, 500);
     }
   };
 
@@ -234,6 +256,10 @@ export default function App() {
             </button>
           </div>
           <div className="header-auth-row">
+            <button className="collection-btn-header" onClick={() => setShowCollection(true)} title="View your animal collection">
+              🦊 Collection
+              <span className="collection-btn-count">{collection.length}</span>
+            </button>
             {authUser ? (
               <>
                 <span className="header-user-name">{authUser.name || authUser.email || 'Neighbor'}</span>
@@ -584,6 +610,22 @@ export default function App() {
             <LoginScreen embedded />
           </div>
         </div>
+      )}
+
+      {rewardPopup && (
+        <RewardPopup
+          animal={rewardPopup.animal}
+          isNew={rewardPopup.isNew}
+          habitName={rewardPopup.habitName}
+          onCollect={() => setRewardPopup(null)}
+        />
+      )}
+
+      {showCollection && (
+        <CollectionViewer
+          collected={collection}
+          onClose={() => setShowCollection(false)}
+        />
       )}
     </div>
   );

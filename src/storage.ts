@@ -1,10 +1,12 @@
 import type { Habit, HabitLog, Badge, Topic, CommunityPost, Profile } from './types';
+import type { CollectedAnimal } from './collectibles';
 
 const HABITS_KEY = 'joco-habits-v2';
 const BADGES_KEY = 'joco-badges-v1';
 const TOPICS_KEY = 'joco-topics-v1';
 const POSTS_KEY = 'joco-posts-v1';
 const PROFILE_KEY = 'joco-profile-v1';
+const COLLECTION_KEY = 'joco-collection-v1';
 
 function migrateLog(log: HabitLog | string): HabitLog {
   if (typeof log === 'string') {
@@ -69,6 +71,15 @@ export function loadProfile(): Profile {
   } catch { return { name: '' }; }
 }
 export function saveProfile(p: Profile) { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); }
+
+export function loadCollection(): CollectedAnimal[] {
+  try {
+    const raw = localStorage.getItem(COLLECTION_KEY);
+    if (!raw) return [];
+    return JSON.parse(raw);
+  } catch { return []; }
+}
+export function saveCollection(c: CollectedAnimal[]) { localStorage.setItem(COLLECTION_KEY, JSON.stringify(c)); }
 
 function getDefaultHabits(): Habit[] {
   const today = new Date();

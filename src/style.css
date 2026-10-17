@@ -2838,3 +2838,214 @@ body {
   font-size: 0.82rem; color: var(--text-dim); line-height: 1.55; margin-bottom: 0.3rem;
 }
 .privacy-policy-content h4:first-child { margin-top: 0; }
+
+/* ===== Reward Popup ===== */
+.reward-popup-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex; align-items: center; justify-content: center;
+  animation: rewardOverlayIn 0.3s ease;
+}
+@keyframes rewardOverlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+.reward-popup-card {
+  position: relative;
+  background: linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+  border: 2px solid var(--rarity-color, var(--accent));
+  border-radius: 24px;
+  padding: 2rem 2.5rem 1.5rem;
+  max-width: 360px; width: 90%;
+  text-align: center;
+  box-shadow: 0 0 40px var(--rarity-glow, var(--accent-soft)), 0 20px 60px rgba(0,0,0,0.5);
+  animation: rewardCardIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+@keyframes rewardCardIn {
+  from { transform: scale(0.5) translateY(30px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.reward-popup-light-beam {
+  position: absolute; top: -60%; left: 50%;
+  width: 300%; height: 200%;
+  transform: translateX(-50%) rotate(0deg);
+  opacity: 0; pointer-events: none;
+  background: radial-gradient(ellipse 30% 40% at center, var(--rarity-glow, transparent) 0%, transparent 70%);
+  transition: opacity 0.6s;
+}
+.reward-popup-light-beam.active {
+  opacity: 1;
+  animation: rewardBeamSpin 4s linear infinite;
+}
+@keyframes rewardBeamSpin {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+.reward-popup-header { margin-bottom: 0.5rem; }
+.reward-popup-badge {
+  display: inline-block;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--accent-light);
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.3rem 1rem; border-radius: 20px;
+}
+
+.reward-egg {
+  font-size: 5rem; line-height: 1;
+  margin: 1rem 0 0.5rem;
+  filter: drop-shadow(0 0 20px var(--rarity-color, var(--accent)));
+  transition: transform 0.3s;
+}
+.reward-egg.hatched {
+  animation: rewardHatch 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes rewardHatch {
+  0% { transform: scale(0.3) rotate(-15deg); }
+  50% { transform: scale(1.3) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.reward-egg-shape { display: inline-block; animation: rewardEggShake 0.3s ease-in-out infinite alternate; }
+@keyframes rewardEggShake {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(8deg); }
+}
+.reward-emoji { display: inline-block; animation: rewardEmojiBounce 1.2s ease-in-out infinite; }
+@keyframes rewardEmojiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.reward-popup-info {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  animation: rewardInfoIn 0.4s ease 0.2s both;
+}
+@keyframes rewardInfoIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.reward-animal-name {
+  font-size: 1.4rem; font-weight: 700; color: var(--text);
+}
+.reward-rarity-tag {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  border: 1px solid; border-radius: 12px; padding: 0.15rem 0.7rem;
+}
+.reward-new-badge {
+  background: var(--success); color: #fff;
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+  padding: 0.2rem 0.6rem; border-radius: 10px;
+  animation: rewardNewPulse 0.8s ease-in-out infinite alternate;
+}
+@keyframes rewardNewPulse { from { transform: scale(1); } to { transform: scale(1.08); } }
+.reward-dup-badge {
+  color: var(--text-muted); font-size: 0.72rem; font-style: italic;
+}
+.reward-animal-fact {
+  font-size: 0.82rem; color: var(--text-dim); line-height: 1.5;
+  margin: 0.3rem 0; max-width: 280px;
+}
+.reward-animal-habitat {
+  font-size: 0.72rem; color: var(--text-muted);
+}
+.reward-from-habit {
+  font-size: 0.72rem; color: var(--text-muted); font-style: italic;
+}
+.reward-collect-btn {
+  margin-top: 0.8rem;
+  background: var(--rarity-color, var(--accent));
+  color: var(--bg-deep);
+  border: none; border-radius: 12px;
+  padding: 0.7rem 2rem; font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 20px var(--rarity-glow, var(--accent-soft));
+}
+.reward-collect-btn:hover { transform: scale(1.05); box-shadow: 0 6px 30px var(--rarity-glow, var(--accent-soft)); }
+.reward-collect-btn:active { transform: scale(0.97); }
+
+/* ===== Collection Viewer ===== */
+.collection-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  animation: rewardOverlayIn 0.3s ease;
+}
+.collection-modal {
+  background: linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 1.5rem;
+  max-width: 560px; width: 92%; max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+.collection-close {
+  position: absolute; top: 0.8rem; right: 0.8rem;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 1rem; cursor: pointer; padding: 0.3rem 0.5rem;
+  border-radius: 8px; transition: background 0.15s, color 0.15s;
+}
+.collection-close:hover { background: var(--bg-card-hover); color: var(--text); }
+
+.collection-header { text-align: center; margin-bottom: 1.2rem; }
+.collection-title { font-size: 1.4rem; color: var(--text); }
+.collection-subtitle { font-size: 0.85rem; color: var(--text-dim); margin-top: 0.2rem; }
+.collection-progress-bar {
+  height: 8px; background: var(--bg-input); border-radius: 4px;
+  margin-top: 0.6rem; overflow: hidden;
+}
+.collection-progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 4px; transition: width 0.5s ease;
+}
+
+.collection-list { display: flex; flex-direction: column; gap: 1rem; }
+.collection-rarity-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.collection-rarity-label {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.collection-animal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.5rem;
+}
+.collection-animal-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+  padding: 0.6rem 0.4rem; border-radius: 12px; text-align: center;
+  transition: transform 0.15s;
+}
+.collection-animal-card.collected {
+  background: var(--bg-card);
+  border: 1px solid var(--rarity-color, var(--border));
+  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+}
+.collection-animal-card.collected:hover { transform: scale(1.05); }
+.collection-animal-card.locked {
+  background: rgba(6, 16, 40, 0.5);
+  border: 1px solid var(--border);
+  opacity: 0.5;
+}
+.collection-animal-emoji { font-size: 2rem; line-height: 1; }
+.collection-animal-card.locked .collection-animal-emoji { filter: grayscale(1); }
+.collection-animal-name { font-size: 0.68rem; color: var(--text-dim); line-height: 1.2; }
+.collection-animal-date { font-size: 0.6rem; color: var(--text-muted); }
+
+/* ===== Collection Button in Header ===== */
+.collection-btn-header {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--accent-light);
+  font-size: 0.8rem; font-weight: 600;
+  padding: 0.35rem 0.7rem; border-radius: 20px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+.collection-btn-header:hover {
+  border-color: var(--accent); background: rgba(59,130,246,0.22); transform: scale(1.04);
+}
+.collection-btn-header:active { transform: scale(0.97); }
+.collection-btn-header .collection-btn-count {
+  background: var(--accent); color: #fff;
+  font-size: 0.65rem; font-weight: 800;
+  padding: 0.1rem 0.35rem; border-radius: 10px; min-width: 1.1rem; text-align: center;
+}

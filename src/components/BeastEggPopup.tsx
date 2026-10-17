@@ -1,7 +1,8 @@
 import * as React from 'react';
-import type { BeastTier, CollectedBeast } from '../beasts';
+import type { BeastTier, CollectedBeast, Beast } from '../beasts';
 import { BEAST_TIER_INFO, TIER_ORDER, getBeastForTier, BEASTS, isBeastCollected } from '../beasts';
 import { playEggTapSound, playBeastRevealSound, playEggCrackSound, playClickSound } from '../sounds';
+import { BeastInteractionModal } from './CreatureInteraction';
 
 interface BeastEggPopupProps {
   source: string;
@@ -166,6 +167,7 @@ export function BeastCollectionViewer({ collected, onClose }: BeastCollectionVie
     tier,
     beasts: BEASTS.filter(b => b.tier === tier),
   }));
+  const [selectedBeast, setSelectedBeast] = React.useState<Beast | null>(null);
 
   const totalCollected = collected.length;
   const totalPossible = BEASTS.length;
@@ -201,12 +203,15 @@ export function BeastCollectionViewer({ collected, onClose }: BeastCollectionVie
                         key={beast.id}
                         className={`beast-collection-card ${isCollected ? 'collected' : 'locked'}`}
                         style={isCollected ? { '--tier-color': BEAST_TIER_INFO[beast.tier].color } as React.CSSProperties : undefined}
+                        onClick={isCollected ? () => { playClickSound(); setSelectedBeast(beast); } : undefined}
+                        role={isCollected ? 'button' : undefined}
                       >
                         <span className="beast-collection-emoji">{isCollected ? beast.emoji : '❓'}</span>
                         <span className="beast-collection-name">{isCollected ? beast.name : '???'}</span>
                         {isCollected && beast.power && (
                           <span className="beast-collection-power">{beast.power}</span>
                         )}
+                        {isCollected && <span className="beast-interact-hint">Tap to interact</span>}
                         {isCollected && instance && (
                           <span className="beast-collection-date">
                             {new Date(instance.collectedAt).toLocaleDateString()}
@@ -221,6 +226,10 @@ export function BeastCollectionViewer({ collected, onClose }: BeastCollectionVie
           })}
         </div>
       </div>
+
+      {selectedBeast && (
+        <BeastInteractionModal beast={selectedBeast} onClose={() => setSelectedBeast(null)} />
+      )}
     </div>
   );
 }

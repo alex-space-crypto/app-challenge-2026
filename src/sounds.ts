@@ -104,3 +104,36 @@ export function playEggCrackSound() {
   osc.start();
   osc.stop(ctx.currentTime + 0.25);
 }
+
+export function playInteractionSound(reaction: string) {
+  switch (reaction) {
+    case 'happy':
+      playTone(523, 0.08, 0, 'sine', 0.1);
+      playTone(659, 0.08, 0.05, 'sine', 0.1);
+      playTone(784, 0.15, 0.1, 'sine', 0.1);
+      break;
+    case 'excited':
+      playTone(523, 0.06, 0, 'triangle', 0.12);
+      playTone(659, 0.06, 0.04, 'triangle', 0.12);
+      playTone(784, 0.06, 0.08, 'triangle', 0.12);
+      playTone(1047, 0.2, 0.12, 'triangle', 0.12);
+      break;
+    case 'bounce':
+      playTone(400, 0.05, 0, 'sine', 0.1);
+      playTone(600, 0.05, 0.06, 'sine', 0.1);
+      playTone(800, 0.05, 0.12, 'sine', 0.1);
+      playTone(1000, 0.15, 0.18, 'sine', 0.12);
+      break;
+    case 'power':
+      playTone(330, 0.12, 0, 'sawtooth', 0.1);
+      playTone(440, 0.12, 0.08, 'sawtooth', 0.1);
+      playTone(550, 0.12, 0.16, 'sawtooth', 0.1);
+      playTone(660, 0.3, 0.24, 'sine', 0.14);
+      playTone(880, 0.3, 0.24, 'sine', 0.08);
+      break;
+    case 'calm':
+      playTone(440, 0.4, 0, 'sine', 0.08);
+      playTone(523, 0.4, 0.1, 'sine', 0.06);
+      break;
+  }
+}

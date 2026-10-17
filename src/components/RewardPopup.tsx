@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { CollectibleAnimal, CollectedAnimal } from '../collectibles';
 import { RARITY_INFO, getAnimalById, ANIMALS } from '../collectibles';
 import { playRewardSound, playClickSound } from '../sounds';
+import { AnimalInteractionModal } from './CreatureInteraction';
 
 interface RewardPopupProps {
   animal: CollectibleAnimal;
@@ -71,6 +72,7 @@ interface CollectionViewerProps {
 
 export function CollectionViewer({ collected, onClose }: CollectionViewerProps) {
   const collectedIds = new Set(collected.map(c => c.animalId));
+  const [selectedAnimal, setSelectedAnimal] = React.useState<CollectibleAnimal | null>(null);
   const grouped = (['legendary', 'epic', 'rare', 'common'] as const).map(rarity => ({
     rarity,
     animals: ANIMALS.filter(a => a.rarity === rarity),
@@ -107,9 +109,12 @@ export function CollectionViewer({ collected, onClose }: CollectionViewerProps) 
                       key={animal.id}
                       className={`collection-animal-card ${isCollected ? 'collected' : 'locked'}`}
                       style={isCollected ? { '--rarity-color': RARITY_INFO[animal.rarity].color } as React.CSSProperties : undefined}
+                      onClick={isCollected ? () => { playClickSound(); setSelectedAnimal(animal); } : undefined}
+                      role={isCollected ? 'button' : undefined}
                     >
                       <span className="collection-animal-emoji">{isCollected ? animal.emoji : '❓'}</span>
                       <span className="collection-animal-name">{isCollected ? animal.name : '???'}</span>
+                      {isCollected && <span className="collection-interact-hint">Tap to interact</span>}
                       {isCollected && instance && (
                         <span className="collection-animal-date">
                           {new Date(instance.collectedAt).toLocaleDateString()}
@@ -123,6 +128,10 @@ export function CollectionViewer({ collected, onClose }: CollectionViewerProps) 
           ))}
         </div>
       </div>
+
+      {selectedAnimal && (
+        <AnimalInteractionModal animal={selectedAnimal} onClose={() => setSelectedAnimal(null)} />
+      )}
     </div>
   );
 }

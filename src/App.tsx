@@ -30,6 +30,7 @@ const LEVEL_ICONS = ['🌱', '🌿', '⛏️', '🔨', '⚡', '🌟', '🏆', '�
 
 export default function App() {
   const [authUser, setAuthUser] = React.useState<AuthUser | null>(null);
+  const [authReady, setAuthReady] = React.useState(false);
   const [habits, setHabits] = React.useState<Habit[]>(() => loadHabits());
   const [badges, setBadges] = React.useState<Badge[]>(() => loadBadges());
   const [topics, setTopics] = React.useState<Topic[]>(() => loadTopics());
@@ -54,6 +55,7 @@ export default function App() {
 
   React.useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
+      setAuthReady(true);
       if (!user) {
         setAuthUser(null);
         return;
@@ -237,9 +239,9 @@ export default function App() {
                 <span className="header-user-name">{authUser.name || authUser.email || 'Neighbor'}</span>
                 <button className="signout-btn" onClick={handleSignOut}>Sign out</button>
               </>
-            ) : (
+            ) : authReady ? (
               <button className="login-btn-header" onClick={() => setShowLogin(true)}>Log in</button>
-            )}
+            ) : null}
           </div>
           <p className="tagline">Rise together — build habits, reach goals, explore Johnston County and grow as a community.</p>
         </div>

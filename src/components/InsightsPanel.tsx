@@ -34,12 +34,25 @@ export default function InsightsPanel({ habits, level }: Props) {
   const completedGoals = habits.filter(h => verifiedLogCount(h) >= h.goalCount).length;
   const bestStreak = habits.reduce((max, h) => Math.max(max, calcStreak(h)), 0);
 
-  // Heatmap data: last 12 weeks (84 days)
-  const heatmapDays = getLastNDays(84);
   const logCountByDate = new Map<string, number>();
   for (const log of allLogs) {
     logCountByDate.set(log.date, (logCountByDate.get(log.date) || 0) + 1);
   }
+
+  // Heatmap data: current month as a calendar grid
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const firstOfMonth = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthName = today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const leadBlanks = firstOfMonth.getDay();
+  const monthDates: { date: string; day: number }[] = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = new Date(year, month, d).toISOString().slice(0, 10);
+    monthDates.push({ date: ds, day: d });
+  }
+  const monthTotal = monthDates.reduce((s, d) => s + (logCountByDate.get(d.date) || 0), 0);
 
   // Weekly bars: last 8 weeks
   const weeklyData: { weekLabel: string; count: number }[] = [];
@@ -110,23 +123,36 @@ export default function InsightsPanel({ habits, level }: Props) {
         <p className="empty-state">No verified logs yet. Log a goal to start seeing your insights here!</p>
       ) : (
         <>
-          {/* Heatmap */}
+          {/* Heatmap — current month calendar */}
           <div className="insights-section">
-            <h4 className="insights-section-title">Activity heatmap — last 12 weeks</h4>
-            <p className="insights-section-sub">Each square is a day. Greener = more goals logged.</p>
-            <div className="heatmap-grid">
-              {heatmapDays.map((day, i) => {
-                const count = logCountByDate.get(day) || 0;
-                const level = heatLevel(count);
-                return (
-                  <div
-                    key={i}
-                    className={`heatmap-cell ${isWeekend(day) ? 'weekend' : ''}`}
-                    style={{ background: heatColors[level] }}
-                    title={`${day}: ${count} log${count === 1 ? '' : 's'}`}
-                  />
-                );
-              })}
+            <h4 className="insights-section-title">Activity calendar — {monthName}</h4>
+            <p className="insights-section-sub">Each square is a day this month. {monthTotal} log{monthTotal === 1 ? '' : 's'} so far.</p>
+            <div className="heatmap-month">
+              <div className="heatmap-month-weekdays">
+              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
+                <span key={i} className="heatmap-weekday-label">{d}</span>
+              ))}
+              </div>
+              <div className="heatmap-month-grid">
+                {Array.from({ length: leadBlanks }).map((_, i) => (
+                  <div key={`blank-${i}`} className="heatmap-cell empty" />
+                ))}
+                {monthDates.map(({ date, day }) => {
+                  const count = logCountByDate.get(date) || 0;
+                  const level = heatLevel(count);
+                  const isFuture = new Date(date) > today;
+                  return (
+                    <div
+                      key={date}
+                      className={`heatmap-cell ${isWeekend(date) ? 'weekend' : ''} ${isFuture ? 'future' : ''}`}
+                      style={{ background: heatColors[level] }}
+                      title={`${date}: ${count} log${count === 1 ? '' : 's'}`}
+                    >
+                      <span className="heatmap-day-num">{day}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="heatmap-legend">
               <span className="heatmap-legend-label">Less</span>

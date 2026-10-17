@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { JOCO_MISSION, CORE_VALUES } from '../joco';
+import { ANIMALS, RARITY_INFO, type CollectibleAnimal, type AnimalInteraction } from '../collectibles';
+import { BEASTS, BEAST_TIER_INFO, type Beast, type BeastAbility } from '../beasts';
 
 interface Props {
   onClose: () => void;
   onPickPathway: () => void;
 }
 
-const STEPS = ['welcome', 'mission', 'how', 'levels', 'start'] as const;
+const STEPS = ['welcome', 'mission', 'how', 'levels', 'creatures', 'start'] as const;
 type Step = typeof STEPS[number];
 
 const LEVEL_ICONS = ['🌱', '🌿', '⛏️', '🔨', '⚡', '🌟', '🏆', '👑'];
@@ -14,6 +16,18 @@ const LEVEL_ICONS = ['🌱', '🌿', '⛏️', '🔨', '⚡', '🌟', '🏆', '�
 const LEVEL_TITLES = [
   'New Neighbor', 'Getting Started', 'Thrive Builder', 'Routine Maker',
   'Consistency Pro', 'Wellness Leader', 'District Champion', 'Community Pillar',
+];
+
+const SHOWCASE_ANIMALS: CollectibleAnimal[] = [
+  ANIMALS.find(a => a.id === 'cardinal')!,
+  ANIMALS.find(a => a.id === 'fox')!,
+  ANIMALS.find(a => a.id === 'dragon')!,
+];
+
+const SHOWCASE_BEASTS: Beast[] = [
+  BEASTS.find(b => b.id === 'mud-pup')!,
+  BEASTS.find(b => b.id === 'storm-hawk')!,
+  BEASTS.find(b => b.id === 'cosmic-leo')!,
 ];
 
 export default function WelcomeOverlay({ onClose, onPickPathway }: Props) {
@@ -144,6 +158,52 @@ export default function WelcomeOverlay({ onClose, onPickPathway }: Props) {
           </div>
         )}
 
+        {step === 'creatures' && (
+          <div className="welcome-step">
+            <div className="welcome-hero-emoji">🐾</div>
+            <h2>Collect & interact with creatures</h2>
+            <p className="welcome-body">
+              Every time you log a verified goal, you discover a creature. <strong>Pet, feed, and play</strong>
+              with each one for fun reactions.
+            </p>
+            <div className="welcome-creatures-section">
+              <span className="welcome-creatures-label">Animals of Johnston County</span>
+              <div className="welcome-creatures-row">
+                {SHOWCASE_ANIMALS.map(animal => (
+                  <CreaturePreview
+                    key={animal.id}
+                    emoji={animal.emoji}
+                    name={animal.name}
+                    rarityLabel={RARITY_INFO[animal.rarity].label}
+                    color={RARITY_INFO[animal.rarity].color}
+                    glow={RARITY_INFO[animal.rarity].glow}
+                    actions={animal.interactions}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="welcome-creatures-section">
+              <span className="welcome-creatures-label">Beasts with powers</span>
+              <div className="welcome-creatures-row">
+                {SHOWCASE_BEASTS.map(beast => (
+                  <CreaturePreview
+                    key={beast.id}
+                    emoji={beast.emoji}
+                    name={beast.name}
+                    rarityLabel={BEAST_TIER_INFO[beast.tier].label}
+                    color={BEAST_TIER_INFO[beast.tier].color}
+                    glow={BEAST_TIER_INFO[beast.tier].glow}
+                    actions={beast.abilities}
+                  />
+                ))}
+              </div>
+            </div>
+            <p className="welcome-body welcome-body-dim">
+              Tap any action button below a creature to see how they react!
+            </p>
+          </div>
+        )}
+
         {step === 'start' && (
           <div className="welcome-step">
             <div className="welcome-hero-emoji">🚀</div>
@@ -174,6 +234,76 @@ export default function WelcomeOverlay({ onClose, onPickPathway }: Props) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+interface CreaturePreviewAction {
+  label: string;
+  icon: string;
+  response: string;
+  reaction: string;
+}
+
+function CreaturePreview({
+  emoji,
+  name,
+  rarityLabel,
+  color,
+  glow,
+  actions,
+}: {
+  emoji: string;
+  name: string;
+  rarityLabel: string;
+  color: string;
+  glow: string;
+  actions: CreaturePreviewAction[];
+}) {
+  const [response, setResponse] = React.useState<string | null>(null);
+  const [reaction, setReaction] = React.useState('');
+  const [emojiClass, setEmojiClass] = React.useState('');
+
+  const handleAction = (action: CreaturePreviewAction) => {
+    setResponse(action.response);
+    setReaction(action.reaction);
+    setEmojiClass(action.reaction);
+    setTimeout(() => setEmojiClass(''), 1500);
+  };
+
+  return (
+    <div
+      className="welcome-creature-card"
+      style={{ '--creature-color': color, '--creature-glow': glow } as React.CSSProperties}
+    >
+      <span
+        className="welcome-creature-rarity"
+        style={{ color, borderColor: color }}
+      >
+        {rarityLabel}
+      </span>
+      <span className={`welcome-creature-emoji ${emojiClass}`} style={{ '--creature-color': color } as React.CSSProperties}>
+        {emoji}
+      </span>
+      <span className="welcome-creature-name">{name}</span>
+      <div className="welcome-creature-actions">
+        {actions.slice(0, 3).map(action => (
+          <button
+            key={action.label}
+            className="welcome-creature-action-btn"
+            style={{ borderColor: color }}
+            onClick={() => handleAction(action)}
+          >
+            <span className="welcome-creature-action-icon">{action.icon}</span>
+            <span className="welcome-creature-action-label">{action.label}</span>
+          </button>
+        ))}
+      </div>
+      {response && (
+        <div className={`welcome-creature-response ${reaction}`}>
+          <span>{response}</span>
+        </div>
+      )}
     </div>
   );
 }

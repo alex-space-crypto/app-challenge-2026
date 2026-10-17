@@ -3539,3 +3539,109 @@ body {
 .beast-collection-card.collected:hover .beast-interact-hint {
   opacity: 1;
 }
+
+/* ===== Welcome Overlay Creature Previews ===== */
+.welcome-creatures-section {
+  margin-top: 0.6rem;
+  text-align: left;
+}
+.welcome-creatures-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.welcome-creatures-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+}
+.welcome-creature-card {
+  flex-shrink: 0;
+  width: 130px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.55rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+}
+.welcome-creature-rarity {
+  font-size: 0.56rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 8px;
+  border: 1px solid;
+}
+.welcome-creature-emoji {
+  font-size: 2rem;
+  line-height: 1;
+  margin: 0.25rem 0;
+  filter: drop-shadow(0 0 8px var(--creature-glow));
+}
+.welcome-creature-emoji.happy { animation: creatureHappy 0.6s ease; }
+.welcome-creature-emoji.excited { animation: creatureExcited 0.8s ease; }
+.welcome-creature-emoji.bounce { animation: creatureBounce 0.8s ease; }
+.welcome-creature-emoji.power { animation: creaturePower 1s ease; }
+.welcome-creature-emoji.calm { animation: creatureCalm 1.5s ease; }
+.welcome-creature-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+.welcome-creature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: center;
+  margin-top: 0.25rem;
+}
+.welcome-creature-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  background: var(--bg-card);
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 0.25rem 0.35rem;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+  min-width: 36px;
+}
+.welcome-creature-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--creature-glow);
+}
+.welcome-creature-action-btn:active { transform: scale(0.95); }
+.welcome-creature-action-icon { font-size: 0.9rem; }
+.welcome-creature-action-label { font-size: 0.52rem; color: var(--text-dim); font-weight: 600; }
+.welcome-creature-response {
+  margin-top: 0.3rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  animation: creatureResponseIn 0.4s ease;
+  width: 100%;
+}
+.welcome-creature-response.happy { background: rgba(160,184,224,0.15); border: 1px solid rgba(160,184,224,0.3); }
+.welcome-creature-response.excited { background: rgba(240,169,59,0.15); border: 1px solid rgba(240,169,59,0.3); }
+.welcome-creature-response.bounce { background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.3); }
+.welcome-creature-response.power { background: rgba(255,215,0,0.15); border: 1px solid rgba(255,215,0,0.3); }
+.welcome-creature-response.calm { background: rgba(59,165,93,0.15); border: 1px solid rgba(59,165,93,0.3); }
+.welcome-creature-response span {
+  font-size: 0.6rem;
+  color: var(--text);
+  line-height: 1.35;
+}

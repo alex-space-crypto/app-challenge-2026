@@ -2,7 +2,15 @@ export function JoCoMissionBanner() {
   return (
     <div className="joco-mission-banner">
       <div className="joco-weekly-updates">
-        <h3 className="joco-weekly-title">Weekly Updates from JoCo District 13</h3>
+        <a
+          className="joco-weekly-title"
+          href="https://knott.house.gov/media"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Read the latest from Congressman Brad Knott"
+        >
+          Weekly Updates from JoCo District 13
+        </a>
         <a
           className="joco-media-link"
           href="https://knott.house.gov/media"

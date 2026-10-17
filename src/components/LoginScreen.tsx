@@ -1,14 +1,10 @@
 import * as React from 'react';
-import {
-  auth, googleProvider, appleProvider,
-} from '../firebase';
+import { auth } from '../firebase';
 import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
-  signInWithPopup, signOut,
 } from 'firebase/auth';
 
 type Mode = 'signin' | 'signup';
-type Provider = 'google' | 'apple';
 
 export default function LoginScreen({ embedded = false }: { embedded?: boolean } = {}) {
   const [mode, setMode] = React.useState<Mode>('signin');
@@ -32,9 +28,6 @@ export default function LoginScreen({ embedded = false }: { embedded?: boolean }
         'auth/wrong-password': 'Incorrect password. Please try again.',
         'auth/invalid-credential': 'Email or password is incorrect. Please try again.',
         'auth/network-request-failed': 'Network error — check your internet connection and try again.',
-        'auth/popup-blocked': 'The sign-in popup was blocked by your browser. Please allow popups for this site.',
-        'auth/popup-closed-by-user': 'The sign-in popup was closed before completing. Please try again.',
-        'auth/operation-not-supported-in-this-environment': 'This sign-in method is not available in this environment.',
         'auth/unauthorized-domain': 'This domain is not authorized in the Firebase console. The app owner needs to add it under Authentication → Settings → Authorized domains.',
       };
       return map[code] ?? `Sign-in failed (${code}).`;
@@ -67,59 +60,12 @@ export default function LoginScreen({ embedded = false }: { embedded?: boolean }
     }
   };
 
-  const handleProvider = async (provider: Provider) => {
-    clearError();
-    setLoading(true);
-    try {
-      if (provider === 'google') {
-        await signInWithPopup(auth, googleProvider);
-      } else {
-        await signInWithPopup(auth, appleProvider);
-      }
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : `${provider} sign-in failed.`;
-      setError(msg);
-      setLoading(false);
-    }
-  };
-
   return (
     <div className={embedded ? 'login-screen login-screen-embedded' : 'login-screen'}>
       <div className="login-card">
-        {embedded && (
-          <div className="login-header">
-            <h1 className="login-title">Welcome back</h1>
-            <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
-          </div>
-        )}
-        {!embedded && (
-          <div className="login-header">
-            <h1 className="login-title">Thrive JoCo 13</h1>
-            <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
-          </div>
-        )}
-
-        <div className="login-providers">
-          <button
-            className="login-provider-btn"
-            onClick={() => handleProvider('google')}
-            disabled={loading}
-          >
-            <span className="login-provider-icon">G</span>
-            <span>Continue with Google</span>
-          </button>
-          <button
-            className="login-provider-btn login-provider-apple"
-            onClick={() => handleProvider('apple')}
-            disabled={loading}
-          >
-            <span className="login-provider-icon"></span>
-            <span>Continue with Apple</span>
-          </button>
-        </div>
-
-        <div className="login-divider">
-          <span>or</span>
+        <div className="login-header">
+          <h1 className="login-title">{embedded ? 'Welcome back' : 'Thrive JoCo 13'}</h1>
+          <p className="login-subtitle">Sign in to track goals, earn badges, and build habits with your community.</p>
         </div>
 
         <form className="login-form" onSubmit={handleEmailAuth}>

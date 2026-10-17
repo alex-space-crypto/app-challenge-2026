@@ -13,8 +13,19 @@ export function JoCoMissionBanner() {
         </a>
         <ul className="joco-updates-list">
           <li className="joco-update-item">
-            <span className="joco-update-bullet">Updates from Washington</span>
-            <p className="joco-update-text">Signed Vice President's pledge to protect Americans from fraud.</p>
+            <div className="joco-update-row">
+              <span className="joco-update-icon">🏛️</span>
+              <a
+                className="joco-update-bullet-link"
+                href="https://x.com/RepKnott/status/2110788709666922591"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Read the full post on X"
+              >
+                Updates from Washington
+              </a>
+              <span className="joco-update-text-inline">Signed Vice President's pledge to protect Americans from fraud.</span>
+            </div>
           </li>
           <li className="joco-update-item">
             <span className="joco-update-bullet">Celebrating Johnston County</span>

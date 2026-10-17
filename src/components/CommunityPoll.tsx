@@ -95,10 +95,10 @@ export function CommunityPoll() {
           <span className="joco-poll-title">Community Poll</span>
           <a
             className="joco-poll-question"
-            href="/Johnston-20261103-SAMPLE-E-0001_B.pdf"
+            href="https://www.johnstonnc.gov/joconcelections/content.cfm?pageid=220"
             target="_blank"
             rel="noopener noreferrer"
-            title="Open the sample ballot PDF"
+            title="Sample Ballots for November 3, 2026 General Election | Johnston County Board of Elections"
           >
             {POLL_QUESTION}
           </a>

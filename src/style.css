@@ -3541,29 +3541,14 @@ body {
 }
 
 /* ===== Welcome Overlay Creature Previews ===== */
-.welcome-creatures-section {
-  margin-top: 0.6rem;
-  text-align: left;
-}
-.welcome-creatures-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  display: block;
-  margin-bottom: 0.35rem;
-}
 .welcome-creatures-row {
   display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding-bottom: 0.35rem;
-  scrollbar-width: thin;
+  gap: 0.6rem;
+  margin: 0.6rem 0;
 }
 .welcome-creature-card {
-  flex-shrink: 0;
-  width: 130px;
+  flex: 1;
+  min-width: 0;
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: 12px;

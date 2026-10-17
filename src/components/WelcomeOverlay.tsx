@@ -18,17 +18,8 @@ const LEVEL_TITLES = [
   'Consistency Pro', 'Wellness Leader', 'District Champion', 'Community Pillar',
 ];
 
-const SHOWCASE_ANIMALS: CollectibleAnimal[] = [
-  ANIMALS.find(a => a.id === 'cardinal')!,
-  ANIMALS.find(a => a.id === 'fox')!,
-  ANIMALS.find(a => a.id === 'dragon')!,
-];
-
-const SHOWCASE_BEASTS: Beast[] = [
-  BEASTS.find(b => b.id === 'mud-pup')!,
-  BEASTS.find(b => b.id === 'storm-hawk')!,
-  BEASTS.find(b => b.id === 'cosmic-leo')!,
-];
+const SHOWCASE_ANIMAL: CollectibleAnimal = ANIMALS.find(a => a.id === 'cardinal')!;
+const SHOWCASE_BEAST: Beast = BEASTS.find(b => b.id === 'mud-pup')!;
 
 export default function WelcomeOverlay({ onClose, onPickPathway }: Props) {
   const [step, setStep] = React.useState<Step>('welcome');
@@ -166,40 +157,26 @@ export default function WelcomeOverlay({ onClose, onPickPathway }: Props) {
               Every time you log a verified goal, you discover a creature. <strong>Pet, feed, and play</strong>
               with each one for fun reactions.
             </p>
-            <div className="welcome-creatures-section">
-              <span className="welcome-creatures-label">Animals of Johnston County</span>
-              <div className="welcome-creatures-row">
-                {SHOWCASE_ANIMALS.map(animal => (
-                  <CreaturePreview
-                    key={animal.id}
-                    emoji={animal.emoji}
-                    name={animal.name}
-                    rarityLabel={RARITY_INFO[animal.rarity].label}
-                    color={RARITY_INFO[animal.rarity].color}
-                    glow={RARITY_INFO[animal.rarity].glow}
-                    actions={animal.interactions}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="welcome-creatures-section">
-              <span className="welcome-creatures-label">Beasts with powers</span>
-              <div className="welcome-creatures-row">
-                {SHOWCASE_BEASTS.map(beast => (
-                  <CreaturePreview
-                    key={beast.id}
-                    emoji={beast.emoji}
-                    name={beast.name}
-                    rarityLabel={BEAST_TIER_INFO[beast.tier].label}
-                    color={BEAST_TIER_INFO[beast.tier].color}
-                    glow={BEAST_TIER_INFO[beast.tier].glow}
-                    actions={beast.abilities}
-                  />
-                ))}
-              </div>
+            <div className="welcome-creatures-row">
+              <CreaturePreview
+                emoji={SHOWCASE_ANIMAL.emoji}
+                name={SHOWCASE_ANIMAL.name}
+                rarityLabel={`${RARITY_INFO[SHOWCASE_ANIMAL.rarity].label} Animal`}
+                color={RARITY_INFO[SHOWCASE_ANIMAL.rarity].color}
+                glow={RARITY_INFO[SHOWCASE_ANIMAL.rarity].glow}
+                actions={SHOWCASE_ANIMAL.interactions}
+              />
+              <CreaturePreview
+                emoji={SHOWCASE_BEAST.emoji}
+                name={SHOWCASE_BEAST.name}
+                rarityLabel={`${BEAST_TIER_INFO[SHOWCASE_BEAST.tier].label} Beast`}
+                color={BEAST_TIER_INFO[SHOWCASE_BEAST.tier].color}
+                glow={BEAST_TIER_INFO[SHOWCASE_BEAST.tier].glow}
+                actions={SHOWCASE_BEAST.abilities}
+              />
             </div>
             <p className="welcome-body welcome-body-dim">
-              Tap any action button below a creature to see how they react!
+              Tap any action button to see how they react! You'll collect many more as you go.
             </p>
           </div>
         )}

@@ -3591,6 +3591,14 @@ body {
   100% { transform: scale(1); filter: drop-shadow(0 0 25px var(--creature-color, var(--accent))) brightness(1); }
 }
 .creature-interaction-emoji.calm { animation: creatureCalm 1.5s ease; }
+
+/* Action-specific animations for the main creature popup */
+.creature-interaction-emoji.act-pet { animation: actPet 1s ease; }
+.creature-interaction-emoji.act-feed { animation: actFeed 1.2s ease; }
+.creature-interaction-emoji.act-call { animation: actCall 1s ease; }
+.creature-interaction-emoji.act-activate { animation: actActivate 1.2s ease; }
+.creature-interaction-emoji.act-play { animation: actPlay 1.1s ease; }
+.creature-interaction-emoji.act-cuddle { animation: actCuddle 1.6s ease; }
 @keyframes creatureCalm {
   0%, 100% { transform: scale(1) translateY(0); }
   50% { transform: scale(1.08) translateY(-5px); }

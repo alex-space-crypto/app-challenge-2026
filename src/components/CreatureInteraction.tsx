@@ -19,9 +19,10 @@ export function AnimalInteractionModal({ animal, onClose }: AnimalInteractionMod
   const handleInteract = (interaction: AnimalInteraction) => {
     setResponse(interaction.response);
     setReaction(interaction.reaction);
-    setEmojiClass(interaction.reaction);
+    const slug = interaction.label.toLowerCase().replace(/[^a-z]/g, '');
+    setEmojiClass(`act-${slug}`);
     playInteractionSound(interaction.reaction);
-    setTimeout(() => setEmojiClass(''), 1500);
+    setTimeout(() => setEmojiClass(''), 1700);
   };
 
   return (
@@ -83,9 +84,10 @@ export function BeastInteractionModal({ beast, onClose }: BeastInteractionModalP
   const handleAbility = (ability: BeastAbility) => {
     setResponse(ability.response);
     setReaction(ability.reaction);
-    setEmojiClass(ability.reaction);
+    const slug = ability.label.toLowerCase().replace(/[^a-z]/g, '');
+    setEmojiClass(`act-${slug}`);
     playInteractionSound(ability.reaction);
-    setTimeout(() => setEmojiClass(''), 1500);
+    setTimeout(() => setEmojiClass(''), 1700);
   };
 
   return (

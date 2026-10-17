@@ -28,8 +28,19 @@ export function JoCoMissionBanner() {
             </div>
           </li>
           <li className="joco-update-item">
-            <span className="joco-update-bullet">Celebrating Johnston County</span>
-            <p className="joco-update-text">Congratulating the Johnston County Little League softball team in Archer Lodge!</p>
+            <div className="joco-update-row">
+              <span className="joco-update-icon">🏟️</span>
+              <a
+                className="joco-update-bullet-link"
+                href="https://www.facebook.com/RepKnott/posts/it-was-my-honor-to-attend-the-archer-lodge-town-council-meeting-to-recognize-the/122181170612715800"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Read the full post on Facebook"
+              >
+                Celebrating Johnston County
+              </a>
+              <span className="joco-update-text-inline">Congratulating the Johnston County Little League softball team in Archer Lodge!</span>
+            </div>
           </li>
         </ul>
       </div>

@@ -37,7 +37,7 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
   const [showNameField, setShowNameField] = React.useState(!profile.name);
   const [showResources, setShowResources] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState<CommunityPost | null>(null);
-  const [showBannerPreview, setShowBannerPreview] = React.useState(true);
+  const [showBannerPreview, setShowBannerPreview] = React.useState(false);
 
   const SEED_POSTS: CommunityPost[] = React.useMemo(() => {
     const now = Date.now();

@@ -43,6 +43,7 @@ export default function CountyChallenge({ profileName }: Props) {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [expandedId, setExpandedId] = React.useState<string | null>(null);
+  const [contribFormId, setContribFormId] = React.useState<string | null>(null);
 
   // Contribution form state
   const [contribName, setContribName] = React.useState(profileName || '');
@@ -150,6 +151,7 @@ export default function CountyChallenge({ profileName }: Props) {
       setTimeout(() => setJustContributed(false), 2500);
       setNote('');
       setAmount('1');
+      setContribFormId(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not submit your contribution. Please try again.');
     } finally {
@@ -169,12 +171,13 @@ export default function CountyChallenge({ profileName }: Props) {
   const seededChallenge = challenges.find(c => c.source === 'seeded') || challenges[0] || null;
   const communityChallenges = challenges.filter(c => c !== seededChallenge);
 
-  const renderChallengeCard = (ch: CountyChallenge, alwaysExpanded: boolean) => {
+  const renderChallengeCard = (ch: CountyChallenge, alwaysExpanded: boolean, isMain: boolean) => {
     const chContribs = contributions.filter(c => c.challenge_id === ch.id);
     const totalContributed = chContribs.reduce((s, c) => s + c.amount, 0);
     const progressPct = Math.min(100, (totalContributed / ch.target_count) * 100);
     const isComplete = totalContributed >= ch.target_count;
     const isExpanded = alwaysExpanded || expandedId === ch.id;
+    const isContribFormOpen = contribFormId === ch.id;
 
     return (
       <div
@@ -219,47 +222,76 @@ export default function CountyChallenge({ profileName }: Props) {
 
             {error && <p className="county-challenge-error">{error}</p>}
 
-            <div className="county-challenge-form">
-              <div className="county-challenge-form-row">
-                <div className="county-challenge-field">
-                  <label className="field-label">Your name</label>
-                  <input
-                    className="text-input"
-                    placeholder="How you'll be credited"
-                    value={contribName}
-                    onChange={e => setContribName(e.target.value)}
-                  />
-                </div>
-                <div className="county-challenge-field county-challenge-field-amount">
-                  <label className="field-label">{ch.unit}</label>
-                  <input
-                    className="text-input"
-                    type="number"
-                    min="1"
-                    max="50"
-                    value={amount}
-                    onChange={e => setAmount(e.target.value)}
-                  />
-                </div>
-              </div>
-              <label className="field-label">What did you do? (optional)</label>
-              <input
-                className="text-input"
-                placeholder="e.g. Walked dogs at the Johnston County Animal Shelter"
-                value={note}
-                onChange={e => setNote(e.target.value)}
-                maxLength={120}
-              />
-              <div className="county-challenge-form-actions">
+            {/* Submit a Challenge button — only in the main card, next to the title */}
+            {isMain && !showChallengeForm && (
+              <div className="county-challenge-inline-actions">
                 <button
-                  className="btn-primary"
-                  disabled={submittingContrib || parseInt(amount) < 1}
-                  onClick={() => handleContribute(ch.id)}
+                  className="joco-challenge-submit-btn"
+                  onClick={() => setShowChallengeForm(true)}
                 >
-                  {submittingContrib ? 'Submitting…' : isComplete ? '➕ Log more anyway' : 'Add to county total'}
+                  <span className="joco-challenge-submit-icon">🎯</span>
+                  <span>Submit a Challenge</span>
                 </button>
               </div>
-            </div>
+            )}
+
+            {/* Submit Your Hours button — reveals the contribution form */}
+            {!isContribFormOpen ? (
+              <button
+                className="btn-primary county-challenge-cta"
+                onClick={() => setContribFormId(ch.id)}
+              >
+                {isComplete ? '➕ Log more hours anyway' : '📝 Submit Your Hours'}
+              </button>
+            ) : (
+              <div className="county-challenge-form">
+                <div className="county-challenge-form-row">
+                  <div className="county-challenge-field">
+                    <label className="field-label">Your name</label>
+                    <input
+                      className="text-input"
+                      placeholder="How you'll be credited"
+                      value={contribName}
+                      onChange={e => setContribName(e.target.value)}
+                    />
+                  </div>
+                  <div className="county-challenge-field county-challenge-field-amount">
+                    <label className="field-label">{ch.unit}</label>
+                    <input
+                      className="text-input"
+                      type="number"
+                      min="1"
+                      max="50"
+                      value={amount}
+                      onChange={e => setAmount(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <label className="field-label">What did you do? (optional)</label>
+                <input
+                  className="text-input"
+                  placeholder="e.g. Walked dogs at the Johnston County Animal Shelter"
+                  value={note}
+                  onChange={e => setNote(e.target.value)}
+                  maxLength={120}
+                />
+                <div className="county-challenge-form-actions">
+                  <button
+                    className="btn-primary"
+                    disabled={submittingContrib || parseInt(amount) < 1}
+                    onClick={() => handleContribute(ch.id)}
+                  >
+                    {submittingContrib ? 'Submitting…' : 'Add to county total'}
+                  </button>
+                  <button
+                    className="toggle-add county-challenge-cancel"
+                    onClick={() => { setContribFormId(null); setNote(''); setAmount('1'); }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
 
             {chContribs.length > 0 && (
               <div className="county-challenge-feed">
@@ -285,23 +317,8 @@ export default function CountyChallenge({ profileName }: Props) {
 
   return (
     <div className="county-challenge-section">
-      {/* Main challenge card with Submit button next to it */}
-      {seededChallenge && (
-        <div className="county-challenge-main-row">
-          <div className="county-challenge-main-card-wrapper">
-            {renderChallengeCard(seededChallenge, true)}
-          </div>
-          {!showChallengeForm && (
-            <button
-              className="joco-challenge-submit-btn"
-              onClick={() => setShowChallengeForm(true)}
-            >
-              <span className="joco-challenge-submit-icon">🎯</span>
-              <span>Submit a Challenge</span>
-            </button>
-          )}
-        </div>
-      )}
+      {/* Main challenge card (always expanded) */}
+      {seededChallenge && renderChallengeCard(seededChallenge, true, true)}
 
       {/* New challenge form */}
       {showChallengeForm && (
@@ -398,7 +415,7 @@ export default function CountyChallenge({ profileName }: Props) {
       )}
 
       {/* Community-submitted challenge cards */}
-      {communityChallenges.map(ch => renderChallengeCard(ch, false))}
+      {communityChallenges.map(ch => renderChallengeCard(ch, false, false))}
 
       {/* Empty state when no challenges exist at all */}
       {!seededChallenge && !showChallengeForm && (

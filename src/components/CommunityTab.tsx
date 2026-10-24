@@ -139,7 +139,7 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
           {sorted.length === 0 ? (
             <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
           ) : (
-            sorted.slice(0, 4).map(p => (
+            sorted.slice(0, 1).map(p => (
               <div
                 key={p.id}
                 className="banner-preview-card"

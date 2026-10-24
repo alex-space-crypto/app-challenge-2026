@@ -113,7 +113,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
         <span className="county-awards-icon">🏆</span>
         <div className="county-awards-title-area">
           <span className="county-awards-eyebrow">County Recognition · District 13</span>
-          <h3>Johnston County Month of Service &amp; Community Awards</h3>
+          <h3>Community Champions</h3>
           <p className="county-awards-subtitle">
             Know someone in Johnston County who goes above and beyond? Nominate them for a county award. From Month of Service to Community Hero — let's recognize the people who make our community thrive. It doesn't have to be a neighbor — it can be a police officer, a public servant, a teacher, a cashier, anyone who makes a difference.
           </p>
@@ -122,7 +122,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
 
       {!showForm ? (
         <button className="btn-primary county-awards-cta" onClick={() => setShowForm(true)}>
-          <span>🏅 Nominate a Community Member</span>
+          <span>⭐ Nominate a Champion</span>
         </button>
       ) : (
         <div className="county-awards-form">

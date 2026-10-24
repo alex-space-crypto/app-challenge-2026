@@ -54,15 +54,15 @@ This is bigger than getting healthy. This is a community thriving together."
 
 ### MONTH OF SERVICE & COMMUNITY AWARDS (0:55 – 1:20)
 
-**[Screen: Scroll down to the golden Month of Service & Community Awards section. Show the 'Nominate a Community Member' button and the recognized recipients card]**
+**[Screen: Scroll down to the Community Champions section. Show the 'Nominate a Champion' button and the recognized recipients card]**
 
-"Next, we recognize the people who make Johnston County better. This is the Month of Service & Community Awards.
+"Next, we recognize the people who make Johnston County better. This is Community Champions.
 
 And it doesn't have to be a neighbor. It can be a police officer, a teacher, a public servant, a Walmart cashier, a coach — anyone who goes above and beyond."
 
-**[Screen: Tap 'Nominate a Community Member'. Show the form: nominee name, award type dropdown (Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, Neighborhood Helper), reason field, your name. Type a name, select 'Community Hero', type a brief reason, submit]**
+**[Screen: Tap 'Nominate a Champion'. Show the form: nominee name, award type dropdown (Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, Neighborhood Helper), reason field, your name. Type a name, select 'Community Hero', type a brief reason, submit]**
 
-"Anyone can nominate anyone. Month of Service, Community Hero, Volunteer of the Month — and once recognized, they're showcased right here in a golden award card for the whole community to celebrate."
+"Anyone can nominate anyone. Month of Service, Community Hero, Volunteer of the Month — and once recognized, they're showcased right here in an award card for the whole community to celebrate."
 
 ---
 
@@ -80,13 +80,13 @@ And it doesn't have to be a neighbor. It can be a police officer, a teacher, a p
 
 ### SUBMIT YOUR ISSUE (1:40 – 2:05)
 
-**[Screen: Scroll up to the Updates from District 13 banner. Show the community poll, then scroll to the 'Submit Your Issue' button — the glowing blue button with the animated fist icon]**
+**[Screen: Scroll up to the Updates from District 13 banner. Show the community poll, then scroll to the 'Submit an Issue' button — the glowing blue button with the animated fist icon]**
 
 "At the top, every resident sees Updates from District 13 — the latest news from Congressman Brad Knott's office. An informed community is a thriving community.
 
-But here's where it gets powerful. Under the community poll — Submit Your Issue."
+But here's where it gets powerful. Under the community poll — Submit an Issue."
 
-**[Screen: Tap 'Submit Your Issue'. Show the form. Type 'Add sidewalks on Highway 42 near the school', select 'Infrastructure', submit. Show the issue appearing in the list with a live vote bar]**
+**[Screen: Tap 'Submit an Issue'. Show the form. Type 'Add sidewalks on Highway 42 near the school', select 'Infrastructure', submit. Show the issue appearing in the list with a live vote bar]**
 
 "Any resident can submit an issue they care about as a poll. Infrastructure, education, public safety — whatever matters to you. Then the whole community votes. When a poll shows overwhelming support, it becomes a powerful signal to push our representatives to act. This is direct democracy in your pocket."
 
@@ -141,7 +141,7 @@ We don't thrive alone. We thrive together."
 3. **Add 2-3 community posts** so the Thriving Together board isn't empty
 4. **Add 1-2 help board requests** so the Help Board has visible content with volunteer sign-up buttons
 5. **Pre-submit 1 community issue** (e.g. "Add sidewalks on Highway 42") with a few votes so the issue list isn't empty. Then submit a second one live on camera.
-6. **Pre-submit 1-2 award nominations** so the Pending Nominations section has content. Ideally mark one as "recognized" so the golden Recognized Award Recipients card is visible.
+6. **Pre-submit 1-2 award nominations** so the Pending Nominations section has content. Ideally mark one as "recognized" so the recognized award recipients card is visible.
 7. **Pre-log a few County Challenge contributions** so the progress bar shows real progress and the recent contributions feed has entries
 8. **Make sure the Updates from District 13 banner is visible** — keep it in frame during that section
 9. **Close other browser tabs** — judges can see your tab bar
@@ -153,8 +153,8 @@ We don't thrive alone. We thrive together."
 - **Speak slowly and clearly** — you know the app, they don't. Pause after key moments
 - **Show real emotion when the confetti fires** — it proves the app feels rewarding, not just functional
 - **When showing the County Challenge, emphasize the live progress bar** — say "watch the total climb" and log a contribution to show it updating
-- **When showing the Awards section, highlight the golden styling and the broad nomination language** — say "it doesn't have to be a neighbor — it can be a police officer, a teacher, a cashier, anyone"
-- **When you tap 'Submit Your Issue', slow down** — let judges see the form, the category dropdown, and the glowing button. This is a standout feature.
+- **When showing the Community Champions section, highlight the blue styling and the broad nomination language** — say "it doesn't have to be a neighbor — it can be a police officer, a teacher, a cashier, anyone"
+- **When you tap 'Submit an Issue', slow down** — let judges see the form, the category dropdown, and the glowing button. This is a standout feature.
 - **Keep it under 3 minutes** — the CAC strictly enforces the 1-3 minute limit. Aim for 2:55
 - **Do a dry run first** — practice the full script with the app open before recording the real take
 - **Upload to YouTube and set to Public** — judges cannot view private or unlisted videos. Test the link in an incognito window to confirm it's accessible

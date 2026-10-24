@@ -306,7 +306,7 @@ export function CommunityPoll() {
             onClick={() => setShowIssueForm(true)}
           >
             <span className="joco-issue-submit-icon">✊</span>
-            <span>Submit Your Issue</span>
+            <span>Submit an Issue</span>
           </button>
         ) : (
           <div className="joco-issue-form">

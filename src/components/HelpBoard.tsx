@@ -238,10 +238,10 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
         <span className="help-board-icon">🆘</span>
         <div className="help-board-title-area">
           <span className="help-board-eyebrow">County Help Board · District 13</span>
-          <h3>Neighbors Helping Neighbors</h3>
-          <p className="help-board-subtitle">
-            Post a request or offer help — we rise together.
-          </p>
+          <div className="help-board-title-row">
+            <h3>Neighbors Helping Neighbors</h3>
+            <span className="help-board-subtitle-inline">Post a request or offer help — we rise together.</span>
+          </div>
         </div>
       </div>
 

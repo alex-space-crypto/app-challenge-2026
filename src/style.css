@@ -2748,6 +2748,9 @@ body {
   letter-spacing: 0.08em; color: #e05656;
 }
 .help-board-title-area h3 { font-size: 1.05rem; color: #fff; margin-top: 0.15rem; }
+.help-board-title-row { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.15rem; }
+.help-board-title-row h3 { margin-top: 0; }
+.help-board-subtitle-inline { font-size: 0.8rem; color: var(--text-dim); }
 .help-board-subtitle { font-size: 0.82rem; color: var(--text-dim); line-height: 1.45; margin-top: 0.3rem; }
 
 .help-board-stats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }

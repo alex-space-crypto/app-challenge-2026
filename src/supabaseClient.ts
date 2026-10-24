@@ -29,6 +29,13 @@ export interface ChallengeContribution {
   created_at: string;
 }
 
+export interface VolunteerSignup {
+  id: string;
+  request_id: string;
+  volunteer_name: string;
+  created_at: string;
+}
+
 export interface HelpRequest {
   id: string;
   type: 'request' | 'offer';

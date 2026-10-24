@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { supabase, type HelpRequest } from '../supabaseClient';
+import { supabase, type HelpRequest, type VolunteerSignup } from '../supabaseClient';
 import { JOCO_TOWNS } from '../joco';
 
 const CATEGORIES = [
@@ -36,6 +36,8 @@ function timeAgo(ts: string): string {
 
 export default function HelpBoard({ profileName }: { profileName: string }) {
   const [requests, setRequests] = React.useState<HelpRequest[]>([]);
+  const [signups, setSignups] = React.useState<VolunteerSignup[]>([]);
+  const [expandedSignupReq, setExpandedSignupReq] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [showForm, setShowForm] = React.useState(false);
@@ -53,13 +55,22 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
 
   const fetchRequests = React.useCallback(async () => {
     try {
-      const { data, error: qErr } = await supabase
-        .from('help_requests')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(100);
-      if (qErr) throw qErr;
-      setRequests((data as HelpRequest[]) || []);
+      const [reqRes, signupRes] = await Promise.all([
+        supabase
+          .from('help_requests')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(100),
+        supabase
+          .from('volunteer_signups')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(200),
+      ]);
+      if (reqRes.error) throw reqRes.error;
+      if (signupRes.error) throw signupRes.error;
+      setRequests((reqRes.data as HelpRequest[]) || []);
+      setSignups((signupRes.data as VolunteerSignup[]) || []);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to load the help board.');
     } finally {
@@ -98,10 +109,20 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
     const target = req.volunteers_target || 0;
     if (current >= target) return;
     const newCount = current + 1;
+    const volunteerName = (profileName || 'Neighbor').trim() || 'Neighbor';
     setRequests(prev =>
       prev.map(r => (r.id === req.id ? { ...r, volunteers_count: newCount } : r)),
     );
     try {
+      const { data: signupData, error: signupErr } = await supabase
+        .from('volunteer_signups')
+        .insert({ request_id: req.id, volunteer_name: volunteerName })
+        .select()
+        .single();
+      if (signupErr) throw signupErr;
+      if (signupData) {
+        setSignups(prev => [signupData as VolunteerSignup, ...prev]);
+      }
       const { error: updErr } = await supabase
         .from('help_requests')
         .update({ volunteers_count: newCount })
@@ -264,6 +285,38 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                   ) : (
                     <span className="volunteer-complete-badge">🎉 Volunteer goal reached!</span>
                   )}
+
+                  {(() => {
+                    const reqSignups = signups.filter(s => s.request_id === r.id);
+                    if (reqSignups.length === 0) return null;
+                    const showAll = expandedSignupReq === r.id;
+                    const visible = showAll ? reqSignups : reqSignups.slice(0, 1);
+                    return (
+                      <div className="county-challenge-feed volunteer-signup-feed">
+                        <h4 className="county-challenge-feed-title">Recent volunteers</h4>
+                        {visible.map(s => (
+                          <div key={s.id} className="county-challenge-feed-item">
+                            <span className="county-challenge-feed-avatar">
+                              {s.volunteer_name.charAt(0).toUpperCase()}
+                            </span>
+                            <div className="county-challenge-feed-body">
+                              <span className="county-challenge-feed-name">{s.volunteer_name}</span>
+                              <span className="county-challenge-feed-time"> · {timeAgo(s.created_at)}</span>
+                            </div>
+                            <span className="county-challenge-feed-amount">✋</span>
+                          </div>
+                        ))}
+                        {reqSignups.length > 1 && (
+                          <button
+                            className="county-challenge-feed-toggle"
+                            onClick={() => setExpandedSignupReq(showAll ? null : r.id)}
+                          >
+                            {showAll ? 'Show less' : `See all ${reqSignups.length} volunteers`}
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
 

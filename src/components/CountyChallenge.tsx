@@ -194,7 +194,18 @@ export default function CountyChallenge({ profileName }: Props) {
           <span className="county-challenge-icon">{ch.icon}</span>
           <div className="county-challenge-title-area">
             <span className="county-challenge-eyebrow">County Challenge · District 13{ch.source === 'community' ? ' · Community-Submitted' : ''}</span>
-            <h3>{ch.title}</h3>
+            <div className="county-challenge-title-row">
+              <h3>{ch.title}</h3>
+              {isMain && !showChallengeForm && (
+                <button
+                  className="joco-challenge-submit-btn"
+                  onClick={(e) => { e.stopPropagation(); setShowChallengeForm(true); }}
+                >
+                  <span className="joco-challenge-submit-icon">🎯</span>
+                  <span>Submit a Challenge</span>
+                </button>
+              )}
+            </div>
           </div>
           {isComplete && <span className="county-challenge-complete-badge">🎉 Goal reached!</span>}
           {!alwaysExpanded && <span className="county-challenge-chevron">{isExpanded ? '▾' : '▸'}</span>}
@@ -221,19 +232,6 @@ export default function CountyChallenge({ profileName }: Props) {
             <p className="county-challenge-towns">Serving neighbors in {JOCO_TOWNS.join(', ')} and all of Johnston County.</p>
 
             {error && <p className="county-challenge-error">{error}</p>}
-
-            {/* Submit a Challenge button — only in the main card, next to the title */}
-            {isMain && !showChallengeForm && (
-              <div className="county-challenge-inline-actions">
-                <button
-                  className="joco-challenge-submit-btn"
-                  onClick={() => setShowChallengeForm(true)}
-                >
-                  <span className="joco-challenge-submit-icon">🎯</span>
-                  <span>Submit a Challenge</span>
-                </button>
-              </div>
-            )}
 
             {/* Submit Your Hours button — reveals the contribution form */}
             {!isContribFormOpen ? (

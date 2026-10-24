@@ -2459,11 +2459,27 @@ body {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 .county-challenge-section { margin-bottom: 1.25rem; }
-.county-challenge-top-bar {
+.county-challenge-main-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.county-challenge-main-card-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+.county-challenge-main-card-wrapper .county-challenge-card {
+  margin-bottom: 0;
+}
+@media (max-width: 640px) {
+  .county-challenge-main-row {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .county-challenge-main-row .joco-challenge-submit-btn {
+    align-self: stretch;
+  }
 }
 .joco-challenge-submit-btn {
   display: flex;
@@ -2515,9 +2531,7 @@ body {
   cursor: pointer;
   padding: 0.25rem;
 }
-.county-challenge-header {
-  cursor: pointer;
-}
+.county-challenge-header[role="button"] { cursor: pointer; }
 .county-challenge-card.just-contributed {
   border-color: var(--success);
   box-shadow: 0 0 0 3px rgba(59,165,89,0.15);
@@ -2536,10 +2550,6 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .county-challenge-loading-text { font-size: 0.82rem; color: var(--text-dim); }
-
-.county-challenge-header {
-  display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem;
-}
 .county-challenge-icon { font-size: 1.8rem; flex-shrink: 0; line-height: 1.2; }
 .county-challenge-title-area { flex: 1; min-width: 0; }
 .county-challenge-eyebrow {

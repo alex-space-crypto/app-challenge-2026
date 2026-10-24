@@ -65,7 +65,7 @@ export default function CountyChallenge({ profileName }: Props) {
   const fetchData = React.useCallback(async () => {
     try {
       const [{ data: ch, error: cErr }, { data: contribs, error: conErr }] = await Promise.all([
-        supabase.from('county_challenges').select('*').eq('active', true).order('created_at', { ascending: false }),
+        supabase.from('county_challenges').select('*').eq('active', true).order('created_at', { ascending: true }),
         supabase.from('challenge_contributions').select('*').order('created_at', { ascending: false }).limit(100),
       ]);
       if (cErr) throw cErr;
@@ -73,9 +73,6 @@ export default function CountyChallenge({ profileName }: Props) {
       const chList = (ch as CountyChallenge[]) || [];
       setChallenges(chList);
       setContributions((contribs as ChallengeContribution[]) || []);
-      if (chList.length > 0 && !expandedId) {
-        setExpandedId(chList[0].id);
-      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to load the county challenge.');
     } finally {
@@ -169,42 +166,142 @@ export default function CountyChallenge({ profileName }: Props) {
     );
   }
 
-  if (challenges.length === 0 && !showChallengeForm) {
+  const seededChallenge = challenges.find(c => c.source === 'seeded') || challenges[0] || null;
+  const communityChallenges = challenges.filter(c => c !== seededChallenge);
+
+  const renderChallengeCard = (ch: CountyChallenge, alwaysExpanded: boolean) => {
+    const chContribs = contributions.filter(c => c.challenge_id === ch.id);
+    const totalContributed = chContribs.reduce((s, c) => s + c.amount, 0);
+    const progressPct = Math.min(100, (totalContributed / ch.target_count) * 100);
+    const isComplete = totalContributed >= ch.target_count;
+    const isExpanded = alwaysExpanded || expandedId === ch.id;
+
     return (
-      <div className="county-challenge-card">
-        <div className="county-challenge-header">
-          <span className="county-challenge-icon">🎯</span>
+      <div
+        key={ch.id}
+        className={`county-challenge-card ${isComplete ? 'complete' : ''} ${justContributed && isExpanded ? 'just-contributed' : ''}`}
+      >
+        <div
+          className="county-challenge-header"
+          onClick={() => !alwaysExpanded && setExpandedId(isExpanded ? null : ch.id)}
+          role={alwaysExpanded ? undefined : 'button'}
+          tabIndex={alwaysExpanded ? undefined : 0}
+          onKeyDown={e => { if (!alwaysExpanded && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setExpandedId(isExpanded ? null : ch.id); } }}
+        >
+          <span className="county-challenge-icon">{ch.icon}</span>
           <div className="county-challenge-title-area">
-            <span className="county-challenge-eyebrow">County Challenge · District 13</span>
-            <h3>No active challenges yet</h3>
+            <span className="county-challenge-eyebrow">County Challenge · District 13{ch.source === 'community' ? ' · Community-Submitted' : ''}</span>
+            <h3>{ch.title}</h3>
           </div>
+          {isComplete && <span className="county-challenge-complete-badge">🎉 Goal reached!</span>}
+          {!alwaysExpanded && <span className="county-challenge-chevron">{isExpanded ? '▾' : '▸'}</span>}
         </div>
-        <p className="county-challenge-desc">Be the first to propose a community challenge for Johnston County!</p>
-        <button className="btn-primary county-challenge-cta" onClick={() => setShowChallengeForm(true)}>
-          🎯 Submit a Challenge
-        </button>
-        {showChallengeForm && null}
+
+        {isExpanded && (
+          <>
+            <p className="county-challenge-desc">{ch.description}</p>
+
+            {ch.source === 'community' && ch.submitted_by && (
+              <p className="joco-challenge-submitted-by">Proposed by {ch.submitted_by}</p>
+            )}
+
+            <div className="county-challenge-progress-section">
+              <div className="county-challenge-progress-bar">
+                <div className="county-challenge-progress-fill" style={{ width: `${progressPct}%` }} />
+              </div>
+              <div className="county-challenge-progress-stats">
+                <span className="county-challenge-count">{totalContributed.toLocaleString()} / {ch.target_count.toLocaleString()} {ch.unit}</span>
+                <span className="county-challenge-pct">{Math.round(progressPct)}%</span>
+              </div>
+            </div>
+
+            <p className="county-challenge-towns">Serving neighbors in {JOCO_TOWNS.join(', ')} and all of Johnston County.</p>
+
+            {error && <p className="county-challenge-error">{error}</p>}
+
+            <div className="county-challenge-form">
+              <div className="county-challenge-form-row">
+                <div className="county-challenge-field">
+                  <label className="field-label">Your name</label>
+                  <input
+                    className="text-input"
+                    placeholder="How you'll be credited"
+                    value={contribName}
+                    onChange={e => setContribName(e.target.value)}
+                  />
+                </div>
+                <div className="county-challenge-field county-challenge-field-amount">
+                  <label className="field-label">{ch.unit}</label>
+                  <input
+                    className="text-input"
+                    type="number"
+                    min="1"
+                    max="50"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                  />
+                </div>
+              </div>
+              <label className="field-label">What did you do? (optional)</label>
+              <input
+                className="text-input"
+                placeholder="e.g. Walked dogs at the Johnston County Animal Shelter"
+                value={note}
+                onChange={e => setNote(e.target.value)}
+                maxLength={120}
+              />
+              <div className="county-challenge-form-actions">
+                <button
+                  className="btn-primary"
+                  disabled={submittingContrib || parseInt(amount) < 1}
+                  onClick={() => handleContribute(ch.id)}
+                >
+                  {submittingContrib ? 'Submitting…' : isComplete ? '➕ Log more anyway' : 'Add to county total'}
+                </button>
+              </div>
+            </div>
+
+            {chContribs.length > 0 && (
+              <div className="county-challenge-feed">
+                <h4 className="county-challenge-feed-title">Recent contributions</h4>
+                {chContribs.slice(0, 8).map(c => (
+                  <div key={c.id} className="county-challenge-feed-item">
+                    <span className="county-challenge-feed-avatar">{c.contributor_name.charAt(0).toUpperCase()}</span>
+                    <div className="county-challenge-feed-body">
+                      <span className="county-challenge-feed-name">{c.contributor_name}</span>
+                      {c.note && <span className="county-challenge-feed-note"> — {c.note}</span>}
+                      <span className="county-challenge-feed-time"> · {timeAgo(c.created_at)}</span>
+                    </div>
+                    <span className="county-challenge-feed-amount">+{c.amount}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
     );
-  }
+  };
 
   return (
     <div className="county-challenge-section">
-      {/* Header with submit button */}
-      <div className="county-challenge-top-bar">
-        <div className="county-challenge-top-bar-text">
-          <span className="county-challenge-eyebrow">County Challenge · District 13</span>
+      {/* Main challenge card with Submit button next to it */}
+      {seededChallenge && (
+        <div className="county-challenge-main-row">
+          <div className="county-challenge-main-card-wrapper">
+            {renderChallengeCard(seededChallenge, true)}
+          </div>
+          {!showChallengeForm && (
+            <button
+              className="joco-challenge-submit-btn"
+              onClick={() => setShowChallengeForm(true)}
+            >
+              <span className="joco-challenge-submit-icon">🎯</span>
+              <span>Submit a Challenge</span>
+            </button>
+          )}
         </div>
-        {!showChallengeForm ? (
-          <button
-            className="joco-challenge-submit-btn"
-            onClick={() => setShowChallengeForm(true)}
-          >
-            <span className="joco-challenge-submit-icon">🎯</span>
-            <span>Submit a Challenge</span>
-          </button>
-        ) : null}
-      </div>
+      )}
 
       {/* New challenge form */}
       {showChallengeForm && (
@@ -300,120 +397,25 @@ export default function CountyChallenge({ profileName }: Props) {
         </div>
       )}
 
-      {/* Challenge cards */}
-      {challenges.map(ch => {
-        const chContribs = contributions.filter(c => c.challenge_id === ch.id);
-        const totalContributed = chContribs.reduce((s, c) => s + c.amount, 0);
-        const progressPct = Math.min(100, (totalContributed / ch.target_count) * 100);
-        const isComplete = totalContributed >= ch.target_count;
-        const isExpanded = expandedId === ch.id;
+      {/* Community-submitted challenge cards */}
+      {communityChallenges.map(ch => renderChallengeCard(ch, false))}
 
-        return (
-          <div
-            key={ch.id}
-            className={`county-challenge-card ${isComplete ? 'complete' : ''} ${justContributed && isExpanded ? 'just-contributed' : ''}`}
-          >
-            <div
-              className="county-challenge-header"
-              onClick={() => setExpandedId(isExpanded ? null : ch.id)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setExpandedId(isExpanded ? null : ch.id); } }}
-            >
-              <span className="county-challenge-icon">{ch.icon}</span>
-              <div className="county-challenge-title-area">
-                <span className="county-challenge-eyebrow">{ch.category}{ch.source === 'community' ? ' · Community-Submitted' : ''}</span>
-                <h3>{ch.title}</h3>
-              </div>
-              {isComplete && <span className="county-challenge-complete-badge">🎉 Goal reached!</span>}
-              <span className="county-challenge-chevron">{isExpanded ? '▾' : '▸'}</span>
+      {/* Empty state when no challenges exist at all */}
+      {!seededChallenge && !showChallengeForm && (
+        <div className="county-challenge-card">
+          <div className="county-challenge-header">
+            <span className="county-challenge-icon">🎯</span>
+            <div className="county-challenge-title-area">
+              <span className="county-challenge-eyebrow">County Challenge · District 13</span>
+              <h3>No active challenges yet</h3>
             </div>
-
-            {isExpanded && (
-              <>
-                <p className="county-challenge-desc">{ch.description}</p>
-
-                {ch.source === 'community' && ch.submitted_by && (
-                  <p className="joco-challenge-submitted-by">Proposed by {ch.submitted_by}</p>
-                )}
-
-                <div className="county-challenge-progress-section">
-                  <div className="county-challenge-progress-bar">
-                    <div className="county-challenge-progress-fill" style={{ width: `${progressPct}%` }} />
-                  </div>
-                  <div className="county-challenge-progress-stats">
-                    <span className="county-challenge-count">{totalContributed.toLocaleString()} / {ch.target_count.toLocaleString()} {ch.unit}</span>
-                    <span className="county-challenge-pct">{Math.round(progressPct)}%</span>
-                  </div>
-                </div>
-
-                <p className="county-challenge-towns">Serving neighbors in {JOCO_TOWNS.join(', ')} and all of Johnston County.</p>
-
-                {error && <p className="county-challenge-error">{error}</p>}
-
-                <div className="county-challenge-form">
-                  <div className="county-challenge-form-row">
-                    <div className="county-challenge-field">
-                      <label className="field-label">Your name</label>
-                      <input
-                        className="text-input"
-                        placeholder="How you'll be credited"
-                        value={contribName}
-                        onChange={e => setContribName(e.target.value)}
-                      />
-                    </div>
-                    <div className="county-challenge-field county-challenge-field-amount">
-                      <label className="field-label">{ch.unit}</label>
-                      <input
-                        className="text-input"
-                        type="number"
-                        min="1"
-                        max="50"
-                        value={amount}
-                        onChange={e => setAmount(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <label className="field-label">What did you do? (optional)</label>
-                  <input
-                    className="text-input"
-                    placeholder="e.g. Walked dogs at the Johnston County Animal Shelter"
-                    value={note}
-                    onChange={e => setNote(e.target.value)}
-                    maxLength={120}
-                  />
-                  <div className="county-challenge-form-actions">
-                    <button
-                      className="btn-primary"
-                      disabled={submittingContrib || parseInt(amount) < 1}
-                      onClick={() => handleContribute(ch.id)}
-                    >
-                      {submittingContrib ? 'Submitting…' : isComplete ? '➕ Log more anyway' : 'Add to county total'}
-                    </button>
-                  </div>
-                </div>
-
-                {chContribs.length > 0 && (
-                  <div className="county-challenge-feed">
-                    <h4 className="county-challenge-feed-title">Recent contributions</h4>
-                    {chContribs.slice(0, 8).map(c => (
-                      <div key={c.id} className="county-challenge-feed-item">
-                        <span className="county-challenge-feed-avatar">{c.contributor_name.charAt(0).toUpperCase()}</span>
-                        <div className="county-challenge-feed-body">
-                          <span className="county-challenge-feed-name">{c.contributor_name}</span>
-                          {c.note && <span className="county-challenge-feed-note"> — {c.note}</span>}
-                          <span className="county-challenge-feed-time"> · {timeAgo(c.created_at)}</span>
-                        </div>
-                        <span className="county-challenge-feed-amount">+{c.amount}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
           </div>
-        );
-      })}
+          <p className="county-challenge-desc">Be the first to propose a community challenge for Johnston County!</p>
+          <button className="btn-primary county-challenge-cta" onClick={() => setShowChallengeForm(true)}>
+            🎯 Submit a Challenge
+          </button>
+        </div>
+      )}
     </div>
   );
 }

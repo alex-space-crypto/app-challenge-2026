@@ -3,8 +3,7 @@ import { supabase, type HelpRequest } from '../supabaseClient';
 import { JOCO_TOWNS } from '../joco';
 
 const CATEGORIES = [
-  'Hurricane Relief',
-  'Storm Cleanup',
+  'Community Events',
   'Food & Supplies',
   'Transportation',
   'Shelter',
@@ -44,7 +43,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   const [categoryFilter, setCategoryFilter] = React.useState('all');
   const [name, setName] = React.useState(profileName || '');
   const [type, setType] = React.useState<'request' | 'offer'>('request');
-  const [category, setCategory] = React.useState('Hurricane Relief');
+  const [category, setCategory] = React.useState('Community Events');
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [location, setLocation] = React.useState('');
@@ -168,7 +167,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
           <span className="help-board-eyebrow">County Help Board · District 13</span>
           <h3>Neighbors Helping Neighbors</h3>
           <p className="help-board-subtitle">
-            Post a request for help or offer to help a neighbor. From hurricane relief to everyday needs — we rise together.
+            Post a request for help or offer to help a neighbor. From community events to everyday needs — we rise together.
           </p>
         </div>
       </div>

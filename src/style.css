@@ -2613,6 +2613,13 @@ body {
 
 .county-challenge-feed { margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 0.75rem; }
 .county-challenge-feed-title { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 0.5rem; font-weight: 700; }
+.county-challenge-feed-toggle {
+  background: none; border: none; color: var(--accent-light);
+  font-size: 0.76rem; font-weight: 600; cursor: pointer;
+  padding: 0.35rem 0 0; text-align: left;
+  transition: color 0.15s, text-decoration 0.15s;
+}
+.county-challenge-feed-toggle:hover { color: var(--accent); text-decoration: underline; }
 .county-challenge-feed-item {
   display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0;
 }

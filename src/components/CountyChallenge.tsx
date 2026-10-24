@@ -44,6 +44,7 @@ export default function CountyChallenge({ profileName }: Props) {
   const [error, setError] = React.useState<string | null>(null);
   const [expandedId, setExpandedId] = React.useState<string | null>(null);
   const [contribFormId, setContribFormId] = React.useState<string | null>(null);
+  const [showAllContribs, setShowAllContribs] = React.useState(false);
 
   // Contribution form state
   const [contribName, setContribName] = React.useState(profileName || '');
@@ -283,7 +284,7 @@ export default function CountyChallenge({ profileName }: Props) {
             {chContribs.length > 0 && (
               <div className="county-challenge-feed">
                 <h4 className="county-challenge-feed-title">Recent contributions</h4>
-                {chContribs.slice(0, 8).map(c => (
+                {(showAllContribs ? chContribs : chContribs.slice(0, 1)).map(c => (
                   <div key={c.id} className="county-challenge-feed-item">
                     <span className="county-challenge-feed-avatar">{c.contributor_name.charAt(0).toUpperCase()}</span>
                     <div className="county-challenge-feed-body">
@@ -294,6 +295,14 @@ export default function CountyChallenge({ profileName }: Props) {
                     <span className="county-challenge-feed-amount">+{c.amount}</span>
                   </div>
                 ))}
+                {chContribs.length > 1 && (
+                  <button
+                    className="county-challenge-feed-toggle"
+                    onClick={() => setShowAllContribs(s => !s)}
+                  >
+                    {showAllContribs ? 'Show less' : `See all ${chContribs.length} contributions`}
+                  </button>
+                )}
               </div>
             )}
 

@@ -2,7 +2,7 @@
 
 ## A community thrive platform for Johnston County, North Carolina
 
-**Thrive together — see our collective impact, thrive as a community, use your voice to push for change, recognize community impacters, build a better community, and reach goals together.**
+**Thrive together — see our collective impact, thrive as a community, use your voice to push for change, recognize community champions, build a better community, and reach goals together.**
 
 Thrive JoCo 13 is not a habit tracker with a community feature bolted on. It is a **community-first growth platform** where the first thing you see is the collective impact of everyone in Johnston County. Personal goals are built around the community — you set goals tied to real local places, verify them with real people, and every verified action feeds back into the county-wide impact dashboard so everyone can see District 13 rising together.
 

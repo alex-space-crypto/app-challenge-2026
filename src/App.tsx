@@ -336,7 +336,7 @@ export default function App() {
               </>
             )}
           </div>
-          <p className="tagline">Rise together — build habits, reach goals, explore Johnston County and grow as a community.</p>
+          <p className="tagline">Rise together — help a neighbor, join a challenge, build habits that matter, reach goals and grow your community.</p>
         </div>
         <JoCoMissionBanner />
         <div className="level-bar">

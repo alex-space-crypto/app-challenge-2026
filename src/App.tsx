@@ -152,14 +152,6 @@ export default function App() {
     saveBeastsToSupabase(authUser.id, beasts);
   }, [authUser, cloudLoaded, beasts]);
 
-  if (!authReady) {
-    return (
-      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <p style={{ color: '#6b7d99', fontSize: '1.2rem' }}>Loading…</p>
-      </div>
-    );
-  }
-
   if (!authUser) {
     return <LoginScreen />;
   }

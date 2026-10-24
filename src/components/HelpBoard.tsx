@@ -52,6 +52,13 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   const [urgency, setUrgency] = React.useState<'low' | 'medium' | 'high'>('medium');
   const [volunteersTarget, setVolunteersTarget] = React.useState('');
   const [submitting, setSubmitting] = React.useState(false);
+  const [volunteerFormReq, setVolunteerFormReq] = React.useState<string | null>(null);
+  const [volName, setVolName] = React.useState(profileName || '');
+  const [volHours, setVolHours] = React.useState('');
+  const [volWhatDone, setVolWhatDone] = React.useState('');
+  const [volVerifiedBy, setVolVerifiedBy] = React.useState('');
+  const [volSubmitting, setVolSubmitting] = React.useState(false);
+  const [volError, setVolError] = React.useState<string | null>(null);
 
   const fetchRequests = React.useCallback(async () => {
     try {
@@ -83,7 +90,10 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   }, [fetchRequests]);
 
   React.useEffect(() => {
-    if (profileName) setName(profileName);
+    if (profileName) {
+      setName(profileName);
+      setVolName(profileName);
+    }
   }, [profileName]);
 
   const toggleStatus = async (req: HelpRequest) => {
@@ -104,19 +114,34 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
     }
   };
 
-  const volunteerForRequest = async (req: HelpRequest) => {
+  const submitVolunteerSignup = async (req: HelpRequest) => {
+    if (!volName.trim() || !volWhatDone.trim()) {
+      setVolError('Please enter your name and what you did.');
+      return;
+    }
+    setVolSubmitting(true);
+    setVolError(null);
     const current = req.volunteers_count || 0;
     const target = req.volunteers_target || 0;
-    if (current >= target) return;
+    if (current >= target) {
+      setVolError('Volunteer goal has already been reached.');
+      setVolSubmitting(false);
+      return;
+    }
     const newCount = current + 1;
-    const volunteerName = (profileName || 'Neighbor').trim() || 'Neighbor';
     setRequests(prev =>
       prev.map(r => (r.id === req.id ? { ...r, volunteers_count: newCount } : r)),
     );
     try {
       const { data: signupData, error: signupErr } = await supabase
         .from('volunteer_signups')
-        .insert({ request_id: req.id, volunteer_name: volunteerName })
+        .insert({
+          request_id: req.id,
+          volunteer_name: volName.trim(),
+          hours: volHours.trim() ? parseFloat(volHours) : null,
+          what_done: volWhatDone.trim(),
+          verified_by: volVerifiedBy.trim() || null,
+        })
         .select()
         .single();
       if (signupErr) throw signupErr;
@@ -128,10 +153,17 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
         .update({ volunteers_count: newCount })
         .eq('id', req.id);
       if (updErr) throw updErr;
+      setVolunteerFormReq(null);
+      setVolHours('');
+      setVolWhatDone('');
+      setVolVerifiedBy('');
     } catch {
       setRequests(prev =>
         prev.map(r => (r.id === req.id ? { ...r, volunteers_count: current } : r)),
       );
+      setVolError('Could not submit your hours. Please try again.');
+    } finally {
+      setVolSubmitting(false);
     }
   };
 
@@ -289,12 +321,78 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                     </span>
                   </div>
                   {(r.volunteers_count || 0) < r.volunteers_target ? (
-                    <button
-                      className="btn-primary volunteer-signup-btn"
-                      onClick={() => volunteerForRequest(r)}
-                    >
-                      ✋ I'll volunteer
-                    </button>
+                    volunteerFormReq === r.id ? (
+                      <div className="volunteer-signup-form">
+                        <label className="field-label">Your name</label>
+                        <input
+                          className="text-input"
+                          placeholder="Your name"
+                          value={volName}
+                          onChange={e => setVolName(e.target.value)}
+                          maxLength={80}
+                        />
+                        <div className="county-challenge-form-row">
+                          <div className="county-challenge-field" style={{ maxWidth: '120px' }}>
+                            <label className="field-label">Hours</label>
+                            <input
+                              className="text-input"
+                              type="number"
+                              min="0"
+                              step="0.5"
+                              placeholder="e.g. 2"
+                              value={volHours}
+                              onChange={e => setVolHours(e.target.value)}
+                            />
+                          </div>
+                          <div className="county-challenge-field">
+                            <label className="field-label">Verified by (optional)</label>
+                            <input
+                              className="text-input"
+                              placeholder="Who confirmed your hours?"
+                              value={volVerifiedBy}
+                              onChange={e => setVolVerifiedBy(e.target.value)}
+                              maxLength={80}
+                            />
+                          </div>
+                        </div>
+                        <label className="field-label">What did you do?</label>
+                        <textarea
+                          className="text-area"
+                          placeholder="Describe how you helped..."
+                          value={volWhatDone}
+                          onChange={e => setVolWhatDone(e.target.value)}
+                          rows={2}
+                          maxLength={300}
+                        />
+                        {volError && <p className="county-challenge-error">{volError}</p>}
+                        <div className="county-challenge-form-actions">
+                          <button
+                            className="btn-primary"
+                            disabled={volSubmitting}
+                            onClick={() => submitVolunteerSignup(r)}
+                          >
+                            {volSubmitting ? 'Submitting…' : 'Submit your hours'}
+                          </button>
+                          <button
+                            className="toggle-add county-challenge-cancel"
+                            onClick={() => { setVolunteerFormReq(null); setVolError(null); }}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        className="btn-primary volunteer-signup-btn"
+                        onClick={() => {
+                          setVolunteerFormReq(r.id);
+                          setVolName(profileName || '');
+                          setVolError(null);
+                        }}
+                      >
+                        ✋ I'll volunteer
+                      </button>
+                    )
                   ) : (
                     <span className="volunteer-complete-badge">🎉 Volunteer goal reached!</span>
                   )}
@@ -310,11 +408,21 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                         {visible.map(s => (
                           <div key={s.id} className="county-challenge-feed-item">
                             <span className="county-challenge-feed-avatar">
-                              {s.volunteer_name.charAt(0).toUpperCase()}
+                              {(s.volunteer_name || '?').charAt(0).toUpperCase()}
                             </span>
                             <div className="county-challenge-feed-body">
-                              <span className="county-challenge-feed-name">{s.volunteer_name}</span>
+                              <span className="county-challenge-feed-name">{s.volunteer_name || 'Neighbor'}</span>
                               <span className="county-challenge-feed-time"> · {timeAgo(s.created_at)}</span>
+                              {s.what_done && (
+                                <span className="county-challenge-feed-detail">{s.what_done}</span>
+                              )}
+                              {(s.hours || s.verified_by) && (
+                                <span className="county-challenge-feed-meta">
+                                  {s.hours != null && `${s.hours}h`}
+                                  {s.hours != null && s.verified_by && ' · '}
+                                  {s.verified_by && `verified by ${s.verified_by}`}
+                                </span>
+                              )}
                             </div>
                             <span className="county-challenge-feed-amount">✋</span>
                           </div>

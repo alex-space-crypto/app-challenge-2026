@@ -32,8 +32,11 @@ export interface ChallengeContribution {
 export interface VolunteerSignup {
   id: string;
   request_id: string;
-  volunteer_name: string;
+  volunteer_name: string | null;
   created_at: string;
+  hours: number | null;
+  what_done: string | null;
+  verified_by: string | null;
 }
 
 export interface HelpRequest {

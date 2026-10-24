@@ -27,6 +27,7 @@ export interface ChallengeContribution {
   amount: number;
   note: string;
   created_at: string;
+  verified_by: string | null;
 }
 
 export interface VolunteerSignup {

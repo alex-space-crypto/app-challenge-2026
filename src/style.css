@@ -2632,6 +2632,7 @@ body {
 .county-challenge-feed-body { flex: 1; min-width: 0; font-size: 0.8rem; color: var(--text-dim); }
 .county-challenge-feed-name { color: var(--text); font-weight: 600; }
 .county-challenge-feed-note { color: var(--text-dim); }
+.county-challenge-feed-verified { color: var(--accent-light); font-size: 0.72rem; font-weight: 600; }
 .county-challenge-feed-time { color: var(--text-muted); font-size: 0.72rem; }
 .county-challenge-feed-amount {
   font-size: 0.85rem; font-weight: 800; color: var(--success); flex-shrink: 0;

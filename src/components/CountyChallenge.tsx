@@ -50,6 +50,7 @@ export default function CountyChallenge({ profileName }: Props) {
   const [contribName, setContribName] = React.useState(profileName || '');
   const [amount, setAmount] = React.useState('1');
   const [note, setNote] = React.useState('');
+  const [verifiedBy, setVerifiedBy] = React.useState('');
   const [submittingContrib, setSubmittingContrib] = React.useState(false);
   const [justContributed, setJustContributed] = React.useState(false);
 
@@ -143,6 +144,7 @@ export default function CountyChallenge({ profileName }: Props) {
           contributor_name: contribName.trim() || 'Neighbor',
           amount: amt,
           note: note.trim(),
+          verified_by: verifiedBy.trim() || null,
         })
         .select()
         .single();
@@ -152,6 +154,7 @@ export default function CountyChallenge({ profileName }: Props) {
       setTimeout(() => setJustContributed(false), 2500);
       setNote('');
       setAmount('1');
+      setVerifiedBy('');
       setContribFormId(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not submit your contribution. Please try again.');
@@ -263,6 +266,14 @@ export default function CountyChallenge({ profileName }: Props) {
                   onChange={e => setNote(e.target.value)}
                   maxLength={120}
                 />
+                <label className="field-label">Verified by (optional)</label>
+                <input
+                  className="text-input"
+                  placeholder="Who confirmed your hours?"
+                  value={verifiedBy}
+                  onChange={e => setVerifiedBy(e.target.value)}
+                  maxLength={80}
+                />
                 <div className="county-challenge-form-actions">
                   <button
                     className="btn-primary"
@@ -273,7 +284,7 @@ export default function CountyChallenge({ profileName }: Props) {
                   </button>
                   <button
                     className="toggle-add county-challenge-cancel"
-                    onClick={() => { setContribFormId(null); setNote(''); setAmount('1'); }}
+                    onClick={() => { setContribFormId(null); setNote(''); setAmount('1'); setVerifiedBy(''); }}
                   >
                     Cancel
                   </button>
@@ -290,6 +301,7 @@ export default function CountyChallenge({ profileName }: Props) {
                     <div className="county-challenge-feed-body">
                       <span className="county-challenge-feed-name">{c.contributor_name}</span>
                       {c.note && <span className="county-challenge-feed-note"> — {c.note}</span>}
+                      {c.verified_by && <span className="county-challenge-feed-verified"> · verified by {c.verified_by}</span>}
                       <span className="county-challenge-feed-time"> · {timeAgo(c.created_at)}</span>
                     </div>
                     <span className="county-challenge-feed-amount">+{c.amount}</span>

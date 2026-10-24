@@ -71,26 +71,22 @@ export default function BadgesTab({ badges, habits, level, onAddBadge, onDeleteB
   React.useEffect(() => {
     if (badges.length > prevBadgeCount.current) {
       const newest = badges
-        .filter(b => b.custom && b.earnedAt)
-        .sort((a, b) => (b.earnedAt ?? 0) - (a.earnedAt ?? 0))[0];
+        .filter(b => b.custom)
+        .sort((a, b) => (b.createdAt ?? 0) - (a.createdAt ?? 0))[0];
       if (newest) {
         setHighlightId(newest.id);
-        setView('map');
+        setView('grid');
         setTimeout(() => setHighlightId(null), 5000);
-        if (onRewardEarned) {
-          const reward = getBadgeReward(newest);
-          onRewardEarned(newest.name, reward.title);
-        }
       }
     }
     prevBadgeCount.current = badges.length;
-  }, [badges, onRewardEarned]);
+  }, [badges]);
 
   // Detect newly earned standard badges (via habit progress) and fire reward
   React.useEffect(() => {
     const currentEarned = new Set<string>();
     badges.forEach(b => {
-      if (b.custom ? !!b.earnedAt : earnedSet.has(b.id)) currentEarned.add(b.id);
+      if (earnedSet.has(b.id)) currentEarned.add(b.id);
     });
     if (prevEarnedRef.current.size > 0) {
       currentEarned.forEach(id => {
@@ -106,7 +102,7 @@ export default function BadgesTab({ badges, habits, level, onAddBadge, onDeleteB
     prevEarnedRef.current = currentEarned;
   }, [earnedSet, badges, onRewardEarned]);
 
-  const isEarned = (b: Badge) => b.custom ? !!b.earnedAt : earnedSet.has(b.id);
+  const isEarned = (b: Badge) => earnedSet.has(b.id);
   const earnedCount = badges.filter(isEarned).length;
 
   const matchesSearch = (b: Badge) =>
@@ -345,7 +341,7 @@ export default function BadgesTab({ badges, habits, level, onAddBadge, onDeleteB
         {showCreate && (
           <div className="add-form">
             <h3>Design Your Own Badge</h3>
-            <p className="tab-intro">Mark a personal milestone — it's yours and instantly earned. After creating, the map will auto-jump to show you where it is.</p>
+            <p className="tab-intro">Design a personal milestone badge. It starts locked — earn it by hitting the matching goal streaks!</p>
             <input
               className="text-input"
               placeholder="Badge name (e.g. Garden Master of Benson)"
@@ -372,7 +368,7 @@ export default function BadgesTab({ badges, habits, level, onAddBadge, onDeleteB
               className="btn-primary"
               disabled={!name.trim() || !desc.trim()}
               onClick={handleCreate}
-            >Create & Earn Badge</button>
+            >Create Badge</button>
           </div>
         )}
       </div>

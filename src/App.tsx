@@ -252,13 +252,10 @@ export default function App() {
   const addBadge = (name: string, emoji: string, description: string) => {
     const newBadge: Badge = {
       id: 'b' + Date.now(), name, description, emoji, tier: 'gold',
-      earnedAt: Date.now(), custom: true,
+      custom: true,
     };
     setBadges(prev => [...prev, newBadge]);
-    showToast(`Badge "${name}" created and earned!`);
-    setConfetti(true);
-    setTimeout(() => setConfetti(false), 2500);
-    setTimeout(() => setBeastEggPopup({ source: `Badge: ${name}` }), 800);
+    showToast(`Badge "${name}" created — now earn it by logging your goals!`);
   };
 
   const deleteBadge = (id: string) => setBadges(prev => prev.filter(b => b.id !== id));

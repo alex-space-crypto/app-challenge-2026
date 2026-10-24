@@ -20,10 +20,10 @@ This order is intentional. The community tab follows a clear narrative:
 
 1. **Community Impact** — see what we've done together
 2. **Thrive Together** — share wins, tips, and encouragement
-3. **Voice to Change** — submit issues and vote to push representatives to act
-4. **Recognize Community Impacters** — celebrate the people who make a difference
-5. **For Better in the Community** — the volunteer Help Board where neighbors show up for each other
-6. **Reach Goals Together** — the County Challenge and personal goals built around real local places
+3. **Updates from District 13** — the latest news from Congressman Brad Knott's office, including a live community poll on the NC state income tax cap and resident-submitted issue polls to push for change
+4. **For Better in the Community** — the volunteer Help Board where neighbors show up for each other
+5. **Reach Goals Together** — the County Challenge and personal goals built around real local places
+6. **Recognize Community Impacters** — celebrate the people who make a difference
 
 We believe people stay motivated when they can see that their effort is part of something bigger than themselves. A walk on the Neuse River Greenway isn't just a checkmark — it's a contribution to a county that is thriving together.
 
@@ -33,9 +33,9 @@ We believe people stay motivated when they can see that their effort is part of 
 
 ### Volunteer Sign-Ups with Live Progress and Recent Volunteer Feed
 
-The Help Board now tracks **individual volunteer sign-ups** with names and timestamps. When a help request needs volunteers, you'll see a live progress bar showing how many people have signed up and the target — for example, "5 / 30 volunteers." Below the progress bar, a **Recent Volunteers** feed shows the most recent person to sign up, with a "See all volunteers" link to expand the full list. Tap "I'll volunteer" and your name instantly joins the feed.
+The Help Board — now headed "Neighbors Helping Neighbors — Post a request or offer help, we rise together." — tracks **individual volunteer sign-ups** with names and timestamps. When a help request needs volunteers, you'll see a live progress bar showing how many people have signed up and the target — for example, "5 / 30 volunteers." Below the progress bar, a **Recent Volunteers** feed shows the most recent person to sign up, with a "See all volunteers" link to expand the full list. Tap "I'll volunteer" and your name instantly joins the feed.
 
-The current featured volunteer request is **Trick-or-Treat Main Street** in Clayton — a family-friendly Halloween event on October 30th where 30 volunteers are needed to run games, guide families, staff a petting zoo, and hand out candy. Five neighbors have already signed up.
+The current featured volunteer request is **Trick-or-Treat Main Street** in Clayton — a family-friendly Halloween event on October 30th where 30 volunteers are needed to run games, guide families, staff a petting zoo, and hand out candy. The event is pinned to the top of the Help Board, and neighbors who sign up appear instantly in the Recent Volunteers feed.
 
 ### Submit Your Own Issue as a Community Poll
 
@@ -75,6 +75,8 @@ The Help Board serves as the neighbor-to-neighbor support system. Residents can 
 
 Right on the community tab, every user sees **Updates from JoCo District 13** — the latest news and actions from Congressman Brad Knott's office, linked directly to his official media page. This keeps every resident connected and up to date on local focus — what their representative is doing in Washington and back home in Johnston County.
 
+The banner also features a **live community poll** — currently asking whether to keep the NC state income tax rate from being raised higher than 3.5%. Residents can vote For or Against and change their vote at any time, with real-time results shown as a progress bar. Below the main poll, residents can **submit their own issues** as poll questions for the community to vote on, categorized by topic, to push representatives to act.
+
 An informed community is a thriving community.
 
 ---
@@ -99,12 +101,11 @@ When you open the app, you land here — not on your personal goals. The communi
 
 1. **Johnston County Community Impact dashboard** — live county-wide stats showing verified activities, goals completed, community service logs, and volunteers signed up. Your personal logs contribute to these numbers in real time.
 2. **Thriving Together — District 13 board** — a shared message board where people post wins, tips, and encouragement. Set your display name so neighbors know who's posting. Cheer each other on. Report inappropriate content. The latest post appears as a clickable card — tap it to see the full post, cheer it, or report it. Every post builds the community stronger.
-3. **Voice to Change — Submit an Issue** — under the community poll, residents can submit their own issues as poll questions for the community to vote on, categorized by topic, to push representatives to act on things people care about.
-4. **Community Champions — Recognize Community Impacters** — nominate a community member — a police officer, a teacher, a public servant, a cashier, a coach, anyone — for Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, or Neighborhood Helper. Recognized recipients are showcased with a blue award card.
-5. **Volunteer Help Board — For Better in the Community** — residents who need help can post a request — community events, food and supplies, transportation, shelter, or general volunteer needs. Other residents sign up to volunteer. Volunteer requests show a live progress bar and a recent volunteer sign-ups feed. Open requests, offers, and fulfilled counts are visible at the top.
-6. **County Challenge — Reach Goals Together** — one or more community-wide goals that everyone contributes to together. Log your hours, watch the county total climb, and see recent contributions from other residents in real time. Anyone can submit a new challenge with the "Submit a Challenge" button — title, description, category, target, and unit — and it goes live immediately for the whole county to contribute to.
+3. **Updates from District 13 — Voice to Change** — the latest news and actions from Congressman Brad Knott's office, featuring a live community poll on the NC state income tax cap (keep the rate from being raised higher than 3.5%). Residents can vote For or Against and change their vote at any time. Below the poll, residents can **submit their own issues** as poll questions — categorized by Infrastructure, Education, Public Safety, Health, Environment, Housing, or Other — for the community to vote on and push representatives to act.
+4. **Volunteer Help Board — For Better in the Community** — residents who need help can post a request — community events, food and supplies, transportation, shelter, or general volunteer needs. Other residents sign up to volunteer. The Help Board header reads "Neighbors Helping Neighbors — Post a request or offer help, we rise together." Volunteer requests show a live progress bar and a recent volunteer sign-ups feed. Open requests, offers, and fulfilled counts are visible at the top.
+5. **County Challenge — Reach Goals Together** — one or more community-wide goals that everyone contributes to together. Log your hours, watch the county total climb, and see recent contributions from other residents in real time. Anyone can submit a new challenge with the "Submit a Challenge" button — title, description, category, target, and unit — and it goes live immediately for the whole county to contribute to.
+6. **Community Champions — Recognize Community Impacters** — nominate a community member — a police officer, a teacher, a public servant, a cashier, a coach, anyone — for Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, or Neighborhood Helper. Recognized recipients are showcased with a blue award card.
 7. **Community Resources** — direct links to real Johnston County services: the food bank, libraries, the senior center, and more.
-8. **Updates from District 13** — the latest news from Congressman Brad Knott's office, so every resident stays informed about what's happening in Washington and at home.
 
 ### 2. Goals (built around the community)
 
@@ -161,7 +162,7 @@ The Thriving Together board gives residents a shared space to post wins, tips, a
 
 ### A voice to push for change
 
-The Submit an Issue feature gives residents a direct way to surface issues they care about as community polls. When people vote For or Against, it creates a visible, quantified signal that can be shared with representatives to push for action on the things that matter most to the people of District 13.
+The community poll — featured inside the Updates from District 13 banner — gives residents a direct way to vote on issues that matter. The current poll asks whether to keep the NC state income tax rate from being raised higher than 3.5%. Below the main poll, the Submit an Issue feature lets residents post their own issues as community polls — categorized by topic — so the community can vote For or Against and create a visible, quantified signal to share with representatives and push for action on the things that matter most to the people of District 13.
 
 ### Recognition for community impacters
 
@@ -185,7 +186,7 @@ Every goal is tied to a real location in Johnston County — the Neuse River Gre
 
 ### Informed — updates from District 13
 
-Residents see the latest news and actions from Congressman Brad Knott's office right in the app. An informed community is a thriving community.
+Residents see the latest news and actions from Congressman Brad Knott's office right in the app, including a live community poll on the NC state income tax cap. An informed community is a thriving community.
 
 ### Private when it needs to be
 
@@ -205,7 +206,7 @@ Goals at private locations can be marked as private. They track normally — log
 - **County Challenge** with live progress tracking, community contributions, and resident-submitted challenges
 - **Community Champions** with 7 award types and open community nominations
 - **Volunteer Help Board** with individual sign-ups, live progress bars, and a recent volunteer feed
-- **Community-submitted issue polls** for residents to push representatives on local concerns
+- **Live community poll** on the NC state income tax cap (3.5%) with resident-submitted issue polls for pushing representatives on local concerns
 - **Live updates from District 13** keeping residents informed and connected
 
 > *"I actually walked the Clayton River Walk five times because my friend Marcus had to verify it. Having someone confirm I did it made it real. But what kept me going was seeing the county number go up every time I logged — knowing I was part of something bigger."* — Beta tester, Johnston County
@@ -256,7 +257,8 @@ Building for a real community taught us that growth isn't just about tracking �
 - **Version 7** — Community-submitted issue polls: residents can submit their own issues as poll questions to push representatives on local concerns. Community Champions: nominate any community member for recognition. Rebranded from "wellness" to a community thrive platform — bigger than getting healthy.
 - **Version 8** — Community tab reordered: Community Impact → Thriving Together board → Help Board → County Challenge → Community Champions. County Challenge now supports community-submitted challenges — anyone can propose a new county-wide goal with the "Submit a Challenge" button. Multiple challenges can be active simultaneously, each expandable with its own contribution feed. Nomination language broadened from "neighbor" to "community member" — anyone in Johnston County who makes a difference. Awards section renamed to Community Champions with blue styling.
 - **Version 9** — Community tab refined: Thriving Together board now shows only the latest post as a clickable card inside the District 13 banner, with the display name setting and privacy note on the same row. Help Board moved directly under the Thriving Together card.
-- **Version 10** — Narrative reordered to six pillars: Community Impact → Thrive Together → Voice to Change → Recognize Community Impacters → For Better in the Community → Reach Goals Together. Help Board now features the Trick-or-Treat Main Street volunteer event with individual volunteer sign-ups, a live progress bar (5/30 volunteers), and a recent volunteer sign-ups feed showing the most recent volunteer. Help Board categories updated from hurricane relief to community events.
+- **Version 10** — Narrative reordered to six pillars: Community Impact → Thrive Together → Voice to Change → Recognize Community Impacters → For Better in the Community → Reach Goals Together. Help Board now features the Trick-or-Treat Main Street volunteer event with individual volunteer sign-ups, a live progress bar, and a recent volunteer sign-ups feed showing the most recent volunteer. Help Board categories updated from hurricane relief to community events.
+- **Version 11** — Community poll moved into the Updates from District 13 banner alongside a live vote on the NC state income tax cap (3.5%). Help Board header redesigned to "Neighbors Helping Neighbors" with the tagline "Post a request or offer help — we rise together." displayed inline on the same row. Trick-or-Treat Main Street volunteer post updated. Community tab section order streamlined: Community Impact → Thriving Together → Help Board → County Challenge → Community Champions → Resources.
 
 ---
 

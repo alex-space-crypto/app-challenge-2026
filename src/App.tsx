@@ -582,7 +582,7 @@ export default function App() {
         </div>
       )}
 
-      {showWelcome && (
+      {showWelcome && authUser && (
         <WelcomeOverlay
           onClose={dismissWelcome}
           onPickPathway={() => { dismissWelcome(); setTab('tracker'); }}

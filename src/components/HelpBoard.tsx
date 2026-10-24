@@ -179,6 +179,106 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
         <span className="help-stat help-stat-fulfilled">{fulfilledCount} fulfilled</span>
       </div>
 
+      <div className="help-board-filters">
+        <div className="help-filter-group">
+          <button className={`help-filter-chip ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
+          <button className={`help-filter-chip ${filter === 'request' ? 'active' : ''}`} onClick={() => setFilter('request')}>Requests</button>
+          <button className={`help-filter-chip ${filter === 'offer' ? 'active' : ''}`} onClick={() => setFilter('offer')}>Offers</button>
+        </div>
+        <select
+          className="select-input help-filter-category"
+          value={categoryFilter}
+          onChange={e => setCategoryFilter(e.target.value)}
+        >
+          <option value="all">All categories</option>
+          {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </div>
+
+      {loading ? (
+        <div className="county-challenge-card loading">
+          <div className="county-challenge-pulse" />
+          <p className="county-challenge-loading-text">Loading the help board…</p>
+        </div>
+      ) : filtered.length === 0 ? (
+        <p className="help-board-empty">No posts match your filters yet.</p>
+      ) : (
+        <div className="help-board-list">
+          {filtered.map(r => (
+            <div
+              key={r.id}
+              className={`help-request-item ${r.status === 'fulfilled' ? 'fulfilled' : ''}`}
+            >
+              <div className="help-request-header">
+                <span className={`help-request-type-badge ${r.type}`}>
+                  {r.type === 'request' ? '🆘 Request' : '🤝 Offer'}
+                </span>
+                <span className="help-request-category">{r.category}</span>
+                {r.status === 'open' && (
+                  <span
+                    className="help-request-urgency"
+                    style={{ color: URGENCY_COLORS[r.urgency] }}
+                  >
+                    {URGENCY_LABELS[r.urgency]}
+                  </span>
+                )}
+                {r.status === 'fulfilled' && (
+                  <span className="help-request-fulfilled-badge">✓ Fulfilled</span>
+                )}
+              </div>
+              <h4 className="help-request-title">{r.title}</h4>
+              {r.description && <p className="help-request-desc">{r.description}</p>}
+              <div className="help-request-meta">
+                <span className="help-request-author">
+                  <span className="county-challenge-feed-avatar">
+                    {r.contact_name.charAt(0).toUpperCase()}
+                  </span>
+                  {r.contact_name}
+                </span>
+                {r.location && <span className="help-request-loc">📍 {r.location}</span>}
+                <span className="help-request-time"> · {timeAgo(r.created_at)}</span>
+              </div>
+
+              {r.volunteers_target && r.volunteers_target > 0 && r.status === 'open' && (
+                <div className="volunteer-progress-section">
+                  <div className="volunteer-progress-bar">
+                    <div
+                      className="volunteer-progress-fill"
+                      style={{ width: `${Math.min(100, ((r.volunteers_count || 0) / r.volunteers_target) * 100)}%` }}
+                    />
+                  </div>
+                  <div className="volunteer-progress-stats">
+                    <span className="volunteer-progress-count">
+                      {r.volunteers_count || 0} / {r.volunteers_target} volunteers
+                    </span>
+                    <span className="volunteer-progress-pct">
+                      {Math.round(((r.volunteers_count || 0) / r.volunteers_target) * 100)}%
+                    </span>
+                  </div>
+                  {(r.volunteers_count || 0) < r.volunteers_target ? (
+                    <button
+                      className="btn-primary volunteer-signup-btn"
+                      onClick={() => volunteerForRequest(r)}
+                    >
+                      ✋ I'll volunteer
+                    </button>
+                  ) : (
+                    <span className="volunteer-complete-badge">🎉 Volunteer goal reached!</span>
+                  )}
+                </div>
+              )}
+
+              <button
+                className="help-request-toggle-btn"
+                onClick={() => toggleStatus(r)}
+              >
+                {r.status === 'open' ? 'Mark as fulfilled' : 'Reopen'}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       {!showForm ? (
         <button className="btn-primary help-board-cta" onClick={() => setShowForm(true)}>
           {filter === 'offer' ? '➕ Post an offer to help' : '➕ Ask for help'}
@@ -289,106 +389,6 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
             </button>
             <button className="toggle-add county-challenge-cancel" onClick={() => setShowForm(false)}>Cancel</button>
           </div>
-        </div>
-      )}
-
-      <div className="help-board-filters">
-        <div className="help-filter-group">
-          <button className={`help-filter-chip ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
-          <button className={`help-filter-chip ${filter === 'request' ? 'active' : ''}`} onClick={() => setFilter('request')}>Requests</button>
-          <button className={`help-filter-chip ${filter === 'offer' ? 'active' : ''}`} onClick={() => setFilter('offer')}>Offers</button>
-        </div>
-        <select
-          className="select-input help-filter-category"
-          value={categoryFilter}
-          onChange={e => setCategoryFilter(e.target.value)}
-        >
-          <option value="all">All categories</option>
-          {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-        </select>
-      </div>
-
-      {loading ? (
-        <div className="county-challenge-card loading">
-          <div className="county-challenge-pulse" />
-          <p className="county-challenge-loading-text">Loading the help board…</p>
-        </div>
-      ) : filtered.length === 0 ? (
-        <p className="help-board-empty">No posts match your filters. Be the first to ask for help or offer assistance!</p>
-      ) : (
-        <div className="help-board-list">
-          {filtered.map(r => (
-            <div
-              key={r.id}
-              className={`help-request-item ${r.status === 'fulfilled' ? 'fulfilled' : ''}`}
-            >
-              <div className="help-request-header">
-                <span className={`help-request-type-badge ${r.type}`}>
-                  {r.type === 'request' ? '🆘 Request' : '🤝 Offer'}
-                </span>
-                <span className="help-request-category">{r.category}</span>
-                {r.status === 'open' && (
-                  <span
-                    className="help-request-urgency"
-                    style={{ color: URGENCY_COLORS[r.urgency] }}
-                  >
-                    {URGENCY_LABELS[r.urgency]}
-                  </span>
-                )}
-                {r.status === 'fulfilled' && (
-                  <span className="help-request-fulfilled-badge">✓ Fulfilled</span>
-                )}
-              </div>
-              <h4 className="help-request-title">{r.title}</h4>
-              {r.description && <p className="help-request-desc">{r.description}</p>}
-              <div className="help-request-meta">
-                <span className="help-request-author">
-                  <span className="county-challenge-feed-avatar">
-                    {r.contact_name.charAt(0).toUpperCase()}
-                  </span>
-                  {r.contact_name}
-                </span>
-                {r.location && <span className="help-request-loc">📍 {r.location}</span>}
-                <span className="help-request-time"> · {timeAgo(r.created_at)}</span>
-              </div>
-
-              {r.volunteers_target && r.volunteers_target > 0 && r.status === 'open' && (
-                <div className="volunteer-progress-section">
-                  <div className="volunteer-progress-bar">
-                    <div
-                      className="volunteer-progress-fill"
-                      style={{ width: `${Math.min(100, ((r.volunteers_count || 0) / r.volunteers_target) * 100)}%` }}
-                    />
-                  </div>
-                  <div className="volunteer-progress-stats">
-                    <span className="volunteer-progress-count">
-                      {r.volunteers_count || 0} / {r.volunteers_target} volunteers
-                    </span>
-                    <span className="volunteer-progress-pct">
-                      {Math.round(((r.volunteers_count || 0) / r.volunteers_target) * 100)}%
-                    </span>
-                  </div>
-                  {(r.volunteers_count || 0) < r.volunteers_target ? (
-                    <button
-                      className="btn-primary volunteer-signup-btn"
-                      onClick={() => volunteerForRequest(r)}
-                    >
-                      ✋ I'll volunteer
-                    </button>
-                  ) : (
-                    <span className="volunteer-complete-badge">🎉 Volunteer goal reached!</span>
-                  )}
-                </div>
-              )}
-
-              <button
-                className="help-request-toggle-btn"
-                onClick={() => toggleStatus(r)}
-              >
-                {r.status === 'open' ? 'Mark as fulfilled' : 'Reopen'}
-              </button>
-            </div>
-          ))}
         </div>
       )}
 

@@ -207,6 +207,11 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
     if (filter !== 'all' && r.type !== filter) return false;
     if (categoryFilter !== 'all' && r.category !== categoryFilter) return false;
     return true;
+  }).sort((a, b) => {
+    const aPinned = a.title.startsWith('Trick-or-Treat Main Street') ? 1 : 0;
+    const bPinned = b.title.startsWith('Trick-or-Treat Main Street') ? 1 : 0;
+    if (aPinned !== bPinned) return bPinned - aPinned;
+    return 0;
   });
 
   const openCount = requests.filter(r => r.status === 'open' && r.type === 'request').length;

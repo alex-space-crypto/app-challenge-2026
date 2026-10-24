@@ -3399,6 +3399,17 @@ body {
   padding: 1.25rem;
   margin: 1rem 0;
 }
+.impact-children {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.impact-children .community-banner {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
 .community-impact-title {
   font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem;
 }

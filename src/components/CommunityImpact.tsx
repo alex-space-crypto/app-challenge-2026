@@ -5,6 +5,7 @@ import { supabase } from '../supabaseClient';
 
 interface Props {
   habits: Habit[];
+  children?: React.ReactNode;
 }
 
 interface ImpactData {
@@ -17,7 +18,7 @@ interface ImpactData {
   loading: boolean;
 }
 
-export default function CommunityImpact({ habits }: Props) {
+export default function CommunityImpact({ habits, children }: Props) {
   const [data, setData] = React.useState<ImpactData>({
     totalLogs: 0,
     totalGoalsCompleted: 0,
@@ -144,6 +145,8 @@ export default function CommunityImpact({ habits }: Props) {
           </span>
         </div>
       )}
+
+      {children && <div className="impact-children">{children}</div>}
     </div>
   );
 }

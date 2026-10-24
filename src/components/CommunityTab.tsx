@@ -57,129 +57,129 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
 
   return (
     <div className="tab-panel">
-      <CommunityImpact habits={habits} />
-
-      <div className="community-banner community-banner-expanded">
-        <button
-          className="community-banner-main community-banner-clickable"
-          onClick={() => setShowBannerPreview(s => !s)}
-          aria-expanded={showBannerPreview}
-        >
-          <h2>🤝 Thriving Together — District 13 <span className="banner-chevron">{showBannerPreview ? '▾' : '▸'}</span></h2>
-          <p>Share wins, tips, and encouragement with neighbors across Johnston County. Every post builds our community stronger.</p>
-        </button>
-        <div className="community-stats">
-          <div className="comm-stat">
-            <span className="comm-stat-num">{allPosts.length}</span>
-            <span className="comm-stat-label">posts</span>
-          </div>
-          <div className="comm-stat">
-            <span className="comm-stat-num">{totalCheers}</span>
-            <span className="comm-stat-label">cheers</span>
-          </div>
-        </div>
-
-        {showBannerPreview && (
-          <div className="banner-preview banner-preview-inline">
-          {showNameField ? (
-            <div className="add-block name-block banner-preview-block">
-              <div className="name-block-header">
-                <h3>Set your display name</h3>
-                <p className="tab-intro name-block-sub">How neighbors will see your posts. Stored only on your device.</p>
-              </div>
-              <div className="name-row">
-                <input
-                  className="text-input"
-                  placeholder="Your name or nickname"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter' && name.trim()) { onProfileName(name.trim()); setShowNameField(false); } }}
-                />
-                <button
-                  className="btn-primary"
-                  disabled={!name.trim()}
-                  onClick={() => { onProfileName(name.trim()); setShowNameField(false); }}
-                >Save</button>
-              </div>
+      <CommunityImpact habits={habits}>
+        <div className="community-banner community-banner-expanded">
+          <button
+            className="community-banner-main community-banner-clickable"
+            onClick={() => setShowBannerPreview(s => !s)}
+            aria-expanded={showBannerPreview}
+          >
+            <h2>🤝 Thriving Together — District 13 <span className="banner-chevron">{showBannerPreview ? '▾' : '▸'}</span></h2>
+            <p>Share wins, tips, and encouragement with neighbors across Johnston County. Every post builds our community stronger.</p>
+          </button>
+          <div className="community-stats">
+            <div className="comm-stat">
+              <span className="comm-stat-num">{allPosts.length}</span>
+              <span className="comm-stat-label">posts</span>
             </div>
-          ) : (
-            <div className="add-block banner-preview-block">
-              <div className="post-head">
-                <span className="avatar">{profile.name.charAt(0).toUpperCase() || 'Y'}</span>
-                <span>Posting as <strong>{profile.name}</strong></span>
-                <button className="link-action" onClick={() => setShowNameField(true)}>Change</button>
-              </div>
-              <textarea
-                className="text-area"
-                placeholder="Share a win, tip, or encourage a neighbor... (e.g. 'Walked the Buffalo Creek Greenway today — beautiful morning!')"
-                value={message}
-                onChange={e => setMessage(e.target.value)}
-                rows={3}
-                maxLength={300}
-              />
-              <div className="post-footer">
-                <span className="char-count">{message.length}/300</span>
-                <div className="post-actions">
-                  <select className="select-input" value={category} onChange={e => setCategory(e.target.value)}>
-                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                  </select>
+            <div className="comm-stat">
+              <span className="comm-stat-num">{totalCheers}</span>
+              <span className="comm-stat-label">cheers</span>
+            </div>
+          </div>
+
+          {showBannerPreview && (
+            <div className="banner-preview banner-preview-inline">
+            {showNameField ? (
+              <div className="add-block name-block banner-preview-block">
+                <div className="name-block-header">
+                  <h3>Set your display name</h3>
+                  <p className="tab-intro name-block-sub">How neighbors will see your posts. Stored only on your device.</p>
+                </div>
+                <div className="name-row">
+                  <input
+                    className="text-input"
+                    placeholder="Your name or nickname"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter' && name.trim()) { onProfileName(name.trim()); setShowNameField(false); } }}
+                  />
                   <button
                     className="btn-primary"
-                    disabled={!message.trim()}
-                    onClick={() => { onAddPost(message.trim(), category); setMessage(''); }}
-                  >Post to District 13</button>
+                    disabled={!name.trim()}
+                    onClick={() => { onProfileName(name.trim()); setShowNameField(false); }}
+                  >Save</button>
                 </div>
               </div>
+            ) : (
+              <div className="add-block banner-preview-block">
+                <div className="post-head">
+                  <span className="avatar">{profile.name.charAt(0).toUpperCase() || 'Y'}</span>
+                  <span>Posting as <strong>{profile.name}</strong></span>
+                  <button className="link-action" onClick={() => setShowNameField(true)}>Change</button>
+                </div>
+                <textarea
+                  className="text-area"
+                  placeholder="Share a win, tip, or encourage a neighbor... (e.g. 'Walked the Buffalo Creek Greenway today — beautiful morning!')"
+                  value={message}
+                  onChange={e => setMessage(e.target.value)}
+                  rows={3}
+                  maxLength={300}
+                />
+                <div className="post-footer">
+                  <span className="char-count">{message.length}/300</span>
+                  <div className="post-actions">
+                    <select className="select-input" value={category} onChange={e => setCategory(e.target.value)}>
+                      {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                    <button
+                      className="btn-primary"
+                      disabled={!message.trim()}
+                      onClick={() => { onAddPost(message.trim(), category); setMessage(''); }}
+                    >Post to District 13</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {sorted.length === 0 ? (
+              <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
+            ) : (
+              sorted.slice(0, 1).map(p => (
+                <div
+                  key={p.id}
+                  className="banner-preview-card"
+                  onClick={() => setSelectedPost(p)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPost(p); } }}
+                >
+                  <div className="post-head">
+                    <span className="avatar">{p.author.charAt(0).toUpperCase()}</span>
+                    <div className="post-meta">
+                      <strong>{p.author}</strong>
+                      <span className="post-time">{timeAgo(p.createdAt)}</span>
+                    </div>
+                    <span className="post-category">{p.category}</span>
+                    <button
+                      className="post-report-btn"
+                      onClick={e => { e.stopPropagation(); onReportPost(p.id); }}
+                      aria-label="Report post"
+                      title="Report this post"
+                    >🚩</button>
+                    <button
+                      className="post-delete-btn"
+                      onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
+                      aria-label="Delete post"
+                      title="Delete post"
+                    >🗑</button>
+                  </div>
+                  <p className="post-message">{p.message}</p>
+                  <div className="banner-preview-footer">
+                    <button
+                      className={`cheer-btn banner-preview-cheer-btn ${p.cheered ? 'cheered' : ''}`}
+                      onClick={e => { e.stopPropagation(); onCheer(p.id); }}
+                    >
+                      {p.cheered ? '✓ Cheered' : '👏 Cheer'} · {p.cheers}
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
             </div>
           )}
-
-          {sorted.length === 0 ? (
-            <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
-          ) : (
-            sorted.slice(0, 1).map(p => (
-              <div
-                key={p.id}
-                className="banner-preview-card"
-                onClick={() => setSelectedPost(p)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedPost(p); } }}
-              >
-                <div className="post-head">
-                  <span className="avatar">{p.author.charAt(0).toUpperCase()}</span>
-                  <div className="post-meta">
-                    <strong>{p.author}</strong>
-                    <span className="post-time">{timeAgo(p.createdAt)}</span>
-                  </div>
-                  <span className="post-category">{p.category}</span>
-                  <button
-                    className="post-report-btn"
-                    onClick={e => { e.stopPropagation(); onReportPost(p.id); }}
-                    aria-label="Report post"
-                    title="Report this post"
-                  >🚩</button>
-                  <button
-                    className="post-delete-btn"
-                    onClick={e => { e.stopPropagation(); onDeletePost(p.id); }}
-                    aria-label="Delete post"
-                    title="Delete post"
-                  >🗑</button>
-                </div>
-                <p className="post-message">{p.message}</p>
-                <div className="banner-preview-footer">
-                  <button
-                    className={`cheer-btn banner-preview-cheer-btn ${p.cheered ? 'cheered' : ''}`}
-                    onClick={e => { e.stopPropagation(); onCheer(p.id); }}
-                  >
-                    {p.cheered ? '✓ Cheered' : '👏 Cheer'} · {p.cheers}
-                  </button>
-                </div>
-              </div>
-            ))
-          )}
-          </div>
-        )}
-      </div>
+        </div>
+      </CommunityImpact>
 
       <HelpBoard profileName={profile.name} />
 

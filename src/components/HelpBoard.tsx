@@ -59,6 +59,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   const [volVerifiedBy, setVolVerifiedBy] = React.useState('');
   const [volSubmitting, setVolSubmitting] = React.useState(false);
   const [volError, setVolError] = React.useState<string | null>(null);
+  const [showAllRequests, setShowAllRequests] = React.useState(false);
 
   const fetchRequests = React.useCallback(async () => {
     try {
@@ -256,7 +257,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
         <p className="help-board-empty">No posts match your filters yet.</p>
       ) : (
         <div className="help-board-list">
-          {filtered.map(r => (
+          {(showAllRequests ? filtered : filtered.slice(0, 1)).map(r => (
             <div
               key={r.id}
               className={`help-request-item ${r.status === 'fulfilled' ? 'fulfilled' : ''}`}
@@ -449,6 +450,15 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
               </button>
             </div>
           ))}
+          {filtered.length > 1 && (
+            <button
+              className="county-challenge-feed-toggle"
+              style={{ margin: '0.75rem auto 0' }}
+              onClick={() => setShowAllRequests(s => !s)}
+            >
+              {showAllRequests ? 'Show less' : `Show all ${filtered.length} posts`}
+            </button>
+          )}
         </div>
       )}
 

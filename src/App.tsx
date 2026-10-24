@@ -336,7 +336,7 @@ export default function App() {
               </>
             )}
           </div>
-          <p className="tagline">Rise together — help a neighbor, join a challenge, build habits that matter, reach goals and grow your community.</p>
+          <p className="tagline">Rise together — help a neighbor, join a challenge, build habits that matter, reach goals and grow our community.</p>
         </div>
         <JoCoMissionBanner />
         <div className="level-bar">

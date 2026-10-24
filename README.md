@@ -16,17 +16,19 @@ Many Johnston County residents want to be healthier but don't know where to star
 
 ## Live Demo — One Person's Journey
 
-1. **Pick a pathway** — Sarah opens the app and selects "Fitness Basics." She sees ready-made goal suggestions specific to Johnston County, like "Walk the Neuse River Greenway" and "Hike at Raven Rock State Park."
+1. **Sign in** — Sarah opens the app and is greeted by the login screen. She creates an account with her email and password, then lands right in the app.
 
-2. **Create a goal** — She taps "Walk the Clayton River Walk" and sets a target of 5 walks. The goal is pinned to its real location on the map.
+2. **Pick a pathway** — Sarah selects "Fitness Basics" and sees ready-made goal suggestions specific to Johnston County, like "Walk the Neuse River Greenway" and "Hike at Raven Rock State Park."
 
-3. **Log and verify** — After each walk, Sarah taps "Log & Verify" and enters the date, time, who confirmed she did it (her walking buddy Marcus), where it happened, and a quick note. Only verified logs count toward her streak, level, and badge progress.
+3. **Create a goal** — She taps "Walk the Clayton River Walk" and sets a target of 5 walks. The goal is pinned to its real location on the map.
 
-4. **Earn a badge** — On her 5th verified walk, she hits her goal. Confetti fires. She unlocks the "Trailblazer Pin" badge and sees the reward she earned — a Neuse River Greenway water bottle sticker.
+4. **Log and verify** — After each walk, Sarah taps "Log & Verify" and enters the date, time, who confirmed she did it (her walking buddy Marcus), where it happened, and a quick note. Only verified logs count toward her streak, level, and badge progress.
 
-5. **See it on the map** — Sarah switches to the Map tab and sees all her goal pins across Johnston County. She taps the Clayton River Walk pin to review her progress.
+5. **Earn a badge** — On her 5th verified walk, she hits her goal. Confetti fires. She unlocks the "Trailblazer Pin" badge and sees the reward she earned — a Neuse River Greenway water bottle sticker.
 
-6. **Post to the community** — She shares "Just finished my 5th walk on the Clayton River Walk!" on the Community board. Two neighbors cheer her post. She sees other posts about volunteering at the food pantry and reading at the Selma library, and feels connected.
+6. **See it on the map** — Sarah switches to the Map tab and sees all her goal pins across Johnston County. She taps the Clayton River Walk pin to review her progress.
+
+7. **Post to the community** — She shares "Just finished my 5th walk on the Clayton River Walk!" on the Community board. Two neighbors cheer her post. She sees other posts about volunteering at the food pantry and reading at the Selma library, and feels connected.
 
 ## What Makes It Different
 
@@ -55,7 +57,7 @@ Three things set Thrive JoCo 13 apart from every other habit tracker:
 - **React + TypeScript** — component-based UI with type safety
 - **Vite** — fast build tooling and dev server
 - **React Leaflet + Leaflet** — interactive map of Johnston County with goal location pins
-- **Firebase Authentication** — secure email/password login so community posts and profiles are tied to real accounts
+- **Firebase Authentication** — secure email/password login required on launch, so every feature is tied to a real account and personal data is protected
 - **Supabase** — PostgreSQL database for community features including the county help board, volunteer tracking, and user profiles, with Row Level Security policies protecting user data
 - **LocalStorage** — offline-first persistence for personal goals, badges, and pathways so the app works without a network connection
 
@@ -76,7 +78,7 @@ Set goals with a name, description, target count, and location. Each goal card s
 Seven built-in pathways with goal suggestions tied to real Johnston County locations: Sustainability, Reading, Fitness Basics, Hydration, Community Service, Chores, and Local Food. Create custom pathways with your own icon and color.
 
 ### Badges Tab
-Earn badges across four tiers — bronze, silver, gold, and platinum — with rewards specific to each goal category. Badges unlock automatically based on goal progress, streaks, and level milestones. View badges as a grid or as a tiered progression path. Create custom badges too.
+Earn badges across four tiers — bronze, silver, gold, and platinum — with rewards specific to each goal category. Both standard and custom badges unlock based on goal progress, streaks, and level milestones — creating a custom badge no longer earns it instantly; you have to put in the work to unlock it. View badges as a grid or as a tiered progression path.
 
 ### Community Tab
 A shared message board where neighbors post updates, cheer each other on, and report inappropriate content. Posts are categorized and show the author's display name. Includes a county-wide help board where residents can request volunteer assistance and others can sign up to help.
@@ -101,6 +103,7 @@ An interactive map of Johnston County showing all public goal locations as pins.
 - **Version 2** — Interactive map tab with goal location pins across Johnston County
 - **Version 3** — Log & verify system with date, time, verifier, location, and notes. Private location option to hide personal addresses from the map.
 - **Version 4** — Firebase authentication, Supabase backend for community help board and volunteer tracking, county challenge, user profiles, and insights panel
+- **Version 5** — Login required immediately on launch (no loading gate). Fixed data-loading race condition so badges and progress appear correctly on sign-in. Custom badges now start locked and must be earned through goal progress.
 
 ## Future Vision
 

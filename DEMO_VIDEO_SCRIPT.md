@@ -40,11 +40,31 @@ This is bigger than getting healthy. This is a community thriving together."
 
 ---
 
-### COUNTY CHALLENGE (0:35 – 0:55)
+### THRIVING TOGETHER — DISTRICT 13 (0:35 – 0:55)
+
+**[Screen: Scroll down to the Thriving Together — District 13 card. Expand it to show the display name field and the latest community post as a clickable card]**
+
+"Right below the impact dashboard is Thriving Together — District 13. You set a display name so neighbors know who you are, then share wins, tips, and encouragement. The latest post appears as a card you can tap to see the full message, cheer it on, or report it.
+
+Every post builds the community stronger."
+
+---
+
+### CONTRIBUTE TO SOLVE COMMUNITY ISSUES — HELP BOARD (0:55 – 1:15)
+
+**[Screen: Scroll down to the Help Board. Show the open help requests, volunteer sign-up buttons, and the stats at the top — open requests, offers, fulfilled counts]**
+
+"Next — contribute to solve community issues. The Help Board is where any resident can ask for help and any resident can sign up to provide it. Hurricane relief, storm cleanup, food and supplies, transportation — whatever a neighbor needs. Open requests, volunteer progress, fulfilled help — all visible, all real.
+
+A community thrives when people show up for each other."
+
+---
+
+### PROPOSE POSITIVE CHALLENGES — COUNTY CHALLENGE (1:15 – 1:40)
 
 **[Screen: Scroll down to the County Challenge section. Show the live progress bar, the target, the recent contributions feed, and the green 'Submit a Challenge' button]**
 
-"Right below the impact dashboard is the County Challenge — a community-wide goal that everyone contributes to together. You log your hours, watch the county total climb in real time, and see who else is contributing."
+"Then — propose positive challenges so people grow together through goals. The County Challenge is a community-wide goal that everyone contributes to together. You log your hours, watch the county total climb in real time, and see who else is contributing."
 
 **[Screen: Show the 'Add to county total' form. Fill in quickly, submit. Show the progress bar updating]**
 
@@ -52,33 +72,21 @@ This is bigger than getting healthy. This is a community thriving together."
 
 **[Screen: Now tap the green 'Submit a Challenge' button. Show the form: title, description, category dropdown, target count, unit, your name. Type 'Clean up the Neuse River — 200 bags of trash', select 'Environment', set target to 200, unit to 'bags', submit. Show it appear as a new challenge card]**
 
-"And anyone can propose a new challenge. Clean up the Neuse River, read books as a county, log fitness miles together — whatever the community decides matters. You submit it, it goes live, and the whole county can contribute."
+"And anyone can propose a new challenge. Clean up the Neuse River, read books as a county, log fitness miles together — whatever the community decides matters. You submit it, it goes live, and the whole county can contribute. This is how we grow together."
 
 ---
 
-### MONTH OF SERVICE & COMMUNITY AWARDS (0:55 – 1:20)
+### RECOGNIZE COMMUNITY CHAMPIONS (1:40 – 2:05)
 
-**[Screen: Scroll down to the Community Champions section. Show the 'Nominate a Champion' button and the recognized recipients card]**
+**[Screen: Scroll down to the Community Champions section. Show the 'Nominate a Champion' button and the recognized recipients card with blue styling]**
 
-"Next, we recognize the people who make Johnston County better. This is Community Champions.
+"And finally — recognize community champions. This is where we celebrate the people who make Johnston County better.
 
 And it doesn't have to be a neighbor. It can be a police officer, a teacher, a public servant, a Walmart cashier, a coach — anyone who goes above and beyond."
 
 **[Screen: Tap 'Nominate a Champion'. Show the form: nominee name, award type dropdown (Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, Neighborhood Helper), reason field, your name. Type a name, select 'Community Hero', type a brief reason, submit]**
 
-"Anyone can nominate anyone. Month of Service, Community Hero, Volunteer of the Month — and once recognized, they're showcased right here in an award card for the whole community to celebrate."
-
----
-
-### THRIVING TOGETHER & HELP BOARD (1:20 – 1:40)
-
-**[Screen: Scroll down to the Thriving Together — District 13 banner. Expand it to show the community post feed]**
-
-"Below that is the Thriving Together board — where people share wins, tips, and encouragement. Every post builds the community stronger."
-
-**[Screen: Scroll to the Help Board. Show the open help requests, volunteer sign-up buttons, and the stats at the top]**
-
-"And the Help Board — where anyone can ask for help and anyone can sign up to provide it. Open requests, volunteer progress, fulfilled help — all visible, all real."
+"Anyone can nominate anyone. Month of Service, Community Hero, Volunteer of the Month — and once recognized, they're showcased right here in a blue award card for the whole community to celebrate."
 
 ---
 
@@ -86,9 +94,9 @@ And it doesn't have to be a neighbor. It can be a police officer, a teacher, a p
 
 **[Screen: Scroll up to the Updates from District 13 banner. Show the community poll, then scroll to the 'Submit an Issue' button — the glowing blue button with the animated fist icon]**
 
-"At the top, every resident sees Updates from District 13 — the latest news from Congressman Brad Knott's office. An informed community is a thriving community.
+"Every resident also sees Updates from District 13 — the latest news from Congressman Brad Knott's office. An informed community is a thriving community.
 
-But here's where it gets powerful. Under the community poll — Submit an Issue."
+And under the community poll — Submit an Issue."
 
 **[Screen: Tap 'Submit an Issue'. Show the form. Type 'Add sidewalks on Highway 42 near the school', select 'Infrastructure', submit. Show the issue appearing in the list with a live vote bar]**
 
@@ -124,11 +132,11 @@ I pick the Fitness pathway and choose 'Walk the Clayton River Walk.' Five walks.
 
 ### CLOSING (2:48 – 3:00)
 
-**[Screen: Return to the Community tab. Show the full community tab from top: Impact dashboard, County Challenge, Awards, Thriving Together board]**
+**[Screen: Return to the Community tab. Show the full community tab from top: Impact dashboard, Thriving Together card, Help Board, County Challenge, Community Champions]**
 
 "Thrive JoCo 13 was built with React, TypeScript, Firebase Authentication, and Supabase.
 
-But it's not about the tech. It's about a community that shows up for each other. Recognizes anyone who makes a difference. Pushes for change on issues that matter. Stays informed. And builds goals around the places and people we call home.
+But it's not about the tech. It's about a community that shows up for each other. Contributes to solve community issues. Proposes positive challenges so people grow together through goals. Recognizes anyone who makes a difference. Pushes for change on issues that matter. Stays informed. And builds goals around the places and people we call home.
 
 We don't thrive alone. We thrive together."
 
@@ -166,5 +174,5 @@ We don't thrive alone. We thrive together."
 ## AFTER RECORDING
 
 - **Title the video:** "Thrive JoCo 13 — Congressional App Challenge 2026"
-- **Description:** "Thrive JoCo 13 is a community thrive platform for Johnston County, NC. Residents track collective impact, contribute to county-wide challenges, recognize community members who make a difference, push for change on issues they care about, build goals around real local places, and stay informed about District 13 — because we thrive together."
+- **Description:** "Thrive JoCo 13 is a community thrive platform for Johnston County, NC. Residents see their collective community impact, share wins on the Thriving Together board, contribute to solve community issues through the Help Board, propose positive challenges so people grow together through goals, recognize community champions who make a difference, push for change on issues they care about, build goals around real local places, and stay informed about District 13 — because we thrive together."
 - **Copy the YouTube URL** into the CAC submission form

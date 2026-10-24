@@ -2458,6 +2458,66 @@ body {
   margin-bottom: 1.25rem;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
+.county-challenge-section { margin-bottom: 1.25rem; }
+.county-challenge-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+.joco-challenge-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, var(--success), #2d8049);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: transform 0.12s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(59,165,89,0.25);
+  flex-shrink: 0;
+}
+.joco-challenge-submit-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(59,165,89,0.4);
+}
+.joco-challenge-submit-btn:active { transform: scale(0.98); }
+.joco-challenge-submit-icon {
+  font-size: 1.1rem;
+}
+.joco-challenge-form-card {
+  border-color: var(--success);
+  border-width: 2px;
+}
+.joco-challenge-form-title {
+  font-size: 1.1rem !important;
+  color: #fff !important;
+  margin: 0 0 0.3rem !important;
+}
+.joco-challenge-submitted-by {
+  font-size: 0.72rem;
+  color: var(--success);
+  margin: -0.5rem 0 0.75rem;
+  font-weight: 600;
+}
+.county-challenge-chevron {
+  font-size: 1rem;
+  color: var(--accent-light);
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.county-challenge-header {
+  cursor: pointer;
+}
 .county-challenge-card.just-contributed {
   border-color: var(--success);
   box-shadow: 0 0 0 3px rgba(59,165,89,0.15);

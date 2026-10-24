@@ -16,6 +16,8 @@ export interface CountyChallenge {
   icon: string;
   category: string;
   active: boolean;
+  submitted_by?: string;
+  source?: string;
 }
 
 export interface ChallengeContribution {

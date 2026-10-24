@@ -48,7 +48,9 @@ Nominated individuals appear in a "Pending Nominations" list, and once recognize
 
 ### County Challenge — A Community Goal Everyone Contributes To
 
-The County Challenge is a community-wide goal that every resident can contribute to together. Whether it's logging volunteer hours across the county, tracking collective community service, or reaching a shared wellness target — the challenge brings the county together around a single, visible goal with a live progress bar. Anyone can log their contribution, see recent contributions from other residents, and watch the county total climb in real time. This is collective action made visible.
+The County Challenge is a community-wide goal that every resident can contribute to together. Whether it's logging volunteer hours across the county, cleaning up the Neuse River, or reading 1,000 books as a county — the challenge brings everyone together around a single, visible goal with a live progress bar. Anyone can log their contribution, see recent contributions from other residents, and watch the county total climb in real time.
+
+**And now, anyone can propose a new challenge.** The green "Submit a Challenge" button lets residents suggest a new county-wide goal — with a title, description, category, target count, and unit. Once published, the challenge appears live on the community tab and anyone can contribute to it. This means the community drives its own goals — not just the ones we pre-seeded, but whatever the people of Johnston County decide matters to them. Multiple challenges can be active at the same time, each with its own progress bar, contribution feed, and category icon.
 
 ### Open Help Requests from Neighbors
 
@@ -83,7 +85,7 @@ Thrive JoCo 13 is organized into five sections, with **community first by design
 When you open the app, you land here — not on your personal goals. The community tab is organized in this order:
 
 1. **Johnston County Community Impact dashboard** — live county-wide stats showing verified activities, goals completed, community service logs, and volunteers signed up. Your personal logs contribute to these numbers in real time.
-2. **County Challenge** — a community-wide goal that everyone contributes to together. Log your hours, watch the county total climb, and see recent contributions from other residents in real time.
+2. **County Challenge** — one or more community-wide goals that everyone contributes to together. Log your hours, watch the county total climb, and see recent contributions from other residents in real time. Anyone can submit a new challenge with the "Submit a Challenge" button — title, description, category, target, and unit — and it goes live immediately for the whole county to contribute to.
 3. **Community Champions** — nominate a community member — a police officer, a teacher, a public servant, a cashier, a coach, anyone — for Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, or Neighborhood Helper. Recognized recipients are showcased with a blue award card.
 4. **Thriving Together — District 13 board** — a shared message board where people post wins, tips, and encouragement. Cheer each other on. Report inappropriate content. Every post builds the community stronger.
 5. **Volunteer Help Board** — residents who need help can post a request. Other residents sign up to volunteer. Open requests, offers, and fulfilled counts are visible at the top.
@@ -140,9 +142,9 @@ Create custom pathways with your own icon and color.
 
 The app opens to the county, not to you. The Community Impact dashboard is the first thing every resident sees — because growth is collective, not just personal. When you can see that 2,300+ verified activities have been logged by your neighbors, you want to add yours.
 
-### County Challenge — collective goals, visible progress
+### County Challenge — collective goals, visible progress, community-driven
 
-The County Challenge brings the entire county together around a single community-wide goal. Everyone can log contributions, watch the progress bar climb in real time, and see who else is contributing. It turns individual effort into collective action — and makes that action visible.
+The County Challenge brings the entire county together around community-wide goals. Everyone can log contributions, watch the progress bar climb in real time, and see who else is contributing. And anyone can propose a new challenge — clean up a river, read books as a county, log fitness miles together — whatever the community decides matters. It turns individual effort into collective action — and puts the power to define that action in the hands of the people.
 
 ### Recognition for anyone who gives
 
@@ -183,7 +185,7 @@ Goals at private locations can be marked as private. They track normally — log
 - **24 local places** integrated with addresses, descriptions, and links
 - **4-tier badge system** with category-specific rewards
 - **8 level titles** from "New Neighbor" to "Community Pillar"
-- **County Challenge** with live progress tracking and community contributions
+- **County Challenge** with live progress tracking, community contributions, and resident-submitted challenges
 - **Community Champions** with 7 award types and open community nominations
 - **Volunteer help board** with sign-ups for local service opportunities
 - **Community-submitted issue polls** for residents to push representatives on local concerns
@@ -235,7 +237,7 @@ Building for a real community taught us that growth isn't just about tracking �
 - **Version 5** — Login required immediately on launch. Fixed data-loading race condition. Custom badges now start locked and must be earned.
 - **Version 6** — Community-first redesign: Community tab moved to first position and set as default screen. Johnston County Community Impact dashboard leads the app. Updates from District 13 banner integrated into every session.
 - **Version 7** — Community-submitted issue polls: residents can submit their own issues as poll questions to push representatives on local concerns. Community Champions: nominate any community member for recognition. Rebranded from "wellness" to a community thrive platform — bigger than getting healthy.
-- **Version 8** — Community tab reordered: Community Impact → County Challenge → Community Champions → Thriving Together board → Help Board. County Challenge featured as a core community focus alongside the impact dashboard. Nomination language broadened from "neighbor" to "community member" — anyone in Johnston County who makes a difference. Awards section renamed to Community Champions with blue styling.
+- **Version 8** — Community tab reordered: Community Impact → County Challenge → Community Champions → Thriving Together board → Help Board. County Challenge now supports community-submitted challenges — anyone can propose a new county-wide goal with the "Submit a Challenge" button. Multiple challenges can be active simultaneously, each expandable with its own contribution feed. Nomination language broadened from "neighbor" to "community member" — anyone in Johnston County who makes a difference. Awards section renamed to Community Champions with blue styling.
 
 ---
 

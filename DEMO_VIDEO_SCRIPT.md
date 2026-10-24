@@ -42,13 +42,17 @@ This is bigger than getting healthy. This is a community thriving together."
 
 ### COUNTY CHALLENGE (0:35 – 0:55)
 
-**[Screen: Scroll down to the County Challenge card. Show the live progress bar, the target, the recent contributions feed]**
+**[Screen: Scroll down to the County Challenge section. Show the live progress bar, the target, the recent contributions feed, and the green 'Submit a Challenge' button]**
 
-"Right below the impact dashboard is the County Challenge — a community-wide goal that everyone contributes to together. You log your hours, watch the county total climb in real time, and see who else is contributing. It turns individual effort into collective action — and makes that action visible."
+"Right below the impact dashboard is the County Challenge — a community-wide goal that everyone contributes to together. You log your hours, watch the county total climb in real time, and see who else is contributing."
 
-**[Screen: Show the 'Log my contribution' button. Tap it, fill in the form quickly, submit]**
+**[Screen: Show the 'Add to county total' form. Fill in quickly, submit. Show the progress bar updating]**
 
 "Anyone can add to the county total. One person, one log — but together, it adds up to something the whole county can see."
+
+**[Screen: Now tap the green 'Submit a Challenge' button. Show the form: title, description, category dropdown, target count, unit, your name. Type 'Clean up the Neuse River — 200 bags of trash', select 'Environment', set target to 200, unit to 'bags', submit. Show it appear as a new challenge card]**
+
+"And anyone can propose a new challenge. Clean up the Neuse River, read books as a county, log fitness miles together — whatever the community decides matters. You submit it, it goes live, and the whole county can contribute."
 
 ---
 
@@ -142,7 +146,7 @@ We don't thrive alone. We thrive together."
 4. **Add 1-2 help board requests** so the Help Board has visible content with volunteer sign-up buttons
 5. **Pre-submit 1 community issue** (e.g. "Add sidewalks on Highway 42") with a few votes so the issue list isn't empty. Then submit a second one live on camera.
 6. **Pre-submit 1-2 award nominations** so the Pending Nominations section has content. Ideally mark one as "recognized" so the recognized award recipients card is visible.
-7. **Pre-log a few County Challenge contributions** so the progress bar shows real progress and the recent contributions feed has entries
+7. **Pre-log a few County Challenge contributions** so the progress bar shows real progress and the recent contributions feed has entries. Pre-submit one community challenge (e.g. "Clean up the Neuse River — 200 bags of trash") so the Submit a Challenge feature can be shown with a second live submission on camera
 8. **Make sure the Updates from District 13 banner is visible** — keep it in frame during that section
 9. **Close other browser tabs** — judges can see your tab bar
 10. **Record at 1080p or higher** — use screen recording software like OBS, Loom, or QuickTime

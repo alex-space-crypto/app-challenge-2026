@@ -27,7 +27,7 @@ import { JoCoMissionBanner } from './components/JoCoMissionBanner';
 import LoginScreen from './components/LoginScreen';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
-type Tab = 'tracker' | 'topics' | 'badges' | 'community' | 'map';
+type Tab = 'community' | 'tracker' | 'topics' | 'badges' | 'map';
 
 const LEVEL_TITLES = [
   'New Neighbor', 'Getting Started', 'Thrive Builder', 'Routine Maker',
@@ -45,7 +45,7 @@ export default function App() {
   const [posts, setPosts] = React.useState<CommunityPost[]>([]);
   const [profile, setProfile] = React.useState<Profile>({ name: '' });
   const [selectedTopic, setSelectedTopic] = React.useState<string | null>(null);
-  const [tab, setTab] = React.useState<Tab>('tracker');
+  const [tab, setTab] = React.useState<Tab>('community');
   const [focusLocation, setFocusLocation] = React.useState<{ lat: number; lng: number } | null>(null);
   const [toast, setToast] = React.useState<string | null>(null);
   const [confetti, setConfetti] = React.useState(false);
@@ -371,6 +371,9 @@ export default function App() {
       </header>
 
       <nav className="tabs">
+        <button className={`tab ${tab === 'community' ? 'active' : ''}`} onClick={() => setTab('community')}>
+          <span className="tab-icon">🤝</span><span className="tab-label">Community</span>
+        </button>
         <button className={`tab ${tab === 'tracker' ? 'active' : ''}`} onClick={() => setTab('tracker')}>
           <span className="tab-icon">🎯</span><span className="tab-label">Goals</span>
         </button>
@@ -380,15 +383,24 @@ export default function App() {
         <button className={`tab ${tab === 'badges' ? 'active' : ''}`} onClick={() => setTab('badges')}>
           <span className="tab-icon">🏅</span><span className="tab-label">Badges</span>
         </button>
-        <button className={`tab ${tab === 'community' ? 'active' : ''}`} onClick={() => setTab('community')}>
-          <span className="tab-icon">🤝</span><span className="tab-label">Community</span>
-        </button>
         <button className={`tab ${tab === 'map' ? 'active' : ''}`} onClick={() => setTab('map')}>
           <span className="tab-icon">🗺️</span><span className="tab-label">Map</span>
         </button>
       </nav>
 
       <main className="main">
+        {tab === 'community' && (
+          <CommunityTab
+            posts={posts}
+            profile={profile}
+            habits={habits}
+            onAddPost={addPost}
+            onCheer={cheerPost}
+            onDeletePost={deletePost}
+            onReportPost={reportPost}
+            onProfileName={handleUpdateName}
+          />
+        )}
         {tab === 'tracker' && (
           <>
           <InsightsPanel habits={habits} level={level} />
@@ -429,18 +441,6 @@ export default function App() {
               setTimeout(() => setConfetti(false), 2500);
               setTimeout(() => setBeastEggPopup({ source: `Badge: ${badgeName}` }), 800);
             }}
-          />
-        )}
-        {tab === 'community' && (
-          <CommunityTab
-            posts={posts}
-            profile={profile}
-            habits={habits}
-            onAddPost={addPost}
-            onCheer={cheerPost}
-            onDeletePost={deletePost}
-            onReportPost={reportPost}
-            onProfileName={handleUpdateName}
           />
         )}
         {tab === 'map' && (

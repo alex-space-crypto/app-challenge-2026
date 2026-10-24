@@ -1339,7 +1339,9 @@ body {
   font-weight: 600;
 }
 
-.name-block h3 { color: #fff; margin-bottom: 0.3rem; }
+.name-block h3 { color: #fff; margin-bottom: 0; }
+.name-block-header { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+.name-block-sub { margin: 0; font-size: 0.74rem; }
 .name-row { display: flex; gap: 0.5rem; }
 .name-row .text-input { margin-bottom: 0; }
 .name-row .btn-primary { width: auto; padding: 0.7rem 1.2rem; }

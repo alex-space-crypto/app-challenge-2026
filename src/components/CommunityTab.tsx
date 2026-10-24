@@ -83,8 +83,10 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
           <div className="banner-preview banner-preview-inline">
           {showNameField ? (
             <div className="add-block name-block banner-preview-block">
-              <h3>Set your display name</h3>
-              <p className="tab-intro">How neighbors will see your posts. Stored only on your device.</p>
+              <div className="name-block-header">
+                <h3>Set your display name</h3>
+                <p className="tab-intro name-block-sub">How neighbors will see your posts. Stored only on your device.</p>
+              </div>
               <div className="name-row">
                 <input
                   className="text-input"
@@ -179,11 +181,11 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
         )}
       </div>
 
+      <HelpBoard profileName={profile.name} />
+
       <CountyChallenge profileName={profile.name} />
 
       <CountyAwards profileName={profile.name} />
-
-      <HelpBoard profileName={profile.name} />
 
       <div className="joco-resources-section">
         <button className="joco-resources-toggle" onClick={() => setShowResources(s => !s)}>

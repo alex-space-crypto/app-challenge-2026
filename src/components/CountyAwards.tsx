@@ -88,7 +88,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
           nominee_name: nominee.trim(),
           award_type: awardType,
           reason: reason.trim(),
-          nominated_by: nominator.trim() || 'Neighbor',
+          nominated_by: nominator.trim() || 'Community Member',
           status: 'pending',
         });
       if (insErr) throw insErr;
@@ -113,16 +113,16 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
         <span className="county-awards-icon">🏆</span>
         <div className="county-awards-title-area">
           <span className="county-awards-eyebrow">County Recognition · District 13</span>
-          <h3>Community Awards &amp; Recognition</h3>
+          <h3>Johnston County Month of Service &amp; Community Awards</h3>
           <p className="county-awards-subtitle">
-            Know a neighbor who goes above and beyond? Nominate them for a county award. From Month of Service to Community Hero — let's recognize the people who make Johnston County thrive.
+            Know someone in Johnston County who goes above and beyond? Nominate them for a county award. From Month of Service to Community Hero — let's recognize the people who make our community thrive. It doesn't have to be a neighbor — it can be a police officer, a public servant, a teacher, a cashier, anyone who makes a difference.
           </p>
         </div>
       </div>
 
       {!showForm ? (
         <button className="btn-primary county-awards-cta" onClick={() => setShowForm(true)}>
-          <span>🏅 Nominate a Neighbor</span>
+          <span>🏅 Nominate a Community Member</span>
         </button>
       ) : (
         <div className="county-awards-form">
@@ -131,7 +131,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
               <label className="field-label">Who are you nominating?</label>
               <input
                 className="text-input"
-                placeholder="Neighbor's name"
+                placeholder="Community member's name"
                 value={nominee}
                 onChange={e => setNominee(e.target.value)}
                 maxLength={80}
@@ -151,7 +151,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
           <label className="field-label">Why do they deserve this award?</label>
           <textarea
             className="text-area"
-            placeholder="Tell us what they've done for the community — volunteer work, helping neighbors, leadership..."
+            placeholder="Tell us what they've done for the community — volunteer work, public service, helping others, leadership, going above and beyond..."
             value={reason}
             onChange={e => setReason(e.target.value)}
             rows={3}
@@ -238,7 +238,7 @@ export default function CountyAwards({ profileName }: { profileName: string }) {
 
       {!loading && nominations.length === 0 && !showForm && (
         <p className="help-board-empty">
-          No nominations yet — be the first to recognize a neighbor who makes our community better!
+          No nominations yet — be the first to recognize someone who makes our community better!
         </p>
       )}
     </div>

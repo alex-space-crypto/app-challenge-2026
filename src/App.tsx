@@ -89,17 +89,20 @@ export default function App() {
     setProfile({ name });
   };
 
-  React.useEffect(() => { if (authUser) saveHabits(habits); }, [habits, authUser]);
-  React.useEffect(() => { if (authUser) saveBadges(badges); }, [badges, authUser]);
-  React.useEffect(() => { if (authUser) saveTopics(topics); }, [topics, authUser]);
-  React.useEffect(() => { if (authUser) savePosts(posts); }, [posts, authUser]);
-  React.useEffect(() => { if (authUser) saveProfile(profile); }, [profile, authUser]);
-  React.useEffect(() => { if (authUser) saveCollection(collection); }, [collection, authUser]);
-  React.useEffect(() => { if (authUser) saveBeasts(beasts); }, [beasts, authUser]);
+  const [dataLoaded, setDataLoaded] = React.useState(false);
+
+  React.useEffect(() => { if (authUser && dataLoaded) saveHabits(habits); }, [habits, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) saveBadges(badges); }, [badges, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) saveTopics(topics); }, [topics, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) savePosts(posts); }, [posts, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) saveProfile(profile); }, [profile, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) saveCollection(collection); }, [collection, authUser, dataLoaded]);
+  React.useEffect(() => { if (authUser && dataLoaded) saveBeasts(beasts); }, [beasts, authUser, dataLoaded]);
 
   // Load from localStorage when user signs in; clear when they sign out
   React.useEffect(() => {
     if (!authUser) {
+      setDataLoaded(false);
       setHabits([]); setBadges([]); setTopics([]); setPosts([]);
       setProfile({ name: '' }); setCollection([]); setBeasts([]);
       return;
@@ -107,6 +110,7 @@ export default function App() {
     setHabits(loadHabits()); setBadges(loadBadges()); setTopics(loadTopics());
     setPosts(loadPosts()); setProfile(loadProfile());
     setCollection(loadCollection()); setBeasts(loadBeasts());
+    setDataLoaded(true);
   }, [authUser]);
 
   // When user logs in, load their collection & beasts from Supabase

@@ -320,6 +320,25 @@ export default function App() {
               ↻ Replay intro
             </button>
           </div>
+          <p className="tagline">Rise together — help a neighbor, join a challenge, build habits that matter, reach goals and grow our community.</p>
+          <div className="level-bar">
+            <div className="level-info-row">
+              <button className="level-header-clickable" onClick={() => setShowLevelInfo(true)} title="Click to see how levels work">
+                <span className="level-num">
+                  <span className="level-num-text">Lv {level}</span>
+                  <span className="level-num-icon">{LEVEL_ICONS[Math.min(level - 1, LEVEL_ICONS.length - 1)]}</span>
+                </span>
+                <span className="level-title">{levelTitle}</span>
+              </button>
+            </div>
+            <button className="xp-track-clickable" onClick={() => setShowXpInfo(true)} title="Click to see how your XP was earned">
+              <div className="xp-track">
+                <div className="xp-fill" style={{ width: `${(xpInLevel / xpForNext) * 100}%` }} />
+                <span className="xp-text">{xpInLevel} / {xpForNext} XP</span>
+              </div>
+            </button>
+            <span className="level-bar-hint">tap the level or XP bar to learn more</span>
+          </div>
           <div className="header-auth-row">
             <button className="collection-btn-header" onClick={() => setShowCollection(true)} title="View your animal collection">
               🦊 Collection
@@ -336,27 +355,8 @@ export default function App() {
               </>
             )}
           </div>
-          <p className="tagline">Rise together — help a neighbor, join a challenge, build habits that matter, reach goals and grow our community.</p>
         </div>
         <JoCoMissionBanner />
-        <div className="level-bar">
-          <div className="level-info-row">
-            <button className="level-header-clickable" onClick={() => setShowLevelInfo(true)} title="Click to see how levels work">
-              <span className="level-num">
-                <span className="level-num-text">Lv {level}</span>
-                <span className="level-num-icon">{LEVEL_ICONS[Math.min(level - 1, LEVEL_ICONS.length - 1)]}</span>
-              </span>
-              <span className="level-title">{levelTitle}</span>
-            </button>
-          </div>
-          <button className="xp-track-clickable" onClick={() => setShowXpInfo(true)} title="Click to see how your XP was earned">
-            <div className="xp-track">
-              <div className="xp-fill" style={{ width: `${(xpInLevel / xpForNext) * 100}%` }} />
-              <span className="xp-text">{xpInLevel} / {xpForNext} XP</span>
-            </div>
-          </button>
-          <span className="level-bar-hint">tap the level or XP bar to learn more</span>
-        </div>
         <div className="header-stats">
           <button className="mini-stat mini-stat-clickable" onClick={() => setStatModal('goals')} title="See all goals">
             {habits.length} goals

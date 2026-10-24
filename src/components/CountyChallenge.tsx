@@ -194,18 +194,7 @@ export default function CountyChallenge({ profileName }: Props) {
           <span className="county-challenge-icon">{ch.icon}</span>
           <div className="county-challenge-title-area">
             <span className="county-challenge-eyebrow">County Challenge · District 13{ch.source === 'community' ? ' · Community-Submitted' : ''}</span>
-            <div className="county-challenge-title-row">
-              <h3>{ch.title}</h3>
-              {isMain && !showChallengeForm && (
-                <button
-                  className="joco-challenge-submit-btn"
-                  onClick={(e) => { e.stopPropagation(); setShowChallengeForm(true); }}
-                >
-                  <span className="joco-challenge-submit-icon">🎯</span>
-                  <span>Submit a Challenge</span>
-                </button>
-              )}
-            </div>
+            <h3>{ch.title}</h3>
           </div>
           {isComplete && <span className="county-challenge-complete-badge">🎉 Goal reached!</span>}
           {!alwaysExpanded && <span className="county-challenge-chevron">{isExpanded ? '▾' : '▸'}</span>}
@@ -305,6 +294,19 @@ export default function CountyChallenge({ profileName }: Props) {
                     <span className="county-challenge-feed-amount">+{c.amount}</span>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Submit a Challenge button — only in the main card, after recent contributions */}
+            {isMain && !showChallengeForm && (
+              <div className="county-challenge-submit-area">
+                <button
+                  className="joco-challenge-submit-btn"
+                  onClick={() => setShowChallengeForm(true)}
+                >
+                  <span className="joco-challenge-submit-icon">🎯</span>
+                  <span>Submit a Challenge</span>
+                </button>
               </div>
             )}
           </>

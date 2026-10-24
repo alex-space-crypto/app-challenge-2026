@@ -2459,31 +2459,10 @@ body {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 .county-challenge-section { margin-bottom: 1.25rem; }
-.county-challenge-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-.county-challenge-title-row h3 {
-  margin: 0;
-}
-.county-challenge-title-row .joco-challenge-submit-btn {
-  font-size: 0.72rem;
-  padding: 0.4rem 0.8rem;
-}
-.county-challenge-title-row .joco-challenge-submit-icon {
-  font-size: 0.9rem;
-}
-@media (max-width: 640px) {
-  .county-challenge-title-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-  }
-  .county-challenge-title-row .joco-challenge-submit-btn {
-    align-self: stretch;
-  }
+.county-challenge-submit-area {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.85rem;
 }
 .joco-challenge-submit-btn {
   display: flex;

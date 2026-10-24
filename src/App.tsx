@@ -39,11 +39,11 @@ const LEVEL_ICONS = ['🌱', '🌿', '⛏️', '🔨', '⚡', '🌟', '🏆', '�
 export default function App() {
   const [authUser, setAuthUser] = React.useState<AuthUser | null>(null);
   const [authReady, setAuthReady] = React.useState(false);
-  const [habits, setHabits] = React.useState<Habit[]>(() => loadHabits());
-  const [badges, setBadges] = React.useState<Badge[]>(() => loadBadges());
-  const [topics, setTopics] = React.useState<Topic[]>(() => loadTopics());
-  const [posts, setPosts] = React.useState<CommunityPost[]>(() => loadPosts());
-  const [profile, setProfile] = React.useState<Profile>(() => loadProfile());
+  const [habits, setHabits] = React.useState<Habit[]>([]);
+  const [badges, setBadges] = React.useState<Badge[]>([]);
+  const [topics, setTopics] = React.useState<Topic[]>([]);
+  const [posts, setPosts] = React.useState<CommunityPost[]>([]);
+  const [profile, setProfile] = React.useState<Profile>({ name: '' });
   const [selectedTopic, setSelectedTopic] = React.useState<string | null>(null);
   const [tab, setTab] = React.useState<Tab>('tracker');
   const [focusLocation, setFocusLocation] = React.useState<{ lat: number; lng: number } | null>(null);
@@ -56,16 +56,13 @@ export default function App() {
   const [showXpInfo, setShowXpInfo] = React.useState(false);
   const [showIconPopover, setShowIconPopover] = React.useState(false);
   const [statModal, setStatModal] = React.useState<'goals' | 'logs' | 'hits' | null>(null);
-  const [showLogin, setShowLogin] = React.useState(false);
   const [showPrivacy, setShowPrivacy] = React.useState(false);
-  const [collection, setCollection] = React.useState<CollectedAnimal[]>(() => loadCollection());
+  const [collection, setCollection] = React.useState<CollectedAnimal[]>([]);
   const [rewardPopup, setRewardPopup] = React.useState<{ animal: CollectibleAnimal; isNew: boolean; habitName: string } | null>(null);
   const [showCollection, setShowCollection] = React.useState(false);
-  const [beasts, setBeasts] = React.useState<CollectedBeast[]>(() => loadBeasts());
+  const [beasts, setBeasts] = React.useState<CollectedBeast[]>([]);
   const [beastEggPopup, setBeastEggPopup] = React.useState<{ source: string } | null>(null);
   const [showBeastCollection, setShowBeastCollection] = React.useState(false);
-
-  React.useEffect(() => { if (authUser) setShowLogin(false); }, [authUser]);
 
   React.useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -86,21 +83,31 @@ export default function App() {
 
   const handleSignOut = async () => {
     try { await firebaseSignOut(auth); } catch { /* ignore */ }
-    setAuthUser(null);
-    setProfile({ name: '' });
   };
 
   const handleUpdateName = async (name: string) => {
     setProfile({ name });
   };
 
-  React.useEffect(() => { saveHabits(habits); }, [habits]);
-  React.useEffect(() => { saveBadges(badges); }, [badges]);
-  React.useEffect(() => { saveTopics(topics); }, [topics]);
-  React.useEffect(() => { savePosts(posts); }, [posts]);
-  React.useEffect(() => { saveProfile(profile); }, [profile]);
-  React.useEffect(() => { saveCollection(collection); }, [collection]);
-  React.useEffect(() => { saveBeasts(beasts); }, [beasts]);
+  React.useEffect(() => { if (authUser) saveHabits(habits); }, [habits, authUser]);
+  React.useEffect(() => { if (authUser) saveBadges(badges); }, [badges, authUser]);
+  React.useEffect(() => { if (authUser) saveTopics(topics); }, [topics, authUser]);
+  React.useEffect(() => { if (authUser) savePosts(posts); }, [posts, authUser]);
+  React.useEffect(() => { if (authUser) saveProfile(profile); }, [profile, authUser]);
+  React.useEffect(() => { if (authUser) saveCollection(collection); }, [collection, authUser]);
+  React.useEffect(() => { if (authUser) saveBeasts(beasts); }, [beasts, authUser]);
+
+  // Load from localStorage when user signs in; clear when they sign out
+  React.useEffect(() => {
+    if (!authUser) {
+      setHabits([]); setBadges([]); setTopics([]); setPosts([]);
+      setProfile({ name: '' }); setCollection([]); setBeasts([]);
+      return;
+    }
+    setHabits(loadHabits()); setBadges(loadBadges()); setTopics(loadTopics());
+    setPosts(loadPosts()); setProfile(loadProfile());
+    setCollection(loadCollection()); setBeasts(loadBeasts());
+  }, [authUser]);
 
   // When user logs in, load their collection & beasts from Supabase
   const [cloudLoaded, setCloudLoaded] = React.useState(false);
@@ -144,6 +151,18 @@ export default function App() {
     if (!authUser || !cloudLoaded) return;
     saveBeastsToSupabase(authUser.id, beasts);
   }, [authUser, cloudLoaded, beasts]);
+
+  if (!authReady) {
+    return (
+      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+        <p style={{ color: '#6b7d99', fontSize: '1.2rem' }}>Loading…</p>
+      </div>
+    );
+  }
+
+  if (!authUser) {
+    return <LoginScreen />;
+  }
 
   const totalLogs = totalVerifiedLogs(habits);
   const level = Math.floor(totalLogs / 5) + 1;
@@ -317,14 +336,12 @@ export default function App() {
               🐲 Beasts
               <span className="beast-btn-count">{beasts.length}</span>
             </button>
-            {authUser ? (
+            {authUser && (
               <>
                 <span className="header-user-name">{authUser.name || authUser.email || 'Neighbor'}</span>
                 <button className="signout-btn" onClick={handleSignOut}>Sign out</button>
               </>
-            ) : authReady ? (
-              <button className="login-btn-header" onClick={() => setShowLogin(true)}>Log in</button>
-            ) : null}
+            )}
           </div>
           <p className="tagline">Rise together — build habits, reach goals, explore Johnston County and grow as a community.</p>
         </div>
@@ -661,15 +678,6 @@ export default function App() {
           ))}
         </div>
       )}
-      {showLogin && (
-        <div className="login-overlay" onClick={() => setShowLogin(false)}>
-          <div className="login-overlay-inner" onClick={e => e.stopPropagation()}>
-            <button className="login-overlay-close" onClick={() => setShowLogin(false)}>✕</button>
-            <LoginScreen embedded />
-          </div>
-        </div>
-      )}
-
       {rewardPopup && (
         <RewardPopup
           animal={rewardPopup.animal}

@@ -100,7 +100,7 @@ export default function CommunityImpact({ habits, children }: Props) {
     <div className="community-impact-section">
       <h3 className="community-impact-title">📊 Johnston County Community Impact</h3>
       <p className="community-impact-sub">
-        Together, District 13 neighbors are building healthier habits and a stronger community. Here's our combined progress.
+        Together, District 13 neighbors are building a stronger community and healthier habits. Here's our progress
       </p>
 
       <div className="community-impact-grid">

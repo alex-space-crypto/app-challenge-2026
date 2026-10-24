@@ -246,7 +246,23 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                   <span className="help-request-fulfilled-badge">✓ Fulfilled</span>
                 )}
               </div>
-              <h4 className="help-request-title">{r.title}</h4>
+              <h4 className="help-request-title">
+                {r.title.startsWith('Trick-or-Treat Main Street') ? (
+                  <>
+                    <a
+                      href="https://www.downtownclayton.org/962/Main-Street-Trick-or-Treat"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="help-request-title-link"
+                    >
+                      Trick-or-Treat Main Street
+                    </a>
+                    {r.title.slice('Trick-or-Treat Main Street'.length)}
+                  </>
+                ) : (
+                  r.title
+                )}
+              </h4>
               {r.description && <p className="help-request-desc">{r.description}</p>}
               <div className="help-request-meta">
                 <span className="help-request-author">

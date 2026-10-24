@@ -240,7 +240,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
           <span className="help-board-eyebrow">County Help Board · District 13</span>
           <h3>Neighbors Helping Neighbors</h3>
           <p className="help-board-subtitle">
-            Post a request for help or offer to help a neighbor. From community events to everyday needs — we rise together.
+            Post a request or offer help — we rise together.
           </p>
         </div>
       </div>

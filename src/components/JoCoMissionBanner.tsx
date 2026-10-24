@@ -3,15 +3,15 @@ import { CommunityPoll } from './CommunityPoll';
 export function JoCoMissionBanner() {
   return (
     <div className="joco-mission-banner">
-      <div className="joco-weekly-updates">
+      <div className="joco-updates">
         <a
-          className="joco-weekly-title"
+          className="joco-updates-title"
           href="https://knott.house.gov/media"
           target="_blank"
           rel="noopener noreferrer"
           title="Read the latest from Congressman Brad Knott"
         >
-          Weekly Updates from JoCo District 13
+          Updates from JoCo District 13
         </a>
         <ul className="joco-updates-list">
           <li className="joco-update-item">

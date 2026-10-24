@@ -59,7 +59,7 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
     <div className="tab-panel">
       <CommunityImpact habits={habits} />
 
-      <div className="community-banner">
+      <div className="community-banner community-banner-expanded">
         <button
           className="community-banner-main community-banner-clickable"
           onClick={() => setShowBannerPreview(s => !s)}
@@ -78,14 +78,9 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
             <span className="comm-stat-label">cheers</span>
           </div>
         </div>
-      </div>
 
-      <CountyChallenge profileName={profile.name} />
-
-      <CountyAwards profileName={profile.name} />
-
-      {showBannerPreview && (
-        <div className="banner-preview">
+        {showBannerPreview && (
+          <div className="banner-preview banner-preview-inline">
           {showNameField ? (
             <div className="add-block name-block banner-preview-block">
               <h3>Set your display name</h3>
@@ -180,8 +175,13 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
               </div>
             ))
           )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
+
+      <CountyChallenge profileName={profile.name} />
+
+      <CountyAwards profileName={profile.name} />
 
       <HelpBoard profileName={profile.name} />
 

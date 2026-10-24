@@ -4,6 +4,7 @@ import { COMMUNITY_RESOURCES, JOCO_TOWNS } from '../joco';
 import CountyChallenge from './CountyChallenge';
 import HelpBoard from './HelpBoard';
 import CommunityImpact from './CommunityImpact';
+import CountyAwards from './CountyAwards';
 
 const CATEGORIES = ['Sustainability','Reading','Chores & Allowance','Fitness Basics','Hydration','Community Service','General'];
 
@@ -161,6 +162,8 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
       )}
 
       <CountyChallenge profileName={profile.name} />
+
+      <CountyAwards profileName={profile.name} />
 
       <HelpBoard profileName={profile.name} />
 

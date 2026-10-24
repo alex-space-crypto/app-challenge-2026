@@ -6,7 +6,7 @@
 
 ## VIDEO OVERVIEW
 
-**Goal:** Make a judge who has never seen the app understand, in 3 minutes, that this is a community-first wellness platform where Johnston County thrives together — not just another habit tracker.
+**Goal:** Make a judge who has never seen the app understand, in 3 minutes, that this is a community thrive platform where Johnston County grows together — not just another habit tracker. It's bigger than getting healthy. It's about helping neighbors, pushing for change on issues people care about, recognizing community heroes, staying informed, and building goals around real local places.
 
 **Tone:** Confident, warm, community-focused. You're not selling features — you're showing a movement.
 
@@ -20,7 +20,7 @@
 
 **[Screen: App loading → login screen → app opens directly to the Community tab]**
 
-"Every wellness app opens to *your* goals. *Your* steps. *Your* streak. You alone.
+"Every app opens to *your* goals. *Your* steps. *Your* streak. You alone.
 
 Thrive JoCo 13 opens to *us*."
 
@@ -30,31 +30,49 @@ Thrive JoCo 13 opens to *us*."
 
 ---
 
-### COMMUNITY IMPACT (0:15 – 0:55)
+### COMMUNITY IMPACT (0:15 – 0:45)
 
 **[Screen: Slowly scroll down the Community tab. Show the impact dashboard stats: 2,300+ verified activities, 180+ goals completed, 400+ community service logs, volunteers signed up]**
 
 "Over 2,300 verified activities logged by our neighbors. 180 goals completed. 400 community service logs from people helping people.
 
-This isn't a number on a screen — these are real walks on the Neuse River Greenway, real volunteer hours at the food pantry, real books read at the Hocutt-Ellington Library. Every single one was verified by a real person who confirmed it happened."
+This isn't a number on a screen — these are real walks on the Neuse River Greenway, real volunteer hours at the food pantry, real books read at the Hocutt-Ellington Library. Every single one was verified by a real person who confirmed it happened.
 
-**[Screen: Scroll to show the open help requests banner — "3 open help requests from neighbors right now"]**
-
-"And when a neighbor needs help — a ride to a doctor's appointment, help with yard work, food for a senior — they post it on the Help Board, and other neighbors sign up to show up. This is what thriving together looks like."
+This is bigger than getting healthy. This is a community thriving together."
 
 ---
 
-### UPDATES FROM DISTRICT 13 (0:55 – 1:10)
+### HELP BOARD & AWARDS (0:45 – 1:15)
 
-**[Screen: Scroll up to the Updates from JoCo District 13 banner at the top. Show the links to Congressman Knott's media page and the update bullets]**
+**[Screen: Scroll to the County Awards & Recognition section. Show the golden 'Nominate a Neighbor' button]**
 
-"Right at the top of the app, every resident sees Updates from District 13 — the latest news and actions from Congressman Brad Knott's office. Signed pledges, community celebrations, what's happening in Washington and back home.
+"When a neighbor goes above and beyond, they deserve to be recognized. So we built County Awards — anyone can nominate a neighbor for Month of Service, Community Hero, Volunteer of the Month, and more. Recognized recipients are showcased right here for the whole community to celebrate."
 
-An informed community is a thriving community. So we put it front and center."
+**[Screen: Scroll down to the Help Board. Show the open help requests, volunteer sign-up buttons, and the stats at the top]**
+
+"And when a neighbor needs help — a ride to a doctor's appointment, help with storm cleanup, food for a senior — they post it on the Help Board, and other neighbors sign up to show up. Open requests, volunteer progress, fulfilled help — all visible, all real."
 
 ---
 
-### GOALS BUILT AROUND THE COMMUNITY (1:10 – 1:55)
+### SUBMIT YOUR ISSUE (1:15 – 1:40)
+
+**[Screen: Scroll up to the Updates from District 13 banner. Show the community poll, then scroll to the 'Submit Your Issue' button — the glowing blue button with the animated fist icon]**
+
+"Right at the top, every resident sees Updates from District 13 — the latest news from Congressman Brad Knott's office. An informed community is a thriving community.
+
+But here's where it gets powerful. Under the community poll, there's a button — Submit Your Issue."
+
+**[Screen: Tap the 'Submit Your Issue' button. Show the form: issue title, description, category dropdown, name field. Type 'Add sidewalks on Highway 42 near the school', select 'Infrastructure', and submit]**
+
+"Any resident can submit an issue they care about as a poll question. Infrastructure, education, public safety — whatever matters to you. Then the whole community votes For or Against."
+
+**[Screen: Show the submitted issue appearing in the list with a live vote bar. Tap 'For' to vote]**
+
+"When a poll shows overwhelming community support, it becomes a powerful signal to push our representatives to make changes on the things people actually care about. This is direct democracy in your pocket."
+
+---
+
+### GOALS BUILT AROUND THE COMMUNITY (1:40 – 2:15)
 
 **[Screen: Tap the Goals tab. Show the Insights panel with level and streak, then scroll to show goal cards]**
 
@@ -70,37 +88,25 @@ Only verified logs count. No self-reported checkmarks. Progress is honest. And e
 
 **[Screen: Show the 5th log being added — confetti fires, badge unlocks, a collectible animal pops up]**
 
-"On my 5th verified walk — boom. Goal complete. Confetti. I unlock the Trailblazer Pin badge and earn a collectible animal for my collection. Every verified log gives you a chance to collect a local animal — a Neuse River otter, a Howell Woods box turtle."
+"On my 5th verified walk — boom. Goal complete. Confetti. I unlock the Trailblazer Pin badge and earn a collectible animal for my collection."
 
 ---
 
-### PATHWAYS & BADGES (1:55 – 2:15)
+### PATHWAYS, BADGES & MAP (2:15 – 2:40)
 
-**[Screen: Tap the Pathways tab — show the 7 pathway cards with Johnston County-specific suggestions]**
+**[Screen: Quick montage — tap Pathways tab showing the 7 pathways, tap Badges tab showing the 4-tier badge grid, tap Map tab showing pins across Johnston County]**
 
-"We built seven pathways — Sustainability, Reading, Fitness, Hydration, Community Service, Chores, and Local Food — each with goal suggestions tied to real Johnston County places. Not 'walk 10,000 steps.' Walk the Neuse River Greenway. Not 'read more.' Read at the Selma Library."
-
-**[Screen: Tap the Badges tab — show the 4-tier badge grid and tiered progression view]**
-
-"Badges come in four tiers — bronze, silver, gold, platinum — with rewards specific to each category. You earn them by doing the work. Not by creating them. By completing verified goals."
+"Seven pathways tied to real Johnston County places. Four-tier badges earned by doing the work. And an interactive map showing every public goal as a pin across the county — with privacy built in so your home address never appears."
 
 ---
 
-### MAP (2:15 – 2:35)
-
-**[Screen: Tap the Map tab — show the interactive Leaflet map of Johnston County with goal pins scattered across the county. Tap a pin to show the goal name, address, and progress]**
-
-"The Map shows every public goal as a pin across Johnston County. Tap any pin to see the goal, the address, and the progress. Goals at private locations — like your home — never appear on the map, but they still track normally. Your privacy is protected."
-
----
-
-### CLOSING (2:35 – 2:55)
+### CLOSING (2:40 – 2:55)
 
 **[Screen: Return to the Community tab. Show the full community impact dashboard one more time. Hold on the header: 'Thrive JoCo 13' with the link to knott.house.gov]**
 
 "Thrive JoCo 13 was built with React, TypeScript, Firebase Authentication, and Supabase.
 
-But it's not about the tech. It's about this — a community that shows up for each other. Helps when help is needed. Stays informed. And builds goals around the places and people we call home.
+But it's not about the tech. It's about this — a community that shows up for each other. Helps when help is needed. Recognizes its heroes. Pushes for change on issues that matter. Stays informed. And builds goals around the places and people we call home.
 
 We don't thrive alone. We thrive together."
 
@@ -115,16 +121,20 @@ We don't thrive alone. We thrive together."
 1. **Create a fresh test account** so the screen looks clean — no cluttered old goals
 2. **Pre-build the Sarah scenario:** Create the "Walk the Clayton River Walk" goal with 4 verified logs already entered. When you record, you only need to add the 5th log live — the confetti, badge unlock, and animal collection popup all fire on camera
 3. **Add 2-3 community posts** from the test account so the Thriving Together board isn't empty
-4. **Add 1-2 help board requests** so the Help Board has visible content
-5. **Make sure the Updates from District 13 banner is visible** — scroll to it or keep it in frame during that section
-6. **Close other browser tabs** — judges can see your tab bar
-7. **Record at 1080p or higher** — use screen recording software like OBS, Loom, or QuickTime
+4. **Add 1-2 help board requests** so the Help Board has visible content with volunteer sign-up buttons
+5. **Pre-submit 1 community issue** (e.g. "Add sidewalks on Highway 42") with a few votes so the issue list isn't empty when you show it. Then submit a second one live on camera.
+6. **Pre-submit 1-2 award nominations** so the Pending Nominations section has content. Ideally mark one as "recognized" so the golden Recognized Award Recipients card is visible.
+7. **Make sure the Updates from District 13 banner is visible** — scroll to it or keep it in frame during that section
+8. **Close other browser tabs** — judges can see your tab bar
+9. **Record at 1080p or higher** — use screen recording software like OBS, Loom, or QuickTime
 
 ## RECORDING TIPS
 
 - **Record in one continuous take** if possible — judges prefer seeing real interaction over edited cuts
 - **Speak slowly and clearly** — you know the app, they don't. Pause after key moments
 - **Show real emotion when the confetti fires** — it proves the app feels rewarding, not just functional
+- **When you tap 'Submit Your Issue', slow down** — let judges see the form, the category dropdown, and the glowing button. This is a standout feature.
+- **When showing the Awards section, highlight the golden styling** — the visual design communicates "recognition" before you even explain it
 - **Keep it under 3 minutes** — the CAC strictly enforces the 1-3 minute limit. Aim for 2:50
 - **Do a dry run first** — practice the full script with the app open before recording the real take
 - **Upload to YouTube and set to Public** — judges cannot view private or unlisted videos. Test the link in an incognito window to confirm it's accessible
@@ -132,5 +142,5 @@ We don't thrive alone. We thrive together."
 ## AFTER RECORDING
 
 - **Title the video:** "Thrive JoCo 13 — Congressional App Challenge 2026"
-- **Description:** Include a 2-sentence summary: "Thrive JoCo 13 is a community-first wellness platform for Johnston County, NC. Neighbors help each other, build goals around real local places, verify progress with real people, and stay informed about District 13 — because we thrive together."
+- **Description:** Include a 2-sentence summary: "Thrive JoCo 13 is a community thrive platform for Johnston County, NC. Neighbors help each other, push for change on issues they care about, recognize community heroes, build goals around real local places, and stay informed about District 13 — because we thrive together."
 - **Copy the YouTube URL** into the CAC submission form

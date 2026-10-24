@@ -1718,6 +1718,341 @@ body {
   color: var(--error);
   margin: 0;
 }
+
+/* ===== Community Issue Submission ===== */
+.joco-issue-divider {
+  border-top: 1px solid var(--border);
+  margin: 0.6rem 0;
+}
+.joco-issue-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.joco-issue-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+.joco-issue-header-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.joco-issue-header-text {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+.joco-issue-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, var(--accent), #2a6fc9);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: transform 0.12s, box-shadow 0.15s, opacity 0.15s;
+  box-shadow: 0 2px 8px rgba(74,144,217,0.25);
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+.joco-issue-submit-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(74,144,217,0.4);
+}
+.joco-issue-submit-btn:active { transform: scale(0.98); }
+.joco-issue-submit-icon {
+  font-size: 1.1rem;
+  animation: bounce-icon 1.8s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(74,144,217,0.25); }
+  50% { box-shadow: 0 2px 16px rgba(74,144,217,0.5); }
+}
+@keyframes bounce-icon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.joco-issue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.joco-issue-input {
+  font-size: 0.78rem !important;
+}
+.joco-issue-textarea {
+  font-size: 0.78rem !important;
+}
+.joco-issue-form-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.joco-issue-form-row > * {
+  flex: 1;
+  min-width: 120px;
+}
+.joco-issue-select {
+  font-size: 0.78rem !important;
+}
+.joco-issue-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.joco-issue-submit-confirm {
+  font-size: 0.8rem;
+}
+.joco-issue-cancel {
+  font-size: 0.78rem;
+}
+.joco-issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+.joco-issue-card {
+  background: rgba(6,16,40,0.5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  animation: fadein 0.25s ease;
+}
+.joco-issue-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.joco-issue-category-tag {
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-light);
+  background: rgba(74,144,217,0.12);
+  border-radius: 10px;
+  padding: 0.1rem 0.5rem;
+}
+.joco-issue-time {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+.joco-issue-card-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.35;
+}
+.joco-issue-card-desc {
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0;
+}
+.joco-issue-card-by {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ===== County Awards ===== */
+.county-awards-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 1.25rem;
+}
+.county-awards-header {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+.county-awards-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.county-awards-title-area {
+  flex: 1;
+}
+.county-awards-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-light);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.county-awards-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.05rem;
+}
+.county-awards-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.45;
+  margin: 0;
+}
+.county-awards-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  border: none;
+  color: #fff;
+  font-weight: 800;
+  padding: 0.65rem 1.2rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.15s;
+  box-shadow: 0 2px 10px rgba(212,160,23,0.3);
+}
+.county-awards-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(212,160,23,0.45);
+}
+.county-awards-cta:active { transform: scale(0.98); }
+.county-awards-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  animation: fadein 0.25s ease;
+}
+.county-awards-form-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.county-awards-form-row > .county-challenge-field {
+  flex: 1;
+  min-width: 160px;
+}
+.county-awards-recognized {
+  margin-top: 1rem;
+}
+.county-awards-section-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #d4a017;
+  margin: 0 0 0.6rem;
+}
+.county-awards-recipient-card {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  background: linear-gradient(135deg, rgba(212,160,23,0.08), rgba(212,160,23,0.02));
+  border: 1px solid rgba(212,160,23,0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem;
+  margin-bottom: 0.6rem;
+  animation: fadein 0.3s ease;
+}
+.county-awards-recipient-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.county-awards-recipient-body {
+  flex: 1;
+}
+.county-awards-recipient-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+}
+.county-awards-recipient-award {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #d4a017;
+  display: block;
+  margin-top: 0.1rem;
+}
+.county-awards-recipient-reason {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0.3rem 0 0;
+}
+.county-awards-recipient-meta {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.3rem;
+}
+.county-awards-recognized-badge {
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #d4a017;
+  background: rgba(212,160,23,0.15);
+  border: 1px solid rgba(212,160,23,0.4);
+  border-radius: 12px;
+  padding: 0.15rem 0.55rem;
+  flex-shrink: 0;
+}
+.county-awards-pending {
+  margin-top: 0.8rem;
+}
+.county-awards-pending-item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+.county-awards-pending-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.county-awards-pending-body { flex: 1; }
+.county-awards-pending-name {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+.county-awards-pending-award {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent-light);
+  display: block;
+  margin-top: 0.1rem;
+}
+.county-awards-pending-reason {
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  margin: 0.25rem 0 0;
+}
+.county-awards-pending-meta {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 0.25rem;
+}
+
 .joco-mission-link {
   font-size: 0.78rem;
   font-weight: 700;

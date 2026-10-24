@@ -1,40 +1,72 @@
 # Thrive JoCo 13 — Congressional App Challenge 2026
 
-## A community wellness platform for Johnston County, North Carolina
+## A community thrive platform for Johnston County, North Carolina
 
-**Thrive together — help your neighbors, build goals around your community, and rise as one District 13.**
+**Thrive together — help your neighbors, build goals around your community, push for change on issues you care about, and rise as one District 13.**
 
-Thrive JoCo 13 is not a habit tracker with a community feature bolted on. It is a **community-first wellness platform** where the first thing you see is the collective impact of every neighbor in Johnston County. Personal goals are built around the community — you set goals tied to real local places, verify them with real people, and every verified action feeds back into the county-wide impact dashboard so everyone can see District 13 rising together.
+Thrive JoCo 13 is not a habit tracker with a community feature bolted on. It is a **community-first growth platform** where the first thing you see is the collective impact of every neighbor in Johnston County. Personal goals are built around the community — you set goals tied to real local places, verify them with real people, and every verified action feeds back into the county-wide impact dashboard so everyone can see District 13 rising together.
 
-When a neighbor needs help, the community shows up. When a neighbor hits a goal, the community cheers. When Congressman Brad Knott posts an update from District 13, everyone sees it. This is wellness designed around the idea that **we thrive together — not alone.**
+This is bigger than getting healthy. It's about a community that thrives together — helping each other when help is needed, recognizing neighbors who go above and beyond, pushing representatives on issues people actually care about, staying informed about what's happening in District 13, and building personal goals around the places and people that make Johnston County home.
 
 ---
 
 ## Why Community Comes First
 
-Every other wellness app opens to your private checklist. Yours. Your steps. Your streak. You alone.
+Every other app opens to your private checklist. Yours. Your steps. Your streak. You alone.
 
 Thrive JoCo 13 opens to **the county**. The first screen shows the Johnston County Community Impact dashboard — the combined, verified effort of every resident using the platform. Over 2,300 verified activities. 180 goals completed. 400 community service logs. Volunteers signed up to help neighbors in need. Open help requests from people who need a hand right now.
 
-This is intentional. We believe people stay motivated when they can see that their effort is part of something bigger than themselves. A walk on the Neuse River Greenway isn't just a checkmark — it's a contribution to a county that is getting healthier together.
+This is intentional. We believe people stay motivated when they can see that their effort is part of something bigger than themselves. A walk on the Neuse River Greenway isn't just a checkmark — it's a contribution to a county that is thriving together.
+
+---
+
+## What's New in This Release
+
+### Submit Your Own Issue as a Community Poll
+
+Under the community poll, residents can now **submit their own issues** as poll questions. Whether it's a request for sidewalks on Highway 42, better funding for local schools, or improved park maintenance — anyone can post an issue, categorize it (Infrastructure, Education, Public Safety, Health, Environment, Housing, or Other), and let the entire community vote For or Against.
+
+This gives residents a direct voice to **push their representatives to make changes on meaningful aspects people actually care about**. When a poll shows overwhelming community support, it becomes a powerful signal to elected officials that this issue matters to real people.
+
+The submit button is designed to stand out — a glowing blue button with an animated raised-fist icon that pulses to draw attention. Each submitted issue shows the category, the submitter's name, a live vote tally with progress bars, and the ability for any visitor to vote and change their vote at any time.
+
+### County Awards & Community Recognition
+
+The community tab now features a **County Awards & Recognition** section where residents can **nominate a neighbor** for a special award. Award types include:
+
+- **Month of Service** — for someone who dedicated significant time to serving others
+- **Community Hero** — for someone who went above and beyond for the community
+- **Volunteer of the Month** — for outstanding volunteer contributions
+- **Youth Leader** — for a young person making a difference
+- **Senior Champion** — for a senior who continues to give back
+- **Neighborhood Helper** — for someone who consistently helps their neighbors
+- **Other** — for any form of community contribution
+
+Nominated individuals appear in a "Pending Nominations" list, and once recognized, they're showcased in a golden "Recognized Award Recipients" section with their award type, the reason they were nominated, and who nominated them. This gives the community a way to celebrate the people who make Johnston County thrive.
+
+### Open Help Requests from Neighbors
+
+The Help Board continues to serve as the neighbor-to-neighbor support system. Residents can post requests for help — hurricane relief, storm cleanup, food and supplies, transportation, shelter, or general volunteer needs — and other residents can sign up to volunteer. Open requests, offers, and fulfilled counts are displayed at the top so the community can see the impact of showing up for each other.
 
 ---
 
 ## Updates from District 13
 
-Right below the community impact dashboard, every user sees **Updates from JoCo District 13** — the latest news and actions from Congressman Brad Knott's office, linked directly to his official media page. This keeps every resident informed about what their representative is doing in Washington and back home in Johnston County.
+Right below the community impact dashboard, every user sees **Updates from JoCo District 13** — the latest news and actions from Congressman Brad Knott's office, linked directly to his official media page. This keeps every resident connected and up to date on local focus — what their representative is doing in Washington and back home in Johnston County.
 
-Residents see updates like signed pledges to protect Americans from fraud, congratulations to the Johnston County Little League softball team, and other district news — all in the same app where they're building healthier habits. An informed community is a thriving community.
+Residents see updates like signed pledges to protect Americans from fraud, congratulations to the Johnston County Little League softball team, and other district news — all in the same app where they're building goals and helping neighbors. An informed community is a thriving community.
 
 ---
 
 ## The Problem We Saw
 
-Johnston County residents want to be healthier, but they face three barriers:
+Johnston County residents want to thrive — not just individually, but together. But they face barriers:
 
 1. **No accountability** — people set goals alone and quietly abandon them
-2. **No local context** — fitness apps say "walk 10,000 steps" but never connect to the actual places in our county
-3. **No community connection** — nothing ties personal wellness to helping neighbors or staying informed about the district
+2. **No local context** — apps say "walk 10,000 steps" but never connect to the actual places in our county
+3. **No community connection** — nothing ties personal growth to helping neighbors or staying informed about the district
+4. **No voice** — residents have no easy way to surface issues they care about and show community support to push for change
+5. **No recognition** — neighbors who go above and behind are invisible
 
 ## The Platform We Built
 
@@ -46,10 +78,12 @@ When you open the app, you land here — not on your personal goals.
 
 - **Johnston County Community Impact dashboard** — live county-wide stats showing verified activities, goals completed, community service logs, and volunteers signed up. Your personal logs contribute to these numbers in real time.
 - **Thriving Together board** — a shared message board where neighbors post wins, tips, and encouragement. Cheer each other on. Report inappropriate content. Every post builds the community stronger.
-- **Volunteer Help Board** — residents who need help can post a request — a ride to a medical appointment, help with yard work, food delivery for a senior neighbor. Other residents sign up to volunteer. This is neighbors helping neighbors, organized and visible.
+- **Volunteer Help Board** — residents who need help can post a request. Other residents sign up to volunteer. Open requests, offers, and fulfilled counts are visible at the top.
 - **County Challenge** — a community-wide wellness goal that everyone contributes to together, tracked in real time.
+- **County Awards & Recognition** — nominate a neighbor for Month of Service, Community Hero, Volunteer of the Month, Youth Leader, Senior Champion, or Neighborhood Helper. Recognized recipients are showcased with a golden award card.
 - **Community Resources** — direct links to real Johnston County services: the food bank, libraries, the senior center, and more.
 - **Updates from District 13** — the latest news from Congressman Brad Knott's office, so every resident stays informed about what's happening in Washington and at home.
+- **Submit Your Issue** — under the community poll, residents can submit their own issues as poll questions for the community to vote on, categorized by topic, to push representatives to act on things people care about.
 
 ### 2. Goals (built around the community)
 
@@ -98,11 +132,19 @@ Create custom pathways with your own icon and color.
 
 ### Community-first, not me-first
 
-The app opens to the county, not to you. The Community Impact dashboard is the first thing every resident sees — because wellness is collective, not just personal. When you can see that 2,300+ verified activities have been logged by your neighbors, you want to add yours.
+The app opens to the county, not to you. The Community Impact dashboard is the first thing every resident sees — because growth is collective, not just personal. When you can see that 2,300+ verified activities have been logged by your neighbors, you want to add yours.
 
 ### Help when help is needed
 
-The Volunteer Help Board lets any resident post a request for help and any resident sign up to provide it. This isn't a feature — it's the point. A community thrives when neighbors show up for each other.
+The Volunteer Help Board lets any resident post a request for help and any resident sign up to provide it. Open help requests are visible right on the community tab. This isn't a feature — it's the point. A community thrives when neighbors show up for each other.
+
+### A voice to push for change
+
+The Submit Your Issue feature gives residents a direct way to surface issues they care about as community polls. When neighbors vote For or Against, it creates a visible, quantified signal that can be shared with representatives to push for action on the things that matter most to the people of District 13.
+
+### Recognition for those who give
+
+The County Awards & Recognition system lets any resident nominate a neighbor for a county award — Month of Service, Community Hero, Volunteer of the Month, and more. Recognized recipients are showcased in a golden award display, celebrating the people who make our community thrive.
 
 ### Verification — progress is honest
 
@@ -132,8 +174,10 @@ Goals at private locations can be marked as private. They track normally — log
 - **4-tier badge system** with category-specific rewards
 - **8 level titles** from "New Neighbor" to "Community Pillar"
 - **Volunteer help board** with sign-ups for local service opportunities
-- **County challenge** tracking for community-wide wellness goals
-- **Live updates from District 13** keeping residents informed
+- **County challenge** tracking for community-wide goals
+- **County Awards & Recognition** with 7 award types and community nominations
+- **Community-submitted issue polls** for residents to push representatives on local concerns
+- **Live updates from District 13** keeping residents informed and connected
 
 > *"I actually walked the Clayton River Walk five times because my friend Marcus had to verify it. Having someone confirm I did it made it real. But what kept me going was seeing the county number go up every time I logged — knowing I was part of something bigger."* — Beta tester, Johnston County
 
@@ -146,7 +190,7 @@ Goals at private locations can be marked as private. They track normally — log
 - **Vite** — fast build tooling and development server
 - **React Leaflet + Leaflet** — interactive map of Johnston County with goal location pins
 - **Firebase Authentication** — secure email/password login required on launch, so every feature is tied to a real account and personal data is protected
-- **Supabase (PostgreSQL with Row Level Security)** — backend database for the community help board, volunteer tracking, county challenge, community polls, user profiles, and collectible collections
+- **Supabase (PostgreSQL with Row Level Security)** — backend database for the community help board, volunteer tracking, county challenge, community polls, community-submitted issue polls, award nominations, user profiles, and collectible collections
 - **LocalStorage** — offline-first persistence for personal goals, badges, and pathways so the app works without a network connection
 
 **One hard problem we solved — private pins on a shared map:**
@@ -155,7 +199,7 @@ The map is the heart of the app, but not every goal happens at a public place. S
 
 **What we learned:**
 
-Building for a real community taught us that wellness isn't just about tracking — it's about trust and belonging. The verification system changed how testers approached their goals. When someone else had to confirm you did it, the goal stopped being a wish and became a commitment. But the bigger lesson was about community: when people could see the county-wide impact dashboard going up, they logged more. Knowing you're part of something bigger than yourself is the most powerful motivator we found.
+Building for a real community taught us that growth isn't just about tracking — it's about trust, belonging, and having a voice. The verification system changed how testers approached their goals. When someone else had to confirm you did it, the goal stopped being a wish and became a commitment. But the bigger lessons were about community: when people could see the county-wide impact dashboard going up, they logged more. When they could nominate a neighbor for an award, they felt invested in each other's success. And when they could submit an issue they cared about as a poll, they felt heard. Knowing you're part of something bigger than yourself — and that your voice matters — is the most powerful motivator we found.
 
 ---
 
@@ -180,6 +224,7 @@ Building for a real community taught us that wellness isn't just about tracking 
 - **Version 4** — Firebase authentication, Supabase backend for community help board and volunteer tracking, county challenge, user profiles, and insights panel
 - **Version 5** — Login required immediately on launch. Fixed data-loading race condition. Custom badges now start locked and must be earned.
 - **Version 6** — Community-first redesign: Community tab moved to first position and set as default screen. Johnston County Community Impact dashboard leads the app. Updates from District 13 banner integrated into every session.
+- **Version 7** — Community-submitted issue polls: residents can submit their own issues as poll questions to push representatives on local concerns. County Awards & Recognition: nominate neighbors for Month of Service, Community Hero, and more. Rebranded from "wellness" to a community thrive platform — bigger than getting healthy.
 
 ---
 
@@ -190,7 +235,8 @@ Building for a real community taught us that wellness isn't just about tracking 
 - **More districts** — Expand the community-first platform model to other NC counties, each with their own local places, community resources, and district updates
 - **Group goals** — Let families, classrooms, or neighborhoods set shared goals and track collective progress on the map
 - **Civic integration** — Connect with the Johnston County Board of Commissioners' wellness initiatives and display county-wide challenge progress in real time
-- **Emergency help network** — Expand the help board into a rapid-response system for community emergencies
+- **Representative delivery** — Automatically deliver high-vote community issue polls to elected officials' offices with quantified community support data
+- **Award ceremonies** — Partner with local government to host quarterly recognition events for nominated award recipients
 
 ---
 

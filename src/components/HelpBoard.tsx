@@ -11,6 +11,18 @@ const CATEGORIES = [
   'Other',
 ];
 
+const HELP_ROLES = [
+  'Run games',
+  'Guide families along Main Street',
+  'Staff the petting zoo',
+  'Hand out candy in Town Square',
+  'Wherever is needed most',
+];
+
+const TIME_SLOTS = [
+  '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM',
+];
+
 const URGENCY_LABELS: Record<string, string> = {
   low: 'Low priority',
   medium: 'Medium',
@@ -54,9 +66,10 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   const [submitting, setSubmitting] = React.useState(false);
   const [volunteerFormReq, setVolunteerFormReq] = React.useState<string | null>(null);
   const [volName, setVolName] = React.useState(profileName || '');
-  const [volHours, setVolHours] = React.useState('');
-  const [volWhatDone, setVolWhatDone] = React.useState('');
-  const [volVerifiedBy, setVolVerifiedBy] = React.useState('');
+  const [volShiftStart, setVolShiftStart] = React.useState('');
+  const [volShiftEnd, setVolShiftEnd] = React.useState('');
+  const [volContactPhone, setVolContactPhone] = React.useState('');
+  const [volHelpRole, setVolHelpRole] = React.useState(HELP_ROLES[0]);
   const [volSubmitting, setVolSubmitting] = React.useState(false);
   const [volError, setVolError] = React.useState<string | null>(null);
   const [showAllRequests, setShowAllRequests] = React.useState(false);
@@ -116,8 +129,8 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
   };
 
   const submitVolunteerSignup = async (req: HelpRequest) => {
-    if (!volName.trim() || !volWhatDone.trim()) {
-      setVolError('Please enter your name and what you did.');
+    if (!volName.trim() || !volHelpRole.trim()) {
+      setVolError('Please enter your name and pick what you want to help with.');
       return;
     }
     setVolSubmitting(true);
@@ -155,9 +168,10 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
         .eq('id', req.id);
       if (updErr) throw updErr;
       setVolunteerFormReq(null);
-      setVolHours('');
-      setVolWhatDone('');
-      setVolVerifiedBy('');
+      setVolShiftStart('');
+      setVolShiftEnd('');
+      setVolContactPhone('');
+      setVolHelpRole(HELP_ROLES[0]);
     } catch {
       setRequests(prev =>
         prev.map(r => (r.id === req.id ? { ...r, volunteers_count: current } : r)),
@@ -338,38 +352,46 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                           maxLength={80}
                         />
                         <div className="county-challenge-form-row">
-                          <div className="county-challenge-field" style={{ maxWidth: '120px' }}>
-                            <label className="field-label">Hours</label>
-                            <input
-                              className="text-input"
-                              type="number"
-                              min="0"
-                              step="0.5"
-                              placeholder="e.g. 2"
-                              value={volHours}
-                              onChange={e => setVolHours(e.target.value)}
-                            />
+                          <div className="county-challenge-field" style={{ maxWidth: '160px' }}>
+                            <label className="field-label">Available from</label>
+                            <select
+                              className="select-input"
+                              value={volShiftStart}
+                              onChange={e => setVolShiftStart(e.target.value)}
+                            >
+                              <option value="">Pick a time</option>
+                              {TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}
+                            </select>
                           </div>
-                          <div className="county-challenge-field">
-                            <label className="field-label">Verified by (optional)</label>
-                            <input
-                              className="text-input"
-                              placeholder="Who confirmed your hours?"
-                              value={volVerifiedBy}
-                              onChange={e => setVolVerifiedBy(e.target.value)}
-                              maxLength={80}
-                            />
+                          <div className="county-challenge-field" style={{ maxWidth: '160px' }}>
+                            <label className="field-label">Available until</label>
+                            <select
+                              className="select-input"
+                              value={volShiftEnd}
+                              onChange={e => setVolShiftEnd(e.target.value)}
+                            >
+                              <option value="">Pick a time</option>
+                              {TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}
+                            </select>
                           </div>
                         </div>
-                        <label className="field-label">What did you do?</label>
-                        <textarea
-                          className="text-area"
-                          placeholder="Describe how you helped..."
-                          value={volWhatDone}
-                          onChange={e => setVolWhatDone(e.target.value)}
-                          rows={2}
-                          maxLength={300}
+                        <label className="field-label">Contact (phone number)</label>
+                        <input
+                          className="text-input"
+                          type="tel"
+                          placeholder="(919) 555-0123"
+                          value={volContactPhone}
+                          onChange={e => setVolContactPhone(e.target.value)}
+                          maxLength={20}
                         />
+                        <label className="field-label">What do you want to help with?</label>
+                        <select
+                          className="select-input"
+                          value={volHelpRole}
+                          onChange={e => setVolHelpRole(e.target.value)}
+                        >
+                          {HELP_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                        </select>
                         {volError && <p className="county-challenge-error">{volError}</p>}
                         <div className="county-challenge-form-actions">
                           <button
@@ -377,7 +399,7 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                             disabled={volSubmitting}
                             onClick={() => submitVolunteerSignup(r)}
                           >
-                            {volSubmitting ? 'Submitting…' : 'Submit your hours'}
+                            {volSubmitting ? 'Submitting…' : 'Sign up to volunteer'}
                           </button>
                           <button
                             className="toggle-add county-challenge-cancel"
@@ -419,14 +441,14 @@ export default function HelpBoard({ profileName }: { profileName: string }) {
                             <div className="county-challenge-feed-body">
                               <span className="county-challenge-feed-name">{s.volunteer_name || 'Neighbor'}</span>
                               <span className="county-challenge-feed-time"> · {timeAgo(s.created_at)}</span>
-                              {s.what_done && (
-                                <span className="county-challenge-feed-detail">{s.what_done}</span>
+                              {s.help_role && (
+                                <span className="county-challenge-feed-detail">{s.help_role}</span>
                               )}
-                              {(s.hours || s.verified_by) && (
+                              {((s.shift_start && s.shift_end) || s.contact_phone) && (
                                 <span className="county-challenge-feed-meta">
-                                  {s.hours != null && `${s.hours}h`}
-                                  {s.hours != null && s.verified_by && ' · '}
-                                  {s.verified_by && `verified by ${s.verified_by}`}
+                                  {s.shift_start && s.shift_end && `${s.shift_start} – ${s.shift_end}`}
+                                  {s.shift_start && s.shift_end && s.contact_phone && ' · '}
+                                  {s.contact_phone && `📞 ${s.contact_phone}`}
                                 </span>
                               )}
                             </div>

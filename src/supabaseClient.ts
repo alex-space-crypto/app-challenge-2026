@@ -38,6 +38,10 @@ export interface VolunteerSignup {
   hours: number | null;
   what_done: string | null;
   verified_by: string | null;
+  shift_start: string | null;
+  shift_end: string | null;
+  contact_phone: string | null;
+  help_role: string | null;
 }
 
 export interface HelpRequest {

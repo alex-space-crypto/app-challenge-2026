@@ -1,6 +1,7 @@
 import type { Habit, HabitLog, Badge, Topic, CommunityPost, Profile } from './types';
 import type { CollectedAnimal } from './collectibles';
 import type { CollectedBeast } from './beasts';
+import { supabase } from './supabaseClient';
 
 const HABITS_KEY = 'joco-habits-v2';
 const BADGES_KEY = 'joco-badges-v1';
@@ -91,6 +92,61 @@ export function loadBeasts(): CollectedBeast[] {
   } catch { return []; }
 }
 export function saveBeasts(b: CollectedBeast[]) { localStorage.setItem(BEASTS_KEY, JSON.stringify(b)); }
+
+// --- Supabase-backed collection sync (per Firebase user) ---
+
+export async function loadCollectionFromSupabase(userId: string): Promise<CollectedAnimal[]> {
+  const { data, error } = await supabase
+    .from('animal_collection')
+    .select('animal_id, from_habit, collected_at')
+    .eq('user_id', userId);
+  if (error) return [];
+  return (data || []).map((r: { animal_id: string; from_habit: string; collected_at: number }) => ({
+    animalId: r.animal_id,
+    fromHabit: r.from_habit || '',
+    collectedAt: r.collected_at || 0,
+  }));
+}
+
+export async function saveCollectionToSupabase(userId: string, collection: CollectedAnimal[]): Promise<void> {
+  // Upsert all — simplest approach: delete then re-insert
+  await supabase.from('animal_collection').delete().eq('user_id', userId);
+  if (collection.length === 0) return;
+  const rows = collection.map(c => ({
+    user_id: userId,
+    animal_id: c.animalId,
+    from_habit: c.fromHabit || '',
+    collected_at: c.collectedAt || 0,
+  }));
+  await supabase.from('animal_collection').upsert(rows, { onConflict: 'user_id,animal_id' });
+}
+
+export async function loadBeastsFromSupabase(userId: string): Promise<CollectedBeast[]> {
+  const { data, error } = await supabase
+    .from('beast_collection')
+    .select('beast_id, tier, source, collected_at')
+    .eq('user_id', userId);
+  if (error) return [];
+  return (data || []).map((r: { beast_id: string; tier: string; source: string; collected_at: number }) => ({
+    beastId: r.beast_id,
+    tier: r.tier as CollectedBeast['tier'],
+    source: r.source || '',
+    collectedAt: r.collected_at || 0,
+  }));
+}
+
+export async function saveBeastsToSupabase(userId: string, beasts: CollectedBeast[]): Promise<void> {
+  await supabase.from('beast_collection').delete().eq('user_id', userId);
+  if (beasts.length === 0) return;
+  const rows = beasts.map(b => ({
+    user_id: userId,
+    beast_id: b.beastId,
+    tier: b.tier,
+    source: b.source || '',
+    collected_at: b.collectedAt || 0,
+  }));
+  await supabase.from('beast_collection').upsert(rows, { onConflict: 'user_id,beast_id,tier' });
+}
 
 function getDefaultHabits(): Habit[] {
   const today = new Date();

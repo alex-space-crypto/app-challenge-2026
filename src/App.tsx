@@ -5,6 +5,8 @@ import {
   loadHabits, saveHabits, loadBadges, saveBadges,
   loadTopics, saveTopics, loadPosts, savePosts, loadProfile, saveProfile,
   loadCollection, saveCollection, loadBeasts, saveBeasts,
+  loadCollectionFromSupabase, saveCollectionToSupabase,
+  loadBeastsFromSupabase, saveBeastsToSupabase,
 } from './storage';
 import type { CollectibleAnimal, CollectedAnimal } from './collectibles';
 import { rollAnimal, isAlreadyCollected } from './collectibles';
@@ -99,6 +101,49 @@ export default function App() {
   React.useEffect(() => { saveProfile(profile); }, [profile]);
   React.useEffect(() => { saveCollection(collection); }, [collection]);
   React.useEffect(() => { saveBeasts(beasts); }, [beasts]);
+
+  // When user logs in, load their collection & beasts from Supabase
+  const [cloudLoaded, setCloudLoaded] = React.useState(false);
+  React.useEffect(() => {
+    if (!authUser) { setCloudLoaded(false); return; }
+    let cancelled = false;
+    (async () => {
+      const [cloudCollection, cloudBeasts] = await Promise.all([
+        loadCollectionFromSupabase(authUser.id),
+        loadBeastsFromSupabase(authUser.id),
+      ]);
+      if (cancelled) return;
+      // Merge: keep local entries, add any cloud-only entries
+      setCollection(prev => {
+        const localIds = new Set(prev.map(c => c.animalId));
+        const merged = [...prev];
+        for (const c of cloudCollection) {
+          if (!localIds.has(c.animalId)) merged.push(c);
+        }
+        return merged;
+      });
+      setBeasts(prev => {
+        const localKeys = new Set(prev.map(b => `${b.beastId}-${b.tier}`));
+        const merged = [...prev];
+        for (const b of cloudBeasts) {
+          if (!localKeys.has(`${b.beastId}-${b.tier}`)) merged.push(b);
+        }
+        return merged;
+      });
+      setCloudLoaded(true);
+    })();
+    return () => { cancelled = true; };
+  }, [authUser]);
+
+  // After cloud load, sync any new local items up to Supabase
+  React.useEffect(() => {
+    if (!authUser || !cloudLoaded) return;
+    saveCollectionToSupabase(authUser.id, collection);
+  }, [authUser, cloudLoaded, collection]);
+  React.useEffect(() => {
+    if (!authUser || !cloudLoaded) return;
+    saveBeastsToSupabase(authUser.id, beasts);
+  }, [authUser, cloudLoaded, beasts]);
 
   const totalLogs = totalVerifiedLogs(habits);
   const level = Math.floor(totalLogs / 5) + 1;

@@ -37,20 +37,27 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
   const [showNameField, setShowNameField] = React.useState(!profile.name);
   const [showResources, setShowResources] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState<CommunityPost | null>(null);
-  const [showBannerPreview, setShowBannerPreview] = React.useState(false);
+  const [showBannerPreview, setShowBannerPreview] = React.useState(true);
 
-  const sorted = [...posts].sort((a, b) => b.createdAt - a.createdAt);
-  const totalCheers = posts.reduce((s, p) => s + p.cheers, 0);
-  const categoryCounts = CATEGORIES.map(c => ({ c, n: posts.filter(p => p.category === c).length }))
+  const SEED_POSTS: CommunityPost[] = React.useMemo(() => {
+    const now = Date.now();
+    return [
+      { id: 'seed-1', author: 'Maria G.', message: 'Finished my 30-day hydration streak! Feeling so much better. Drink your water, neighbors! 💧', category: 'Hydration', createdAt: now - 3600000, cheers: 12 },
+      { id: 'seed-2', author: 'James T.', message: 'Volunteered at the Clayton Food Pantry this morning. Great crew and a big turnout. Come join us next Saturday!', category: 'Community Service', createdAt: now - 7200000, cheers: 24 },
+      { id: 'seed-3', author: 'Aisha K.', message: 'Walked the Buffalo Creek Greenway with my kids today. Saw a blue heron! Best habit goal ever 🌿', category: 'Fitness Basics', createdAt: now - 10800000, cheers: 8 },
+      { id: 'seed-4', author: 'Robert L.', message: "Finished reading 10 books this month at the Public Library of Johnston County. Knowledge is power! 📚", category: 'Reading', createdAt: now - 14400000, cheers: 15 },
+    ];
+  }, []);
+
+  const allPosts = React.useMemo(() => [...posts, ...SEED_POSTS], [posts, SEED_POSTS]);
+  const sorted = [...allPosts].sort((a, b) => b.createdAt - a.createdAt);
+  const totalCheers = allPosts.reduce((s, p) => s + p.cheers, 0);
+  const categoryCounts = CATEGORIES.map(c => ({ c, n: allPosts.filter(p => p.category === c).length }))
     .filter(x => x.n > 0);
 
   return (
     <div className="tab-panel">
       <CommunityImpact habits={habits} />
-
-      <CountyChallenge profileName={profile.name} />
-
-      <CountyAwards profileName={profile.name} />
 
       <div className="community-banner">
         <button
@@ -63,7 +70,7 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
         </button>
         <div className="community-stats">
           <div className="comm-stat">
-            <span className="comm-stat-num">{posts.length}</span>
+            <span className="comm-stat-num">{allPosts.length}</span>
             <span className="comm-stat-label">posts</span>
           </div>
           <div className="comm-stat">
@@ -72,6 +79,10 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
           </div>
         </div>
       </div>
+
+      <CountyChallenge profileName={profile.name} />
+
+      <CountyAwards profileName={profile.name} />
 
       {showBannerPreview && (
         <div className="banner-preview">
@@ -128,7 +139,7 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
           {sorted.length === 0 ? (
             <p className="banner-preview-empty">No posts yet — be the first to share something!</p>
           ) : (
-            sorted.slice(0, 2).map(p => (
+            sorted.slice(0, 4).map(p => (
               <div
                 key={p.id}
                 className="banner-preview-card"
@@ -158,7 +169,14 @@ export default function CommunityTab({ posts, profile, habits, onAddPost, onChee
                   >🗑</button>
                 </div>
                 <p className="post-message">{p.message}</p>
-                <span className="banner-preview-cheers">👏 {p.cheers} {p.cheers === 1 ? 'cheer' : 'cheers'}</span>
+                <div className="banner-preview-footer">
+                  <button
+                    className={`cheer-btn banner-preview-cheer-btn ${p.cheered ? 'cheered' : ''}`}
+                    onClick={e => { e.stopPropagation(); onCheer(p.id); }}
+                  >
+                    {p.cheered ? '✓ Cheered' : '👏 Cheer'} · {p.cheers}
+                  </button>
+                </div>
               </div>
             ))
           )}

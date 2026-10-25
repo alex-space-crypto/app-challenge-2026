@@ -1,5 +1,7 @@
 # Thrive JoCo 13 — Congressional App Challenge 2026
 
+Access the live app here: https://react-ts-duplicated-emya.bolt.host
+
 ## A community thrive platform for Johnston County, North Carolina
 
 **Thrive together — see our collective impact, thrive as a community, use your voice to push for change, recognize community champions, build a better community, and reach goals together.**

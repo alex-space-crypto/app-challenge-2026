@@ -314,11 +314,6 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="header-inner">
-          <div className="header-demo-row">
-            <a className="header-demo-link" href="https://react-ts-duplicated-emya.bolt.host" target="_blank" rel="noopener noreferrer" title="Open the live Thrive JoCo 13 web app">
-              🌐 Try the live app — react-ts-duplicated-emya.bolt.host
-            </a>
-          </div>
           <div className="header-title-row">
             <h1><a className="header-title-link" href="https://knott.house.gov/" target="_blank" rel="noopener noreferrer" title="Visit JoCo District 13">Thrive JoCo 13</a></h1>
             <button className="replay-intro-btn" onClick={replayWelcome} title="Replay the welcome tour">

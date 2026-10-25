@@ -123,12 +123,25 @@ export function CommunityPoll() {
   React.useEffect(() => {
     load();
     loadIssues();
+    // Unique channel name per mount avoids collisions when the component
+    // remounts (e.g. React Strict Mode in dev), which previously left a
+    // stale subscription that swallowed vote-change events.
     const channel = supabase
-      .channel('poll-votes')
+      .channel(`poll-votes-${Math.random().toString(36).slice(2)}`)
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'community_poll_votes', filter: `poll_id=eq.${POLL_ID}` },
         () => load()
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'community_poll_issue_votes' },
+        () => loadIssues()
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'community_poll_issues' },
+        () => loadIssues()
       )
       .subscribe();
     return () => { supabase.removeChannel(channel); };
@@ -138,6 +151,12 @@ export function CommunityPoll() {
     if (busy || myChoice === choice) return;
     setBusy(true);
     setError(null);
+    const prevChoice = myChoice;
+    // Optimistic update so the tally moves instantly, even before the
+    // server round-trip and realtime broadcast resolve.
+    setMyChoice(choice);
+    setForCount(c => c + (choice === 'for' ? 1 : 0) - (prevChoice === 'for' ? 1 : 0));
+    setAgainstCount(c => c + (choice === 'against' ? 1 : 0) - (prevChoice === 'against' ? 1 : 0));
     try {
       const { error: upErr } = await supabase
         .from('community_poll_votes')
@@ -146,9 +165,13 @@ export function CommunityPoll() {
           { onConflict: 'poll_id,voter_id' }
         );
       if (upErr) throw upErr;
-      setMyChoice(choice);
+      // Reload the authoritative counts from the server.
       await load();
     } catch {
+      // Revert the optimistic update on failure.
+      setMyChoice(prevChoice);
+      setForCount(c => c - (choice === 'for' ? 1 : 0) + (prevChoice === 'for' ? 1 : 0));
+      setAgainstCount(c => c - (choice === 'against' ? 1 : 0) + (prevChoice === 'against' ? 1 : 0));
       setError('Could not save your vote. Please try again.');
     } finally {
       setBusy(false);

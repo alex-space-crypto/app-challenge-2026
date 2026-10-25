@@ -152,12 +152,11 @@ export function CommunityPoll() {
     setBusy(true);
     setError(null);
     const prevChoice = myChoice;
-    // Optimistic update so the tally moves instantly, even before the
-    // server round-trip and realtime broadcast resolve.
     setMyChoice(choice);
     setForCount(c => c + (choice === 'for' ? 1 : 0) - (prevChoice === 'for' ? 1 : 0));
     setAgainstCount(c => c + (choice === 'against' ? 1 : 0) - (prevChoice === 'against' ? 1 : 0));
     try {
+      // Try upsert first (handles both first vote and vote-change).
       const { error: upErr } = await supabase
         .from('community_poll_votes')
         .upsert(
@@ -165,14 +164,39 @@ export function CommunityPoll() {
           { onConflict: 'poll_id,voter_id' }
         );
       if (upErr) throw upErr;
-      // Reload the authoritative counts from the server.
       await load();
-    } catch {
-      // Revert the optimistic update on failure.
-      setMyChoice(prevChoice);
-      setForCount(c => c - (choice === 'for' ? 1 : 0) + (prevChoice === 'for' ? 1 : 0));
-      setAgainstCount(c => c - (choice === 'against' ? 1 : 0) + (prevChoice === 'against' ? 1 : 0));
-      setError('Could not save your vote. Please try again.');
+    } catch (upErr) {
+      // Fallback: if upsert failed (e.g. conflict inference issue),
+      // try an explicit UPDATE of the existing row, then INSERT if none.
+      try {
+        const { data: existing } = await supabase
+          .from('community_poll_votes')
+          .select('id')
+          .eq('poll_id', POLL_ID)
+          .eq('voter_id', voterId.current)
+          .maybeSingle();
+        if (existing) {
+          const { error: updErr } = await supabase
+            .from('community_poll_votes')
+            .update({ choice })
+            .eq('poll_id', POLL_ID)
+            .eq('voter_id', voterId.current);
+          if (updErr) throw updErr;
+        } else {
+          const { error: insErr } = await supabase
+            .from('community_poll_votes')
+            .insert({ poll_id: POLL_ID, choice, voter_id: voterId.current });
+          if (insErr) throw insErr;
+        }
+        await load();
+      } catch (err) {
+        // Revert the optimistic update on total failure.
+        setMyChoice(prevChoice);
+        setForCount(c => c - (choice === 'for' ? 1 : 0) + (prevChoice === 'for' ? 1 : 0));
+        setAgainstCount(c => c - (choice === 'against' ? 1 : 0) + (prevChoice === 'against' ? 1 : 0));
+        const msg = err && typeof err === 'object' && 'message' in err ? String(err.message) : 'Could not save your vote.';
+        setError(`Could not save your vote: ${msg}`);
+      }
     } finally {
       setBusy(false);
     }
